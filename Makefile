@@ -6,11 +6,11 @@
 #    By: nrepak <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/26 10:48:56 by nrepak            #+#    #+#              #
-#    Updated: 2018/06/26 10:48:58 by nrepak           ###   ########.fr        #
+#    Updated: 2018/06/26 22:25:16 by aorji            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c file_check.c 
+SRCS = main.c file_check.c  
 
 NAME = asm
 
