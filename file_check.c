@@ -12,19 +12,29 @@
 
 #include "asm.h"
 
-static int lexical_error(int row, int column)
+static int lexical_error(int row, int column, char *f_name)
 {
 	write(2, LEX_ERROR, 18);
 	ft_putnbr(row);
 	write(2, ":", 1);
 	ft_putnbr(column);
-	write(2, "]\n", 2);
+	write(2, "] ", 2);
+	write(2, "in the ", 7);
+	write(2, "\"", 1);
+	write(2, f_name, ft_strlen(f_name));
+	write(2, "\"", 1);
+	write(2, "\n", 1);
 	return (-1);
 }
 
-static int syntax_error(char *str)
+static int syntax_error(char *str, char *err, char *f_name)
 {
 	write(2, str, ft_strlen(str));
+	write(2, err, ft_strlen(err));
+	write(2, "\"", 1);
+	write(2, f_name, ft_strlen(f_name));
+	write(2, "\"", 1);
+	write(2, "\n", 1);
 	return (-1);
 }
 
@@ -82,7 +92,7 @@ static int	name_comm_error(char *line, int *column, t_name_comm *info)
 	return (1);
 }
 
-int file_check(int fd, t_name_comm *info)
+int file_check(int fd, t_name_comm *info, char *f_name)
 {
 	char *line;
 	int row;
@@ -93,10 +103,14 @@ int file_check(int fd, t_name_comm *info)
 	while (++row && (get_next_line(fd, &line) == 1))
 	{
 		if (!name_comm_error(line, &column, info))
-			return (lexical_error(row, column));
+			return (lexical_error(row, column, f_name));
 		//next type of error
 	}
 	if (info->count != 2)
-		return (syntax_error(SYNT_ERROR));
+	{
+		if (!(info->name))
+			return (syntax_error(SYNT_ERROR, NAME, f_name));
+		return (syntax_error(SYNT_ERROR, COMMENT, f_name));
+	}
 	return (1);
 }

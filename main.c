@@ -40,14 +40,29 @@ int			main(int ac, char **av)
 {
 	int fd; 
 	t_name_comm info;
+	int i;
+	int error;
 
-	fd = open(av[1], O_RDONLY);
-	if (usage_check(ac, av, fd) == USAGE_ERROR)
-		return (0);
-	info = (t_name_comm){NULL, NULL, 0};
-	if (file_check(fd, &info) == USAGE_ERROR)
-		return (0);
-	//asm
-	ft_putstr("NO ERROR YET\n");
+	error = 0;
+	i = 1;
+	while (i < ac)
+	{	
+		fd = open(av[i], O_RDONLY);
+		if (usage_check(ac, av, fd) == USAGE_ERROR)
+			return (0);
+		info = (t_name_comm){NULL, NULL, 0};
+		if (file_check(fd, &info, av[i]) == USAGE_ERROR)
+		{
+			error = 1;
+			i++;
+			continue;
+		}
+		//if (!error)
+			//asm
+		close(fd);
+		i++;
+	}
+	if (!error)
+		ft_putstr("NO ERROR YET\n");
 	return (0);
 }
