@@ -16,22 +16,26 @@ static int	usage_error(char *str, char *name)
 {
 	write (2, str, ft_strlen(str));
 	if (name)
+	{
+		write(2, "\"", 1);
 		write (2, name, ft_strlen(name));
+		write(2, "\"", 1);
+	}
 	write(2, "\n", 1);
 	return (USAGE_ERROR);
 }
 
 
-static int	usage_check(int ac, char **av, int fd)
+static int	usage_check(int ac, char **av, int fd, int i)
 {
 	int len;
 
 	if (ac < 2)
 		return (usage_error(USAGE, NULL));
 	if (fd == -1)
-		return (usage_error(USAGE1, av[1]));
-	len = ft_strlen(av[1]);
-	if (!(av[1][len - 1] == 's' && av[1][len - 2] == '.'))
+		return (usage_error(USAGE1, av[i]));
+	len = ft_strlen(av[i]);
+	if (!(av[i][len - 1] == 's' && av[i][len - 2] == '.'))
 		return (usage_error(USAGE, NULL));
 	return (0);
 }
@@ -48,7 +52,7 @@ int			main(int ac, char **av)
 	while (i < ac)
 	{	
 		fd = open(av[i], O_RDONLY);
-		if (usage_check(ac, av, fd) == USAGE_ERROR)
+		if (usage_check(ac, av, fd, i) == USAGE_ERROR)
 			return (0);
 		info = (t_name_comm){NULL, NULL, 0};
 		if (file_check(fd, &info, av[i]) == USAGE_ERROR)

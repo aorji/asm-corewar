@@ -38,6 +38,19 @@ static int syntax_error(char *str, char *err, char *f_name)
 	return (-1);
 }
 
+static int open_quotation(char *line, int *i, int *j, int *column) 
+{
+	while ((line[*i] != ' ' && line[*i] != '\t') && line[*i])
+		(*i)++;
+	while ((line[*i] == ' ' || line[*i] == '\t') && line[*i])
+		(*i)++;
+	*j = *i;
+	(*column) = *i + 2;
+	if (line[(*i)++] != '\"')
+		return (0);
+	return (1);
+}
+
 static int name_exist(int *column, char *line, t_name_comm *info)
 {
 	int i;
@@ -45,33 +58,17 @@ static int name_exist(int *column, char *line, t_name_comm *info)
 
 	j = 0;
 	i = 0;
-	//open "
-	while ((line[i] != ' ' && line[i] != '\t') && line[i])
-		i++;
-	while ((line[i] == ' ' || line[i] == '\t') && line[i])
-		i++;
-	j = i;
-	(*column) = i + 2;
-	if (line[i++] != '\"')
+	if (!open_quotation(line, &i, &j, column))
 		return (0);
-	// 
 	while (line[i] != '\"' && line[i])
 		i++;
 	(*column) = i + 2;
 	if (!(line[i]))
 		return (0);
-	// push to struct
 	if (line[0] == 'n')
-	{
 		info->name = ft_strsub(line, j + 1, i - j - 1);
-		// printf("%s\n", info->name);
-	}
 	else
-	{
 		info->comment = ft_strsub(line, j + 1, i - j - 1);
-		// printf("%s\n", info->comment);
-	}
-	// 
 	return (1);
 }
 
