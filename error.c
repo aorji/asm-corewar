@@ -12,12 +12,12 @@
 
 #include "asm.h"
 
-int lexical_error(int row, int column, char *f_name)
+int lexical_error(t_name_comm info, char *f_name)
 {
 	write(2, LEX_ERROR, 18);
-	ft_putnbr(row);
+	ft_putnbr(info.row);
 	write(2, ":", 1);
-	ft_putnbr(column);
+	ft_putnbr(info.column);
 	write(2, "] ", 2);
 	write(2, "in the ", 7);
 	write(2, "\"", 1);

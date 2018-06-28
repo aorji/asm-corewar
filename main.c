@@ -36,7 +36,7 @@ int			main(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{	
-		info = (t_name_comm){0, 0, 0, 0};
+		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0};
 		info.fd = open(av[i], O_RDONLY); 
 		if (usage_check(ac, av, info.fd, i) == USAGE_ERROR)
 			return (0);

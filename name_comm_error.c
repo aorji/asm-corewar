@@ -21,13 +21,12 @@ static int close_quatation(char *line, int i)
 	return (-1);
 }
 
-static int open_quotation(char *line, int *i, int *j, int *column) 
+static int open_quotation(char *line, int *i, int *column) 
 {
 	while ((line[*i] != ' ' && line[*i] != '\t') && line[*i])
 		(*i)++;
 	while ((line[*i] == ' ' || line[*i] == '\t') && line[*i])
 		(*i)++;
-	*j = *i;
 	(*column) = *i + 2;
 	if (line[(*i)++] != '\"')
 		return (-1);
@@ -38,102 +37,89 @@ static int trash(char *line, int q)
 {
 	int i;
 
-	i = 0;
-	while (line[q] && ++i)
+	i = 1;
+	while (line[q])
 	{
 		if (line[q] != ' ' && line[q] != '\t')
 			return (i);
 		q++;
+		i++;
 	}
 	return (0);
 }
 
-static int name_exist(int *column, char *line, t_name_comm *info, int *row)
+static int find_quatation(t_name_comm *info, char **line)
 {
-	int i;
-	int j;
-	int o;
-	int q;
+	char *tmp;
+	int close;
 	int g;
 
-	j = 0;
-	i = 0;
 	g = 0;
-	if ((o = open_quotation(line, &i, &j, column)) == -1)
+	while (((g = get_next_line(info->fd, line)) == 1) && (info->row)++ && ((close = close_quatation(*line, 0)) == -1))
+		tmp = *line;
+	info->i = close;
+	info->column = close + 1;
+	if (!g)
+	{
+		info->column = ft_strlen(tmp) + 1;
 		return (0);
-	while (line[i] != '\"' && line[i])
-		i++;
-	(*column) = i + 2;
-	printf("%d\n", *column);
-	if (line[0] == 'n')
-	{
-		if (close_quatation(line, o) == -1) //no quatation, try to find in next lines
-		{
-			while (((g = get_next_line(info->fd, &line)) == 1) && (*row)++ && ((q = close_quatation(line, 0)) == -1))
-				continue;
-			i = q;
-			*column = q + 2;
-			if (!g) 
-				return (0);
-			while (line[q+1] && (line[q+1] == ' ' || line[q+1] == '\t'))
-			{
-				q++;
-				(*column)++;
-			}
-		}
-		else
-		{
-			while (line[i+1] && (line[i+1] == ' ' || line[i+1] == '\t'))
-			{
-					i++;
-					(*column)++;
-			}
-			(*column) += 1;
-		}
-		if (trash(line, i + 1))
-			return (0);
-		info->name = 1;
-	}
-	if (line[0] == 'c')
-	{
-		if (close_quatation(line, o) == -1) //no quatation, try to find in next lines
-		{
-			while (((g = get_next_line(info->fd, &line)) == 1) && (*row)++ && ((q = close_quatation(line, 0)) == -1))
-				continue;
-			i = q;
-			*column = q + 2;
-			if (!g) 
-				return (0);
-			while (line[q+1] && (line[q+1] == ' ' || line[q+1] == '\t'))
-			{
-				q++;
-				(*column)++;
-			}
-		}
-		else
-		{
-			while (line[i+1] && (line[i+1] == ' ' || line[i+1] == '\t'))
-			{
-					i++;
-					(*column)++;
-			}
-			(*column) += 1;
-		}
-		if (trash(line, i + 1))
-			return (0);
-		info->comment = 1;
 	}
 	return (1);
 }
 
-int	name_comm_error(char *line, int *column, t_name_comm *info, int *row)
+static int check_value(char determ, char *line, int open, t_name_comm *info)
+{
+	int k = 0;
+
+	if (close_quatation(line, open) == -1) //no quatation, try to find in next lines
+	{
+		if (!find_quatation(info, &line))
+			return (0);
+	}
+	else
+	{
+		while (line[info->i + 1] && (line[info->i + 1] == ' ' || line[info->i + 1] == '\t'))
+		{
+				info->i++;
+				(info->column)++;
+		}
+		if (line[info->i] && (line[info->i] == ' ' || line[info->i] == '\t'))
+		{
+				info->i++;
+				(info->column)++;
+		}
+	}
+	if ((k = trash(line, info->i + 1)))
+	{
+		info->column += k;;
+		return (0);
+	}
+	(determ == 'n') ? info->name++ : info->comment++;
+	return (1);
+}
+
+static int name_exist(char *line, t_name_comm *info)
+{
+	int open;
+
+	if ((open = open_quotation(line, &(info->i), &(info->column))) == -1)
+		return (0);
+	while (line[info->i] != '\"' && line[info->i])
+		(info->i)++;
+	info->column = info->i + 1;
+	if (line[0] == 'n')
+		return (check_value('n', line, open, info));
+	return (check_value('c', line, open, info));
+}
+
+int	name_comm_error(char *line, t_name_comm *info)
 {
 	if (line[0] == '.')
 	{
 		line++;
-		(*column)++;
+		(info->column)++;
 		if (!ft_strncmp(line, "name", 4) || !ft_strncmp(line, "comment", 7))
-			if (name_exist(column, line, info, row))
+			if (name_exist(line, info))
 			{
 				++(info->count);
 				return (1);
