@@ -12,20 +12,6 @@
 
 #include "asm.h"
 
-static int	usage_error(char *str, char *name)
-{
-	write (2, str, ft_strlen(str));
-	if (name)
-	{
-		write(2, "\"", 1);
-		write (2, name, ft_strlen(name));
-		write(2, "\"", 1);
-	}
-	write(2, "\n", 1);
-	return (USAGE_ERROR);
-}
-
-
 static int	usage_check(int ac, char **av, int fd, int i)
 {
 	int len;

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c file_check.c  
+SRCS = main.c file_check.c error.c name_comm_error.c
 
 NAME = asm
 
