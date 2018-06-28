@@ -1,4 +1,4 @@
 asm
 *.s
-DS_Store
+.DS_Store
 *.o
