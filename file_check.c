@@ -12,6 +12,19 @@
 
 #include "asm.h"
 
+static void white_spaces(char **
+
+
+	line, int *column)
+{
+	while (**line == ' ' || **line == '\t')
+	{
+		if (**line == '\t')
+			*column += 3;
+		(*column)++;
+		(*line)++;
+	}
+}
 int file_check(int fd, t_name_comm *info, char *f_name)
 {
 	char *line;
@@ -19,10 +32,11 @@ int file_check(int fd, t_name_comm *info, char *f_name)
 	int column;
 
 	row = 0;
-	column = 0;
 	while (++row && (get_next_line(fd, &line) == 1))
 	{
-		if (!name_comm_error(line, &column, info))
+		column = 0;
+		white_spaces(&line, &column);
+		if (!name_comm_error(line, &column, info, &row))
 			return (lexical_error(row, column, f_name));
 		//next type of error
 	}

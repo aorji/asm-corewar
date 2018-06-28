@@ -28,7 +28,6 @@ static int	usage_check(int ac, char **av, int fd, int i)
 
 int			main(int ac, char **av)
 {
-	int fd; 
 	t_name_comm info;
 	int i;
 	int error;
@@ -37,11 +36,11 @@ int			main(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{	
-		fd = open(av[i], O_RDONLY);
-		if (usage_check(ac, av, fd, i) == USAGE_ERROR)
+		info = (t_name_comm){0, 0, 0, 0};
+		info.fd = open(av[i], O_RDONLY); 
+		if (usage_check(ac, av, info.fd, i) == USAGE_ERROR)
 			return (0);
-		info = (t_name_comm){NULL, NULL, 0};
-		if (file_check(fd, &info, av[i]) == USAGE_ERROR)
+		if (file_check(info.fd, &info, av[i]) == USAGE_ERROR)
 		{
 			error = 1;
 			i++;
@@ -49,7 +48,7 @@ int			main(int ac, char **av)
 		}
 		//if (!error)
 			//asm
-		close(fd);
+		close(info.fd);
 		i++;
 	}
 	if (!error)

@@ -18,14 +18,16 @@
 # define		SYNT_ERROR		"Syntax error: "
 # define		NAME 			"no name in the "
 # define		COMMENT 		"no comment in the "
-# define		USAGE_ERROR			-1
+# define		USAGE_ERROR		-1
+# define		REG_NUMBER		16
 # include "./libft/libft.h"
 
 typedef struct s_name_comm
 {
-	char		*name;
-	char		*comment;
+	int			name;
+	int			comment;
 	int			count;
+	int			fd;
 }				t_name_comm;
 
 
@@ -43,6 +45,6 @@ int	usage_error(char *str, char *name);
 ** -------------------------- Name/Comment Error ----------------------------
 */
 
-int	name_comm_error(char *line, int *column, t_name_comm *info);
+int	name_comm_error(char *line, int *column, t_name_comm *info, int *row);
 
 #endif
