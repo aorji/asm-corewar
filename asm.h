@@ -19,7 +19,7 @@
 # define		NAME 			"no name in the "
 # define		COMMENT 		"no comment in the "
 # define		USAGE_ERROR			-1
-# include "./mylib/ft_printf.h"
+# include "./libft/libft.h"
 
 typedef struct s_name_comm
 {

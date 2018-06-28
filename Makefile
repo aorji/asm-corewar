@@ -16,7 +16,7 @@ NAME = asm
 
 OBJ = $(SRCS:.c=.o)
 
-LIB = mylib.a
+LIB = libft.a
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -25,7 +25,7 @@ HEADER = ./asm.h
 all: $(NAME)
 
 $(NAME):$(OBJ)
-	@ cd ./mylib && make && mv $(LIB) ..
+	@ cd ./libft && make && mv $(LIB) ..
 	@ gcc $(FLAGS) $(OBJ) $(LIB) -o $(NAME)
 
 %.o: %.c $(HEADER)
@@ -33,12 +33,12 @@ $(NAME):$(OBJ)
 
 clean:
 	@ /bin/rm -rf $(OBJ)
-	@ cd ./mylib && make clean
+	@ cd ./libft && make clean
 
 fclean: clean
 	@ /bin/rm -f $(NAME)
 	@ /bin/rm -f $(LIB)
-	@ /bin/rm -f mylib/$(LIB)
-	@ cd ./mylib && make fclean
+	@ /bin/rm -f libft/$(LIB)
+	@ cd ./libft && make fclean
 
 re: fclean all
