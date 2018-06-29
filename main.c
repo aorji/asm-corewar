@@ -45,6 +45,6 @@ int			main(int ac, char **av)
 		file++;
 	}
 	if (!error)
-		ft_putstr("Start to compile\n");
+		ft_putstr("Writing output program\n");
 	return (0);
 }

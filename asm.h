@@ -16,8 +16,11 @@
 # define		USAGE1			"Can't read source file "						 
 # define		LEX_ERROR		"Lexical error at ["
 # define		SYNT_ERROR		"Syntax error: "
+# define		TRASH_ERROR 	"Syntax error at token [TOKEN]["
 # define		NO_QUAT_ERROR	"You have no close quatation "
 # define		NAME_COMM		"not the correct quantity of \"name/comment\" in the "
+# define		ST_ERROR		"Invalid parameter 1 type for instruction \"st\"\n"
+# define		SEP_ERROR		"Punctuation error: no comma at ["
 # define		ERROR			-1
 # define		REG_NUMBER		16
 # include "./libft/libft.h"
@@ -46,11 +49,21 @@ int 			lexical_error(t_name_comm info, char *f_name);
 int 			lexical_error_q(int i, char *f_name);
 int 			syntax_error(char *str, char *f_name);
 int				usage_error(char *str, char *name);
+int				trash_error(t_name_comm info, char *line, int tr);
+char			*sep_error(t_name_comm *info);
+char			*st_error(void);
 
 /*
-** -------------------------- Name/Comment Error ----------------------------
+** --------------------------  Error ----------------------------
 */
 
 int 			dot_check(char *line, char *f_name, t_name_comm *info);
+int				st_check(char *line, t_name_comm *info, char *f_name);
+
+/*
+** -------------------------- Auxliary ----------------------------
+*/
+
+char*			ws(char *line, t_name_comm *info);
 
 #endif

@@ -39,22 +39,23 @@ static int find_quatation(char *line, int i)
 static	int	next_line_quatation(t_name_comm *info, char *f_name)
 {
 	char	*line;
-	int		quat;	
+	int		close;	
 	int		tr;
 
-	quat = -1;
+	close = -1;
 	info->index = 0;
-	while (get_next_line(info->fd, &line) == 1 && (info->row)++ && (quat = find_quatation(line, 0)) == -1)
+	while (get_next_line(info->fd, &line) == 1 && (info->row)++ && (close = find_quatation(line, 0)) == -1)
 		continue; 
-	if (quat == -1)
+	if (close == -1)
 		return (lexical_error_q(info->name, f_name));
 	else
 	{
-		info->index = quat + 1;
-		if ((tr = trash(line, quat + 1)) != -1)
+		info->index = close + 1;
+		if ((tr = trash(line, close + 1)) != -1)
 		{
 			info->index += tr;
-			return (lexical_error(*info, f_name));
+			return (trash_error(*info, line, close + 1 + tr));
+			// return (lexical_error(*info, f_name));
 		}
 		return (1);
 	}
@@ -72,7 +73,8 @@ static int	close_quatation(char *line, t_name_comm *info, char *f_name)
 		if ((tr = trash(line, close + 1)) != -1)
 		{
 			info->index += tr;
-			return (lexical_error(*info, f_name));
+			return (trash_error(*info, line, close + 1 + tr));
+			// return (lexical_error(*info, f_name));
 		}
 		return (1);
 	}

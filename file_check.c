@@ -12,6 +12,16 @@
 
 #include "asm.h"
 
+char*	ws(char *line, t_name_comm *info)
+{
+	while (*line && (*line == ' ' || *line == '\t'))
+	{
+		(info->index)++;
+		line++;
+	}
+	return (line);
+}
+
 static char	*white_spaces(char *line, t_name_comm *info)
 {
 	int		j;
@@ -42,7 +52,8 @@ int			file_check(t_name_comm *info, char *f_name)
 			continue;
 		if (dot_check(line, f_name, info) == ERROR)
 			return(ERROR);
-		printf("%s\n", "next");
+		if (st_check(line, info, f_name) == ERROR)
+			return (ERROR);
 		// if (live_check(line) == ERROR)
 		// 	return (ERROR);
 		// if (ld_check(line) == ERROR)

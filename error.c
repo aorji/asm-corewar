@@ -48,7 +48,7 @@ int syntax_error(char *str, char *f_name)
 	write(2, f_name, ft_strlen(f_name));
 	write(2, "\"", 1);
 	write(2, "\n", 1);
-	return (-1);
+	return (ERROR);
 }
 
 int	usage_error(char *str, char *name)
@@ -63,3 +63,42 @@ int	usage_error(char *str, char *name)
 	write(2, "\n", 1);
 	return (ERROR);
 }
+
+int	trash_error(t_name_comm info, char *line, int len)
+{
+	int d;
+
+	write(2, TRASH_ERROR, 30);
+	d = 3 - ft_number_size(info.row);
+	while (d--)
+		ft_putnbr(0);
+	ft_putnbr(info.row);
+	write(2, ":", 1);
+	d = 3 - ft_number_size(info.index + 1);
+	while (d--)
+		ft_putnbr(0);
+	ft_putnbr(info.index + 1);
+	write(2, "] INSTRUCTION \"", 16);
+	write(2, ft_strsub(line, len, ft_strlen(line) - len), ft_strlen(line) - len);
+	write(2, "\"\n", 2);
+	return (ERROR);
+}
+
+char	*sep_error(t_name_comm *info)
+{
+	write(2, SEP_ERROR, 32);
+	ft_putnbr(info->row);
+	write(2, ":", 1);
+	ft_putnbr((info->index) + 1);
+	write(2, "]\n", 2);
+	return (NULL);
+}	
+
+char	*st_error(void)
+{
+	write(2, ST_ERROR, 46);
+	return (NULL);
+}
+
+
+
