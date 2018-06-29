@@ -29,29 +29,22 @@ static int	usage_check(int ac, char **av, int fd, int i)
 int			main(int ac, char **av)
 {
 	t_name_comm info;
-	int i;
+	int file;
 	int error;
 
 	error = 0;
-	i = 1;
-	while (i < ac)
+	file = 1;
+	while (file < ac)
 	{	
-		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0};
-		info.fd = open(av[i], O_RDONLY); 
-		if (usage_check(ac, av, info.fd, i) == USAGE_ERROR)
-			return (0);
-		if (file_check(info.fd, &info, av[i]) == USAGE_ERROR)
-		{
+		info = (t_name_comm){0, 0, 0, 0, 0, 0};
+		info.fd = open(av[file], O_RDONLY);
+		if (usage_check(ac, av, info.fd, file) == ERROR)
 			error = 1;
-			i++;
-			continue;
-		}
-		//if (!error)
-			//asm
-		close(info.fd);
-		i++;
+		else if (file_check(&info, av[file]) == ERROR)
+			error = 1;
+		file++;
 	}
 	if (!error)
-		ft_putstr("NO ERROR YET\n");
+		ft_putstr("Start to compile\n");
 	return (0);
 }

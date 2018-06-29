@@ -12,39 +12,43 @@
 
 #include "asm.h"
 
-static void white_spaces(char **line, int *column)
+static char	*white_spaces(char *line, t_name_comm *info)
 {
-	while (**line == ' ' || **line == '\t')
-	{
-		if (**line == '\t')
-			*column += 3;
-		(*column)++;
-		(*line)++;
-	}
+	int		j;
+
+	j = 0;
+	while (line[info->index] == ' ' || line[info->index] == '\t')
+		(info->index)++;
+	if (!line[info->index])
+		return(NULL);
+	j = ft_strlen(line) - 1;
+	while (line[j] && (line[j] == ' ' || line[j] == '\t'))
+		j--;
+	return (ft_strsub(line, info->index, j - info->index + 1));
 }
 
-int file_check(int fd, t_name_comm *info, char *f_name)
+int			file_check(t_name_comm *info, char *f_name)
 {
-	char *line;
+	char	*line;
+	char	*tmp;
 
-	while (++info->row && (get_next_line(fd, &line) == 1))
+	while ((get_next_line(info->fd, &line) == 1) && ++(info->row))
 	{
-		info->column = 0;
-		info->i = 0;
-		white_spaces(&line, &(info->column));
-		if (!name_comm_error(line, info))
-			return (lexical_error(*info, f_name));
-		//next type of error
+		info->index = 0;
+		tmp = line;
+		line = white_spaces(line, info);
+		free(tmp);
+		if (!line)
+			continue;
+		if (dot_check(line, f_name, info) == ERROR)
+			return(ERROR);
+		printf("%s\n", "next");
+		// if (live_check(line) == ERROR)
+		// 	return (ERROR);
+		// if (ld_check(line) == ERROR)
+		// 	return (ERROR);
 	}
-	if (!(info->name))
-		return (syntax_error(SYNT_ERROR, NAME, f_name));
-	else if (!(info->comment))
-		return (syntax_error(SYNT_ERROR, COMMENT, f_name));
 	if (info->count != 2)
-	{
-		if ((info->name) != 1)
-			return (syntax_error(SYNT_ERROR, NAME1, f_name));
-		return (syntax_error(SYNT_ERROR, COMMENT1, f_name));
-	}
+			return (syntax_error(SYNT_ERROR, f_name));
 	return (1);
 }
