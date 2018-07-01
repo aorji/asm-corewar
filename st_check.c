@@ -15,7 +15,7 @@
 static int	add_label(char *line, t_name_comm *info)
 {
 	int i = 0;
-	// t_list *tmp;
+	t_label *tmp;
 
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 	{
@@ -23,12 +23,23 @@ static int	add_label(char *line, t_name_comm *info)
 			add_tab(info);
 		i++;
 	}
-	// tmp = info->label;
-	while (info->label)
-		info->label = info->label->next;
-	info->label = ft_lstnew(ft_strsub(line, 0, i), i);
-	// info->label = tmp;
-	// printf("%s\n", info->label->content);
+	if (!info->label)
+	{
+		info->label = (t_label*)malloc(sizeof(t_label));
+		info->label->name = ft_strsub(line, 0, i);
+		info->label->found = 0;
+		info->label->next = NULL;
+	}
+	else
+	{
+		tmp = info->label;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = (t_label*)malloc(sizeof(t_label));
+		tmp->next->name = ft_strsub(line, 0, i);
+		tmp->next->found = 0;
+		tmp->next->next = NULL;
+	}
 	return (i);
 }
 

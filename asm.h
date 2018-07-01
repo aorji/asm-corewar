@@ -26,6 +26,13 @@
 # define		REG_NUMBER		16
 # include "./libft/libft.h"
 
+typedef struct  s_label
+{
+	char			*name;
+	int 			found;
+	struct 	s_label *next;
+}				t_label;
+
 typedef struct s_name_comm
 {
 	int			name;
@@ -35,8 +42,10 @@ typedef struct s_name_comm
 	int			row;
 	int			index;
 	int 		tab;
-	t_list		*label;
+	t_label		*label;
 }				t_name_comm;
+
+
 
 /*
 ** -------------------------- Validation ----------------------------

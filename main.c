@@ -43,13 +43,12 @@ int			main(int ac, char **av)
 			error = 1;
 		else if (file_check(&info, av[file]) == ERROR)
 			error = 1;
-		// printf("start\n");
 		// while (info.label)
 		// {
-		// 	printf("tut\n");
-		// 	printf("%s\n", (info.label)->content);
+		// 	printf("%s\n", (info.label)->name);
 		// 	(info.label) = (info.label)->next;
 		// }
+		// !!!!!!!!!!!here
 		file++;
 	}
 	if (!error)
