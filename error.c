@@ -17,7 +17,7 @@ int lexical_error(t_name_comm info, char *f_name)
 	write(2, LEX_ERROR, 18);
 	ft_putnbr(info.row);
 	write(2, ":", 1);
-	ft_putnbr(info.index + 1);
+	ft_putnbr(info.index + 1 + info.tab);
 	write(2, "] ", 2);
 	write(2, "in the ", 7);
 	write(2, "\"", 1);
@@ -74,10 +74,10 @@ int	trash_error(t_name_comm info, char *line, int len)
 		ft_putnbr(0);
 	ft_putnbr(info.row);
 	write(2, ":", 1);
-	d = 3 - ft_number_size(info.index + 1);
+	d = 3 - ft_number_size(info.index + 1 + info.tab);
 	while (d--)
 		ft_putnbr(0);
-	ft_putnbr(info.index + 1);
+	ft_putnbr(info.index + 1 + info.tab);
 	write(2, "] INSTRUCTION \"", 16);
 	write(2, ft_strsub(line, len, ft_strlen(line) - len), ft_strlen(line) - len);
 	write(2, "\"\n", 2);
@@ -89,14 +89,17 @@ char	*sep_error(t_name_comm *info)
 	write(2, SEP_ERROR, 32);
 	ft_putnbr(info->row);
 	write(2, ":", 1);
-	ft_putnbr((info->index) + 1);
+	ft_putnbr((info->index) + (info->tab) + 1);
 	write(2, "]\n", 2);
 	return (NULL);
 }	
 
-char	*st_error(void)
+char	*st_error(int i)
 {
-	write(2, ST_ERROR, 46);
+	if (i == 1)
+		write(2, ST1_ERROR, 46);
+	else
+		write(2, ST2_ERROR, 46);
 	return (NULL);
 }
 

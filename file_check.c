@@ -12,10 +12,24 @@
 
 #include "asm.h"
 
+void	add_tab(t_name_comm *info)
+{
+	int a;
+	int b;
+	int c;
+
+	a = info->index + info->tab;
+	b = a / 4;
+	c = b * 4;
+	info->tab += 3 - (a - c);
+}
+
 char*	ws(char *line, t_name_comm *info)
 {
 	while (*line && (*line == ' ' || *line == '\t'))
 	{
+		if (*line == '\t')
+			add_tab(info);
 		(info->index)++;
 		line++;
 	}
@@ -28,7 +42,11 @@ static char	*white_spaces(char *line, t_name_comm *info)
 
 	j = 0;
 	while (line[info->index] == ' ' || line[info->index] == '\t')
+	{
+		if (*line == '\t')
+			add_tab(info);
 		(info->index)++;
+	}
 	if (!line[info->index])
 		return(NULL);
 	j = ft_strlen(line) - 1;
@@ -45,7 +63,9 @@ int			file_check(t_name_comm *info, char *f_name)
 	while ((get_next_line(info->fd, &line) == 1) && ++(info->row))
 	{
 		info->index = 0;
+		info->tab = 0;
 		tmp = line;
+		// printf("%s\n", line);
 		line = white_spaces(line, info);
 		free(tmp);
 		if (!line)

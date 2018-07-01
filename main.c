@@ -36,12 +36,20 @@ int			main(int ac, char **av)
 	file = 1;
 	while (file < ac)
 	{	
-		info = (t_name_comm){0, 0, 0, 0, 0, 0};
+		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, NULL};
+		// info->list = ft_lstnew(NULL, 0);
 		info.fd = open(av[file], O_RDONLY);
 		if (usage_check(ac, av, info.fd, file) == ERROR)
 			error = 1;
 		else if (file_check(&info, av[file]) == ERROR)
 			error = 1;
+		// printf("start\n");
+		// while (info.label)
+		// {
+		// 	printf("tut\n");
+		// 	printf("%s\n", (info.label)->content);
+		// 	(info.label) = (info.label)->next;
+		// }
 		file++;
 	}
 	if (!error)

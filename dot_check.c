@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static	int trash(char *line, int i)
+int trash(char *line, int i)
 {
 	int extra;
 
@@ -23,6 +23,8 @@ static	int trash(char *line, int i)
 			return (extra);
 		i++;
 		extra++;
+		// if (*line == '\t')
+		// 	add_tab(info);
 	}
 	return (-1);
 }
@@ -41,21 +43,29 @@ static	int	next_line_quatation(t_name_comm *info, char *f_name)
 	char	*line;
 	int		close;	
 	int		tr;
-
+	int i = 0;
 	close = -1;
 	info->index = 0;
 	while (get_next_line(info->fd, &line) == 1 && (info->row)++ && (close = find_quatation(line, 0)) == -1)
-		continue; 
+			continue; 
 	if (close == -1)
 		return (lexical_error_q(info->name, f_name));
 	else
 	{
-		info->index = close + 1;
+		info->tab = 0;
+		while (i < close + 1)
+		{
+			if (line[i] == '\t')
+				add_tab(info);
+			i++;
+		}
+		info->index += close + 1;
+		line += close + 1;
+		line = ws(line, info);
 		if ((tr = trash(line, close + 1)) != -1)
 		{
 			info->index += tr;
-			return (trash_error(*info, line, close + 1 + tr));
-			// return (lexical_error(*info, f_name));
+			return (trash_error(*info, line, tr));
 		}
 		return (1);
 	}
@@ -70,11 +80,12 @@ static int	close_quatation(char *line, t_name_comm *info, char *f_name)
 	if ((close = find_quatation(line, 0)) != -1)
 	{
 		info->index += close + 1;
-		if ((tr = trash(line, close + 1)) != -1)
+		line += close + 1;
+		line = ws(line, info);
+		if ((tr = trash(line, 0)) != -1)
 		{
 			info->index += tr;
-			return (trash_error(*info, line, close + 1 + tr));
-			// return (lexical_error(*info, f_name));
+			return (trash_error(*info, line, tr));
 		}
 		return (1);
 	}
@@ -110,6 +121,8 @@ int 		dot_check(char *line, char *f_name, t_name_comm *info)
 			return (syntax_error(SYNT_ERROR, f_name));
 		while (*line == ' ' || *line == '\t')
 		{
+			if (*line == '\t')
+				add_tab(info);
 			line++;
 			(info->index)++;
 		}

@@ -19,7 +19,8 @@
 # define		TRASH_ERROR 	"Syntax error at token [TOKEN]["
 # define		NO_QUAT_ERROR	"You have no close quatation "
 # define		NAME_COMM		"not the correct quantity of \"name/comment\" in the "
-# define		ST_ERROR		"Invalid parameter 1 type for instruction \"st\"\n"
+# define		ST1_ERROR		"Invalid parameter 1 type for instruction \"st\"\n"
+# define		ST2_ERROR		"Invalid parameter 2 type for instruction \"st\"\n"
 # define		SEP_ERROR		"Punctuation error: no comma at ["
 # define		ERROR			-1
 # define		REG_NUMBER		16
@@ -33,6 +34,8 @@ typedef struct s_name_comm
 	int			fd;
 	int			row;
 	int			index;
+	int 		tab;
+	t_list		*label;
 }				t_name_comm;
 
 /*
@@ -51,7 +54,7 @@ int 			syntax_error(char *str, char *f_name);
 int				usage_error(char *str, char *name);
 int				trash_error(t_name_comm info, char *line, int tr);
 char			*sep_error(t_name_comm *info);
-char			*st_error(void);
+char			*st_error(int i);
 
 /*
 ** --------------------------  Error ----------------------------
@@ -65,5 +68,7 @@ int				st_check(char *line, t_name_comm *info, char *f_name);
 */
 
 char*			ws(char *line, t_name_comm *info);
+int				trash(char *line, int i);
+void			add_tab(t_name_comm *info);
 
 #endif
