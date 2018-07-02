@@ -23,10 +23,6 @@ char *t_dir_arg1(char *line, t_name_comm *info)
 		return (label_arg1(line, info));
 	else
 	{
-		printf("%s\n", line);
-		printf("line[0] = %c\n", line[0]);
-		printf("line[1] = %c\n", line[1]);
-		printf("atoi = %d\n", atoi(line));
 		if (((n = atoi(line)) != 0) || (line[0] == '0' && (line[1] == ' ' || line[1] == '\t' || line[1] == ',')))
 			return (t_int_arg1(line, info, n));
 		else

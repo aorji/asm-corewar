@@ -10,8 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	main.c file_check.c error.c dot_check.c st_check.c t_reg.c t_int.c \
-			label.c xor.c t_dir.c ld.c live.c add.c ldi_lldi.c aff.c sti.c
+SRCS	=	main.c file_check.c error.c dot.c st.c t_reg.c t_int.c label.c \
+			xor_and_or.c t_dir.c ld_lld.c live_zjmp_fork_lfork.c add_sub.c \
+			ldi_lldi.c aff.c sti.c auxliary.c
 
 NAME	=	asm
 

@@ -72,35 +72,35 @@ int			file_check(t_name_comm *info, char *f_name)
 			continue;
 		if ((i = dot(line, f_name, info)) == ERROR)
 			return(ERROR);
-		if (i == 1)
+		if (i)
 			continue;
 		if ((i = sti(line, info, f_name)) == ERROR)
 			return (ERROR);
-		if (i == 1)
+		if (i)
 			continue;
 		if ((i = st(line, info, f_name)) == ERROR)
 			return (ERROR);
-		if (i == 1)
+		if (i)
 			continue;
 		if ((i = xor_and_or(line, info, f_name)) == ERROR)
 			return (ERROR);
-		if (i == 1)
+		if (i)
 			continue;
 		if ((i = ldi_lldi(line, info, f_name)) == ERROR)
 			return (ERROR);
-		if (i == 1)
+		if (i)
 			continue;
 		if ((i = ld_lld(line, info, f_name)) == ERROR)
 			return (ERROR);
-		if (i == 1)
+		if (i)
 			continue;
 		if ((i = live_zjmp_fork_lfork(line, info, f_name)) == ERROR)
 			return (ERROR);
-		if (i == 1)
+		if (i)
 			continue;
 		if ((i = add_sub(line, info, f_name)) == ERROR)
 			return (ERROR);
-		if (i == 1)
+		if (i)
 			continue;
 		if ((i = aff(line, info, f_name)) == ERROR)
 			return (ERROR);
