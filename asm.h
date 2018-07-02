@@ -25,26 +25,24 @@
 # define		REG_NUMBER		16
 # include "./libft/libft.h"
 
-typedef struct  s_label
+typedef struct  	s_label
 {
 	char			*name;
 	int 			found;
 	struct 	s_label *next;
-}				t_label;
+}					t_label;
 
-typedef struct s_name_comm
+typedef struct		s_name_comm
 {
-	int			name;
-	int			comment;
-	int			count;
-	int			fd;
-	int			row;
-	int			index;
-	int 		tab;
-	t_label		*label;
-}				t_name_comm;
-
-
+	int				name;
+	int				comment;
+	int				count;
+	int				fd;
+	int				row;
+	int				index;
+	int 			tab;
+	t_label			*label;
+}					t_name_comm;
 
 /*
 ** -------------------------- Validation ----------------------------
@@ -71,7 +69,6 @@ char			*instract_error(t_name_comm *info);
 int 			dot(char *line, char *f_name, t_name_comm *info);
 int				st(char *line, t_name_comm *info, char *f_name);
 int				xor_and_or(char *line, t_name_comm *info, char *f_name);
-// int				fork(char *line, t_name_comm *info, char *f_name);
 int				ld_lld(char *line, t_name_comm *info, char *f_name);
 int				live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name);
 int				add_sub(char *line, t_name_comm *info, char *f_name);
