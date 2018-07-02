@@ -94,14 +94,16 @@ char	*sep_error(t_name_comm *info)
 	return (NULL);
 }	
 
-char	*st_error(int i)
+char	*instract_error(t_name_comm *info)
 {
-	if (i == 1)
-		write(2, ST1_ERROR, 46);
-	else
-		write(2, ST2_ERROR, 46);
+	write(2, INSTRUCT_ERROR, 35);
+	ft_putnbr(info->row);
+	write(2, ":", 1);
+	ft_putnbr(info->index + 1 + info->tab);
+	write(2, "]\n", 2);
 	return (NULL);
 }
+
 
 
 

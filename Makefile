@@ -10,17 +10,18 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	main.c file_check.c error.c dot_check.c st_check.c
+SRCS	=	main.c file_check.c error.c dot_check.c st_check.c t_reg.c t_int.c \
+			label.c xor.c t_dir.c ld.c live.c add.c ldi_lldi.c aff.c sti.c
 
-NAME	=		asm
+NAME	=	asm
 
-OBJ		=		$(SRCS:.c=.o)
+OBJ		=	$(SRCS:.c=.o)
 
-LIB		=		libft.a
+LIB		=	libft.a
 
-FLAGS	=		-Wall -Wextra -Werror
+FLAGS	=	-Wall -Wextra -Werror
 
-HEADER	=		./asm.h
+HEADER	=	./asm.h
 
 all: $(NAME)
 

@@ -93,7 +93,7 @@ static int	close_quatation(char *line, t_name_comm *info, char *f_name)
 		return (next_line_quatation(info, f_name)); //-1 - no quat, 1 - find
 }
 
-int 		dot_check(char *line, char *f_name, t_name_comm *info)
+int 		dot(char *line, char *f_name, t_name_comm *info)
 {
 	if (line[0] != '.')
 		return (0);

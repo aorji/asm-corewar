@@ -59,25 +59,51 @@ int			file_check(t_name_comm *info, char *f_name)
 {
 	char	*line;
 	char	*tmp;
+	int		i;
 
 	while ((get_next_line(info->fd, &line) == 1) && ++(info->row))
 	{
 		info->index = 0;
 		info->tab = 0;
 		tmp = line;
-		// printf("%s\n", line);
 		line = white_spaces(line, info);
 		free(tmp);
 		if (!line)
 			continue;
-		if (dot_check(line, f_name, info) == ERROR)
+		if ((i = dot(line, f_name, info)) == ERROR)
 			return(ERROR);
-		if (st_check(line, info, f_name) == ERROR)
+		if (i == 1)
+			continue;
+		if ((i = sti(line, info, f_name)) == ERROR)
 			return (ERROR);
-		// if (live_check(line) == ERROR)
-		// 	return (ERROR);
-		// if (ld_check(line) == ERROR)
-		// 	return (ERROR);
+		if (i == 1)
+			continue;
+		if ((i = st(line, info, f_name)) == ERROR)
+			return (ERROR);
+		if (i == 1)
+			continue;
+		if ((i = xor_and_or(line, info, f_name)) == ERROR)
+			return (ERROR);
+		if (i == 1)
+			continue;
+		if ((i = ldi_lldi(line, info, f_name)) == ERROR)
+			return (ERROR);
+		if (i == 1)
+			continue;
+		if ((i = ld_lld(line, info, f_name)) == ERROR)
+			return (ERROR);
+		if (i == 1)
+			continue;
+		if ((i = live_zjmp_fork_lfork(line, info, f_name)) == ERROR)
+			return (ERROR);
+		if (i == 1)
+			continue;
+		if ((i = add_sub(line, info, f_name)) == ERROR)
+			return (ERROR);
+		if (i == 1)
+			continue;
+		if ((i = aff(line, info, f_name)) == ERROR)
+			return (ERROR);
 	}
 	if (info->count != 2)
 			return (syntax_error(SYNT_ERROR, f_name));

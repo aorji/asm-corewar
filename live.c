@@ -1,57 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   st_check.c                                         :+:      :+:    :+:   */
+/*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aorji <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/29 18:24:30 by aorji             #+#    #+#             */
-/*   Updated: 2018/06/29 18:24:36 by aorji            ###   ########.fr       */
+/*   Created: 2018/07/02 15:57:24 by aorji             #+#    #+#             */
+/*   Updated: 2018/07/02 15:57:25 by aorji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static char *arg2(char *line, t_name_comm *info)
-{
-	int n;
-
-	if (line[0] == ':')
-		return (label_arg2(line, info));
-	else if (line[0] == 'r')
-		return (t_reg_arg2(line, info));
-	else
-	{
-		if ((n = atoi(line)) != 0 || (line[0] == 48
-			&& (line[1] == ' ' || line[1] == '\t')))
-			return (t_int_arg2(line, info, n));
-		else
-			return (instract_error(info));
-	}
-}
-
 static char *arg1(char *line, t_name_comm *info)
 {
-	if (line[0] == 'r')
-		return (t_reg_arg1(line, info));
+	if (line[0] == '%')
+		return (t_dir_arg2(line, info));
 	else
 		return (instract_error(info));
 }
 
-int	st(char *line, t_name_comm *info, char *f_name)
+int	live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name)
 {
-	if (ft_strncmp(line, "st", 2))
+	if (ft_strncmp(line, "live", 4) && ft_strncmp(line, "zjmp", 4) && ft_strncmp(line, "fork", 4)
+		&& ft_strncmp(line, "lfork", 5))
 		return (0);
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
-	line += 2;
-	(info->index) += 2;
+	if (!ft_strncmp(line, "lfork", 5))
+	{
+		line += 1;
+		(info->index) += 1;
+	}
+	line += 4;
+	(info->index) += 4;
 	line = ws(line, info);
 	line = arg1(line, info);
-	if (!line)
-		return (ERROR);
-	line = ws(line, info);
-	line = arg2(line, info);
 	if (!line)
 		return (ERROR);
 	return (1);

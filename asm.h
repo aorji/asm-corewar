@@ -19,8 +19,7 @@
 # define		TRASH_ERROR 	"Syntax error at token [TOKEN]["
 # define		NO_QUAT_ERROR	"You have no close quatation "
 # define		NAME_COMM		"not the correct quantity of \"name/comment\" in the "
-# define		ST1_ERROR		"Invalid parameter 1 type for instruction \"st\"\n"
-# define		ST2_ERROR		"Invalid parameter 2 type for instruction \"st\"\n"
+# define		INSTRUCT_ERROR	"Invalid parameter for instruction ["
 # define		SEP_ERROR		"Punctuation error: no comma at ["
 # define		ERROR			-1
 # define		REG_NUMBER		16
@@ -63,14 +62,22 @@ int 			syntax_error(char *str, char *f_name);
 int				usage_error(char *str, char *name);
 int				trash_error(t_name_comm info, char *line, int tr);
 char			*sep_error(t_name_comm *info);
-char			*st_error(int i);
+char			*instract_error(t_name_comm *info);
 
 /*
-** --------------------------  Error ----------------------------
+** --------------------------  INSTRUCTION ----------------------------
 */
 
-int 			dot_check(char *line, char *f_name, t_name_comm *info);
-int				st_check(char *line, t_name_comm *info, char *f_name);
+int 			dot(char *line, char *f_name, t_name_comm *info);
+int				st(char *line, t_name_comm *info, char *f_name);
+int				xor_and_or(char *line, t_name_comm *info, char *f_name);
+// int				fork(char *line, t_name_comm *info, char *f_name);
+int				ld_lld(char *line, t_name_comm *info, char *f_name);
+int				live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name);
+int				add_sub(char *line, t_name_comm *info, char *f_name);
+int				aff(char *line, t_name_comm *info, char *f_name);
+int				sti(char *line, t_name_comm *info, char *f_name);
+int				ldi_lldi(char *line, t_name_comm *info, char *f_name);
 
 /*
 ** -------------------------- Auxliary ----------------------------
@@ -79,5 +86,33 @@ int				st_check(char *line, t_name_comm *info, char *f_name);
 char*			ws(char *line, t_name_comm *info);
 int				trash(char *line, int i);
 void			add_tab(t_name_comm *info);
+
+/*
+** -------------------------- Label ----------------------------
+*/
+
+char 			*label_arg1(char *line, t_name_comm *info);
+char 			*label_arg2(char *line, t_name_comm *info);
+int				add_label(char *line, t_name_comm *info);
+
+/*
+** -------------------------- T_REG ----------------------------
+*/
+
+char 			*t_reg_arg1(char *line, t_name_comm *info);
+char 			*t_reg_arg2(char *line, t_name_comm *info);
+
+/*
+** -------------------------- T_DIR ----------------------------
+*/
+
+char 			*t_dir_arg1(char *line, t_name_comm *info);
+char 			*t_dir_arg2(char *line, t_name_comm *info);
+
+/*
+** -------------------------- T_INT ----------------------------
+*/
+char 			*t_int_arg1(char *line, t_name_comm *info, int n);
+char 			*t_int_arg2(char *line, t_name_comm *info, int n);
 
 #endif

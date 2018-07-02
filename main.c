@@ -37,18 +37,18 @@ int			main(int ac, char **av)
 	while (file < ac)
 	{	
 		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, NULL};
-		// info->list = ft_lstnew(NULL, 0);
 		info.fd = open(av[file], O_RDONLY);
 		if (usage_check(ac, av, info.fd, file) == ERROR)
 			error = 1;
 		else if (file_check(&info, av[file]) == ERROR)
 			error = 1;
-		// while (info.label)
-		// {
-		// 	printf("%s\n", (info.label)->name);
-		// 	(info.label) = (info.label)->next;
-		// }
-		// !!!!!!!!!!!here
+		printf("%s ", "labels:");
+		while (info.label)
+		{
+			printf("%s; ", (info.label)->name);
+			(info.label) = (info.label)->next;
+		}
+		printf("\n");
 		file++;
 	}
 	if (!error)
