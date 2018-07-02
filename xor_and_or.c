@@ -63,5 +63,5 @@ int	xor_and_or(char *line, t_name_comm *info, char *f_name)
 	line = arg3(line, info);
 	if (!line)
 		return (ERROR);
-	return (0);
+	return (1);
 }

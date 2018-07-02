@@ -42,13 +42,27 @@ int			main(int ac, char **av)
 			error = 1;
 		else if (file_check(&info, av[file]) == ERROR)
 			error = 1;
-		printf("%s ", "labels:");
+		// printf("%s\n", "labels:");
 		while (info.label)
 		{
-			printf("%s; ", (info.label)->name);
+			// printf("%s :", (info.label)->name);
+			// printf("%d;\n", (info.label)->found);
+			if (!((info.label)->found))
+			{
+				write(2, LABEL_ERROR, 14);
+				write(2, "\"", 1);
+				write(2, (info.label)->name, ft_strlen((info.label)->name));
+				write(2, "\" [", 3);
+				ft_putnbr((info.label)->x);
+				write(2, ":", 1);
+				ft_putnbr((info.label)->y);
+				write(2, "]\n", 2);
+				error = 1;
+				break;
+			}
 			(info.label) = (info.label)->next;
 		}
-		printf("\n");
+		// printf("\n");
 		file++;
 	}
 	if (!error)

@@ -12,30 +12,6 @@
 
 #include "asm.h"
 
-void	add_tab(t_name_comm *info)
-{
-	int a;
-	int b;
-	int c;
-
-	a = info->index + info->tab;
-	b = a / 4;
-	c = b * 4;
-	info->tab += 3 - (a - c);
-}
-
-char*	ws(char *line, t_name_comm *info)
-{
-	while (*line && (*line == ' ' || *line == '\t'))
-	{
-		if (*line == '\t')
-			add_tab(info);
-		(info->index)++;
-		line++;
-	}
-	return (line);
-}
-
 static char	*white_spaces(char *line, t_name_comm *info)
 {
 	int		j;
@@ -70,9 +46,13 @@ int			file_check(t_name_comm *info, char *f_name)
 		free(tmp);
 		if (!line)
 			continue;
+		if (line[0] == '#')
+			continue;
 		if ((i = dot(line, f_name, info)) == ERROR)
 			return(ERROR);
 		if (i)
+			continue;
+		if (label(line, info, f_name))
 			continue;
 		if ((i = sti(line, info, f_name)) == ERROR)
 			return (ERROR);
@@ -104,6 +84,11 @@ int			file_check(t_name_comm *info, char *f_name)
 			continue;
 		if ((i = aff(line, info, f_name)) == ERROR)
 			return (ERROR);
+		// else
+		// {
+		// 	printf("%s\n", "WHAT IS THAT?? REREAD YOUR .s file!!!");
+		// 	return (-1);
+		// }
 	}
 	if (info->count != 2)
 			return (syntax_error(SYNT_ERROR, f_name));

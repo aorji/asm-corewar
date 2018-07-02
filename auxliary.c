@@ -26,3 +26,27 @@ int trash(char *line, int i)
 	}
 	return (-1);
 }
+
+void	add_tab(t_name_comm *info)
+{
+	int a;
+	int b;
+	int c;
+
+	a = info->index + info->tab;
+	b = a / 4;
+	c = b * 4;
+	info->tab += 3 - (a - c);
+}
+
+char*	ws(char *line, t_name_comm *info)
+{
+	while (*line && (*line == ' ' || *line == '\t'))
+	{
+		if (*line == '\t')
+			add_tab(info);
+		(info->index)++;
+		line++;
+	}
+	return (line);
+}

@@ -21,6 +21,7 @@
 # define		NAME_COMM		"not the correct quantity of \"name/comment\" in the "
 # define		INSTRUCT_ERROR	"Invalid parameter for instruction ["
 # define		SEP_ERROR		"Punctuation error: no comma at ["
+# define		LABEL_ERROR		"No such label "
 # define		ERROR			-1
 # define		REG_NUMBER		16
 # include "./libft/libft.h"
@@ -29,6 +30,8 @@ typedef struct  	s_label
 {
 	char			*name;
 	int 			found;
+	int 			x;
+	int 			y;
 	struct 	s_label *next;
 }					t_label;
 
@@ -91,6 +94,7 @@ void			add_tab(t_name_comm *info);
 char 			*label_arg1(char *line, t_name_comm *info);
 char 			*label_arg2(char *line, t_name_comm *info);
 int				add_label(char *line, t_name_comm *info);
+int				label(char *line, t_name_comm *info, char *f_name);
 
 /*
 ** -------------------------- T_REG ----------------------------
@@ -109,6 +113,7 @@ char 			*t_dir_arg2(char *line, t_name_comm *info);
 /*
 ** -------------------------- T_INT ----------------------------
 */
+
 char 			*t_int_arg1(char *line, t_name_comm *info, int n);
 char 			*t_int_arg2(char *line, t_name_comm *info, int n);
 
