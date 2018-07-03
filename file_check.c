@@ -52,8 +52,7 @@ int			file_check(t_name_comm *info, char *f_name)
 			return(ERROR);
 		if (i)
 			continue;
-		if (label(line, info, f_name))
-			continue;
+		label(&line, info, f_name);
 		if ((i = sti(line, info, f_name)) == ERROR)
 			return (ERROR);
 		if (i)
@@ -84,13 +83,10 @@ int			file_check(t_name_comm *info, char *f_name)
 			continue;
 		if ((i = aff(line, info, f_name)) == ERROR)
 			return (ERROR);
-		// else
-		// {
-		// 	printf("%s\n", "WHAT IS THAT?? REREAD YOUR .s file!!!");
-		// 	return (-1);
-		// }
+		else
+			return (trash_error(*info, line, 0));
 	}
 	if (info->count != 2)
-			return (syntax_error(SYNT_ERROR, f_name));
+		return (syntax_error(SYNT_ERROR, f_name));
 	return (1);
 }

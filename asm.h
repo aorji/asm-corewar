@@ -94,7 +94,7 @@ void			add_tab(t_name_comm *info);
 char 			*label_arg1(char *line, t_name_comm *info);
 char 			*label_arg2(char *line, t_name_comm *info);
 int				add_label(char *line, t_name_comm *info);
-int				label(char *line, t_name_comm *info, char *f_name);
+int				label(char **line, t_name_comm *info, char *f_name);
 
 /*
 ** -------------------------- T_REG ----------------------------
@@ -114,7 +114,7 @@ char 			*t_dir_arg2(char *line, t_name_comm *info);
 ** -------------------------- T_INT ----------------------------
 */
 
-char 			*t_int_arg1(char *line, t_name_comm *info, int n);
-char 			*t_int_arg2(char *line, t_name_comm *info, int n);
+char 			*t_int_arg1(char *line, t_name_comm *info);
+char 			*t_int_arg2(char *line, t_name_comm *info);
 
 #endif

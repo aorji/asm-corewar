@@ -43,7 +43,7 @@ int			main(int ac, char **av)
 		else if (file_check(&info, av[file]) == ERROR)
 			error = 1;
 		// printf("%s\n", "labels:");
-		while (info.label)
+		while (info.label && !error)
 		{
 			// printf("%s :", (info.label)->name);
 			// printf("%d;\n", (info.label)->found);

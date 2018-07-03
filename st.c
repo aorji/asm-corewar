@@ -23,8 +23,8 @@ static char *arg2(char *line, t_name_comm *info)
 	else
 	{
 		if ((n = atoi(line)) != 0 || (line[0] == 48
-			&& (line[1] == ' ' || line[1] == '\t')))
-			return (t_int_arg2(line, info, n));
+			&& (line[1] == ' ' || line[1] == '\t' || line[1] == '\0')))
+			return (t_int_arg2(line, info));
 		else
 			return (instract_error(info));
 	}

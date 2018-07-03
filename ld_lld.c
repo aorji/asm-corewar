@@ -28,7 +28,7 @@ static char *arg1(char *line, t_name_comm *info)
 		return (t_dir_arg1(line, info));
 	else if (((n = atoi(line)) != 0) || (line[0] == '0' &&
 	 (line[1] == ' ' || line[1] == '\t' || line[1] == ',')))
-		return (t_int_arg1(line, info, n));
+		return (t_int_arg1(line, info));
 	else
 		return (instract_error(info));
 }

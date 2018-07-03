@@ -19,6 +19,8 @@ int trash(char *line, int i)
 	extra = 0;
 	while (line[i])
 	{
+		if (line[i] == '#')
+			return (-1);
 		if (line[i] != ' ' && line[i] != '\t')
 			return (extra);
 		i++;

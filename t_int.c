@@ -12,12 +12,22 @@
 
 #include "asm.h"
 
-char *t_int_arg2(char *line, t_name_comm *info, int n)
+char *t_int_arg2(char *line, t_name_comm *info)
 {
 	int tr;
+	int n;
 
-	n = ft_number_size(n);
-	line += n;
+	n = 0;
+	if (*line == '-')
+	{
+		line++;
+		n++;
+	}
+	while (ft_isdigit(*line))
+	{
+		line++;
+		n++;
+	}
 	info->index += n;
 	line = ws(line, info);
 	if ((tr = trash(line, 0)) != -1)
@@ -29,10 +39,21 @@ char *t_int_arg2(char *line, t_name_comm *info, int n)
 	return (line);
 }
 
-char *t_int_arg1(char *line, t_name_comm *info, int n)
+char *t_int_arg1(char *line, t_name_comm *info)
 {
-	n = ft_number_size(n);
-	line += n;
+	int n;
+
+	n = 0;
+	if (*line == '-')
+	{
+		line++;
+		n++;
+	}
+	while (ft_isdigit(*line))
+	{
+		line++;
+		n++;
+	}
 	info->index += n;
 	line = ws(line, info);
 	if (*line == ',')
