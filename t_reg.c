@@ -19,7 +19,7 @@ char *t_reg_arg1(char *line, t_name_comm *info)
 	line++;
 	(info->index)++;
 	d_len = ft_number_size((n = atoi(line)));
-	if (n <= REG_NUMBER && n >= 1)
+	if (n <= REG_NUMBER && n >= 0)
 	{
 		line += d_len;
 		info->index += d_len;
@@ -49,7 +49,7 @@ char *t_reg_arg2(char *line, t_name_comm *info)
 	line++;
 	(info->index)++;
 	d_len = ft_number_size((n = atoi(line)));
-	if (n <= REG_NUMBER && n >= 1)
+	if (n <= REG_NUMBER && n >= 0)
 	{
 		line += d_len;
 		info->index += d_len;

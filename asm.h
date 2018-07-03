@@ -44,6 +44,7 @@ typedef struct		s_name_comm
 	int				row;
 	int				index;
 	int 			tab;
+	int				in;
 	t_label			*label;
 }					t_name_comm;
 

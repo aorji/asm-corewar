@@ -36,7 +36,7 @@ int			main(int ac, char **av)
 	file = 1;
 	while (file < ac)
 	{	
-		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, NULL};
+		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, 0, NULL};
 		info.fd = open(av[file], O_RDONLY);
 		if (usage_check(ac, av, info.fd, file) == ERROR)
 			error = 1;
@@ -66,6 +66,18 @@ int			main(int ac, char **av)
 		file++;
 	}
 	if (!error)
-		ft_putstr("Writing output program\n");
+	{ 
+		//output
+		file = 0;
+		ft_putstr("Writing output program to ");
+		while (++file < ac)
+		{
+			ft_putstr(ft_strsub(av[file], 0, ft_strlen(av[file]) - 2));
+			ft_putstr(".cor");
+			if (file + 1 < ac)
+				ft_putstr(", ");
+		}
+		ft_putstr("\n");
+	}
 	return (0);
 }

@@ -34,7 +34,8 @@ int	add_label(char *line, t_name_comm *info)
 	t_label *tmp;
 	char *label;
 
-	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != ',')
+	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != ',' 
+		&& line[i] != '+')
 	{
 		if (*line == '\t')
 			add_tab(info);
@@ -119,6 +120,7 @@ int	label(char **line, t_name_comm *info, char *f_name)
 		i++;
 	if ((*line)[i] != ':')
 		return (0);
+	(info->in)++;
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
 	tmp = ft_strsub((*line), 0, i);
@@ -138,6 +140,6 @@ int	label(char **line, t_name_comm *info, char *f_name)
 	(info->index) += i + 1;
 	(*line) = ws((*line), info);
 	if (!ft_strlen(*line))
-		*line = "END";
+		return (2);
 	return (1);
 }

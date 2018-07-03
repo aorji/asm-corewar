@@ -52,7 +52,8 @@ int			file_check(t_name_comm *info, char *f_name)
 			return(ERROR);
 		if (i)
 			continue;
-		label(&line, info, f_name);
+		if ((i = label(&line, info, f_name)) == 2)
+			continue;
 		if ((i = sti(line, info, f_name)) == ERROR)
 			return (ERROR);
 		if (i)
@@ -88,5 +89,7 @@ int			file_check(t_name_comm *info, char *f_name)
 	}
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
+	if (!(info->in))
+		return (trash_error(*info, "(null)", 0));
 	return (1);
 }

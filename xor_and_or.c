@@ -41,6 +41,7 @@ int	xor_and_or(char *line, t_name_comm *info, char *f_name)
 		return (0);
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
+	(info->in)++;
 	if (!ft_strncmp(line, "or", 2))
 	{
 		line += 2;

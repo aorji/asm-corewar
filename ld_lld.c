@@ -39,6 +39,7 @@ int	ld_lld(char *line, t_name_comm *info, char *f_name)
 		return (0);
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
+	(info->in)++;
 	if (!ft_strncmp(line, "ldi", 3))
 	{
 		line += 3;

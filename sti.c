@@ -51,6 +51,7 @@ int	sti(char *line, t_name_comm *info, char *f_name)
 		return (0);
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
+	(info->in)++;
 	line += 3;
 	(info->index) += 3;
 	line = ws(line, info);
