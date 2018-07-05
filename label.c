@@ -34,8 +34,7 @@ int	add_label(char *line, t_name_comm *info)
 	t_label *tmp;
 	char *label;
 
-	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != SEPARATOR_CHAR 
-		&& line[i] != '+')
+	while (line[i] && ft_isalnum(line[i]))
 	{
 		if (*line == '\t')
 			add_tab(info);
@@ -116,7 +115,7 @@ int	label(char **line, t_name_comm *info, char *f_name)
 	t_label	*label;
 
 	i = 0;
-	while ((*line)[i] && (*line)[i] != ' ' && (*line)[i] != '\t' && (*line)[i] != LABEL_CHAR)
+	while ((*line)[i] && ft_isalnum((*line)[i]))
 		i++;
 	if ((*line)[i] != LABEL_CHAR)
 		return (0);

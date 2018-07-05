@@ -26,6 +26,8 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 
 	if (line[0] == DIRECT_CHAR)
 		return (t_dir_arg1(line, info, f_name));
+	else if (line[0] == LABEL_CHAR)
+		return (label_arg1(line, info, f_name));
 	else if (((n = atoi(line)) != 0) || (line[0] == '0' &&
 	 (line[1] == ' ' || line[1] == '\t' || line[1] == SEPARATOR_CHAR)))
 		return (t_int_arg1(line, info, f_name));
@@ -40,7 +42,7 @@ int	ld_lld(char *line, t_name_comm *info, char *f_name)
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
 	(info->in)++;
-	if (!ft_strncmp(line, "ldi", 3))
+	if (!ft_strncmp(line, "lld", 3))
 	{
 		line += 3;
 		(info->index) += 3;

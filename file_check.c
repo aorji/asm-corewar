@@ -87,7 +87,7 @@ int			file_check(t_name_comm *info, char *f_name)
 		if ((i = aff(line, info, f_name)) == ERROR)
 			return (ERROR);
 		else
-			return (trash_error(*info, line, 0, f_name));
+			return (unknown_error(*info, line, f_name));
 	}
 	if (!end)
 		return (end_error(f_name));

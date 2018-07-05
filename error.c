@@ -89,6 +89,35 @@ int	trash_error(t_name_comm info, char *line, int len, char *f_name)
 	return (ERROR);
 }
 
+int	unknown_error(t_name_comm info, char *line, char *f_name)
+{
+	int d;
+	int i;
+
+	i = 0;
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
+		i++;
+	write(2, UN_ERROR, 30);
+	d = 3 - ft_number_size(info.row);
+	while (d--)
+		ft_putnbr(0);
+	ft_putnbr(info.row);
+	write(2, ":", 1);
+	d = 3 - ft_number_size(info.index + 1 + info.tab);
+	while (d--)
+		ft_putnbr(0);
+	ft_putnbr(info.index + 1 + info.tab);
+	write(2, "] INSTRUCTION \"", 16);
+	write(2, ft_strsub(line, 0, i - 1), i - 1);
+	write(2, "\" ", 2);
+	write(2, "in the ", 7);
+	write(2, "\"", 1);
+	write(2, f_name, ft_strlen(f_name));
+	write(2, "\"", 1);
+	write(2, "\n", 1);
+	return (ERROR);
+}
+
 char	*sep_error(t_name_comm *info, char *f_name)
 {
 	write(2, SEP_ERROR, 32);
@@ -106,7 +135,7 @@ char	*sep_error(t_name_comm *info, char *f_name)
 
 char	*instract_error(t_name_comm *info, char *f_name)
 {
-	write(2, INSTRUCT_ERROR, 35);
+	write(2, INSTRUCT_ERROR, 19);
 	ft_putnbr(info->row);
 	write(2, ":", 1);
 	ft_putnbr(info->index + 1 + info->tab);

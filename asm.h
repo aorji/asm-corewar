@@ -20,9 +20,10 @@
 # define		TRASH_ERROR 	"Syntax error at token [TOKEN]["
 # define		NO_QUAT_ERROR	"You have no close quatation "
 # define		NAME_COMM		"not the correct quantity of \"name/comment\" in the "
-# define		INSTRUCT_ERROR	"Invalid parameter for instruction ["
+# define		INSTRUCT_ERROR	"Invalid parameter ["
 # define		SEP_ERROR		"Punctuation error: no comma at ["
 # define		LABEL_ERROR		"No such label "
+# define		UN_ERROR		"Invalid instruction at token ["
 # define		END_ERROR		"Syntax error - unexpected end of input\
  (Perhaps you forgot to end with a newline?) "
 
@@ -89,6 +90,7 @@ char			*sep_error(t_name_comm *info, char *f_name);
 char			*instract_error(t_name_comm *info, char *f_name);
 int				label_error(char *name, int x, int y, char *f_name);
 int				end_error(char *f_name);
+int				unknown_error(t_name_comm info, char *line, char *f_name);
 
 /*
 ** --------------------------  INSTRUCTION ----------------------------
