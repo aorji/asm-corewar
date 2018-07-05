@@ -12,7 +12,7 @@
 
 SRCS	=	main.c file_check.c error.c dot.c st.c t_reg.c t_int.c label.c \
 			xor_and_or.c t_dir.c ld_lld.c live_zjmp_fork_lfork.c add_sub.c \
-			ldi_lldi.c aff.c sti.c auxliary.c
+			ldi_lldi.c aff.c sti.c auxliary.c output.c
 
 NAME	=	asm
 

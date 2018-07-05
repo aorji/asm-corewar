@@ -51,20 +51,20 @@ int syntax_error(char *str, char *f_name)
 	return (ERROR);
 }
 
-int	usage_error(char *str, char *name)
+int	usage_error(char *str, char *f_name)
 {
 	write (2, str, ft_strlen(str));
-	if (name)
+	if (f_name)
 	{
 		write(2, "\"", 1);
-		write (2, name, ft_strlen(name));
+		write (2, f_name, ft_strlen(f_name));
 		write(2, "\"", 1);
 	}
 	write(2, "\n", 1);
 	return (ERROR);
 }
 
-int	trash_error(t_name_comm info, char *line, int len)
+int	trash_error(t_name_comm info, char *line, int len, char *f_name)
 {
 	int d;
 
@@ -80,30 +80,70 @@ int	trash_error(t_name_comm info, char *line, int len)
 	ft_putnbr(info.index + 1 + info.tab);
 	write(2, "] INSTRUCTION \"", 16);
 	write(2, ft_strsub(line, len, ft_strlen(line) - len), ft_strlen(line) - len);
-	write(2, "\"\n", 2);
+	write(2, "\" ", 2);
+	write(2, "in the ", 7);
+	write(2, "\"", 1);
+	write(2, f_name, ft_strlen(f_name));
+	write(2, "\"", 1);
+	write(2, "\n", 1);
 	return (ERROR);
 }
 
-char	*sep_error(t_name_comm *info)
+char	*sep_error(t_name_comm *info, char *f_name)
 {
 	write(2, SEP_ERROR, 32);
 	ft_putnbr(info->row);
 	write(2, ":", 1);
 	ft_putnbr((info->index) + (info->tab) + 1);
-	write(2, "]\n", 2);
+	write(2, "] ", 2);
+	write(2, "in the ", 7);
+	write(2, "\"", 1);
+	write(2, f_name, ft_strlen(f_name));
+	write(2, "\"", 1);
+	write(2, "\n", 1);
 	return (NULL);
 }	
 
-char	*instract_error(t_name_comm *info)
+char	*instract_error(t_name_comm *info, char *f_name)
 {
 	write(2, INSTRUCT_ERROR, 35);
 	ft_putnbr(info->row);
 	write(2, ":", 1);
 	ft_putnbr(info->index + 1 + info->tab);
-	write(2, "]\n", 2);
+	write(2, "] ", 2);
+	write(2, "in the ", 7);
+	write(2, "\"", 1);
+	write(2, f_name, ft_strlen(f_name));
+	write(2, "\"", 1);
+	write(2, "\n", 1);
 	return (NULL);
 }
 
+int label_error(char *name, int x, int y, char *f_name)
+{
+	write(2, LABEL_ERROR, 14);
+	write(2, "\"", 1);
+	write(2, name, ft_strlen(name));
+	write(2, "\" [", 3);
+	ft_putnbr(x);
+	write(2, ":", 1);
+	ft_putnbr(y);
+	write(2, "] ", 2);
+	write(2, "in the ", 7);
+	write(2, "\"", 1);
+	write(2, f_name, ft_strlen(f_name));
+	write(2, "\"", 1);
+	write(2, "\n", 1);
+	return (ERROR);
+}
 
-
-
+int end_error(char *f_name)
+{
+	write(2, END_ERROR, 84);
+	write(2, "in the ", 7);
+	write(2, "\"", 1);
+	write(2, f_name, ft_strlen(f_name));
+	write(2, "\"", 1);
+	write(2, "\n", 1);
+	return (ERROR);
+}

@@ -12,12 +12,12 @@
 
 #include "asm.h"
 
-static char *arg1(char *line, t_name_comm *info)
+static char *arg1(char *line, t_name_comm *info, char *f_name)
 {
-	if (line[0] == '%')
-		return (t_dir_arg2(line, info));
+	if (line[0] == DIRECT_CHAR)
+		return (t_dir_arg2(line, info, f_name));
 	else
-		return (instract_error(info));
+		return (instract_error(info, f_name));
 }
 
 int	live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name)
@@ -36,7 +36,7 @@ int	live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name)
 	line += 4;
 	(info->index) += 4;
 	line = ws(line, info);
-	line = arg1(line, info);
+	line = arg1(line, info, f_name);
 	if (!line)
 		return (ERROR);
 	return (1);

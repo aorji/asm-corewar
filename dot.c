@@ -27,9 +27,10 @@ static	int	next_line_quatation(t_name_comm *info, char *f_name)
 	int		close;	
 	int		tr;
 	int i = 0;
+	int k = 0;
 	close = -1;
 	info->index = 0;
-	while (get_next_line(info->fd, &line) == 1 && (info->row)++ && (close = find_quatation(line, 0)) == -1)
+	while (get_next_line(info->fd, &line, &k) == 1 && (info->row)++ && (close = find_quatation(line, 0)) == -1)
 			continue; 
 	if (close == -1)
 		return (lexical_error_q(info->name, f_name));
@@ -48,7 +49,7 @@ static	int	next_line_quatation(t_name_comm *info, char *f_name)
 		if ((tr = trash(line, close + 1)) != -1)
 		{
 			info->index += tr;
-			return (trash_error(*info, line, tr));
+			return (trash_error(*info, line, tr, f_name));
 		}
 		return (1);
 	}
@@ -68,7 +69,7 @@ static int	close_quatation(char *line, t_name_comm *info, char *f_name)
 		if ((tr = trash(line, 0)) != -1)
 		{
 			info->index += tr;
-			return (trash_error(*info, line, tr));
+			return (trash_error(*info, line, tr, f_name));
 		}
 		return (1);
 	}

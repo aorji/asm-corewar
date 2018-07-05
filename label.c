@@ -34,7 +34,7 @@ int	add_label(char *line, t_name_comm *info)
 	t_label *tmp;
 	char *label;
 
-	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != ',' 
+	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != SEPARATOR_CHAR 
 		&& line[i] != '+')
 	{
 		if (*line == '\t')
@@ -68,7 +68,7 @@ int	add_label(char *line, t_name_comm *info)
 	return (i);
 }
 
-char *label_arg2(char *line, t_name_comm *info)
+char *label_arg2(char *line, t_name_comm *info, char *f_name)
 {
 	int n;
 	int tr;
@@ -82,13 +82,13 @@ char *label_arg2(char *line, t_name_comm *info)
 	if ((tr = trash(line, 0)) != -1)
 	{
 		info->index += tr;
-		trash_error(*info, line, 0);
+		trash_error(*info, line, 0, f_name);
 		return (NULL);
 	}
 	return (line);
 }
 
-char *label_arg1(char *line, t_name_comm *info)
+char *label_arg1(char *line, t_name_comm *info, char *f_name)
 {
 	int n;
 	
@@ -98,13 +98,13 @@ char *label_arg1(char *line, t_name_comm *info)
 	info->index += n;
 	line += n;
 	line = ws(line, info);
-	if (*line == ',')
+	if (*line == SEPARATOR_CHAR)
 	{
 		line++;
 		(info->index)++;
 	}
 	else
-		return (sep_error(info));
+		return (sep_error(info, f_name));
 	return (line);
 }
 
@@ -116,9 +116,9 @@ int	label(char **line, t_name_comm *info, char *f_name)
 	t_label	*label;
 
 	i = 0;
-	while ((*line)[i] && (*line)[i] != ' ' && (*line)[i] != '\t' && (*line)[i] != ':')
+	while ((*line)[i] && (*line)[i] != ' ' && (*line)[i] != '\t' && (*line)[i] != LABEL_CHAR)
 		i++;
-	if ((*line)[i] != ':')
+	if ((*line)[i] != LABEL_CHAR)
 		return (0);
 	(info->in)++;
 	if (info->count != 2)

@@ -12,17 +12,26 @@
 
 #include "asm.h"
 
-static int	usage_check(int ac, char **av, int fd, int i)
+static int	usage_check(char **av, int fd, int i)
 {
 	int len;
 
-	if (ac < 2)
-		return (usage_error(USAGE, NULL));
-	if (fd == -1)
+	if (fd == ERROR)
 		return (usage_error(USAGE1, av[i]));
 	len = ft_strlen(av[i]);
 	if (!(av[i][len - 1] == 's' && av[i][len - 2] == '.'))
 		return (usage_error(USAGE, NULL));
+	return (0);
+}
+
+static int	label_check(t_name_comm info, char *f_name)
+{
+	while (info.label)
+	{
+		if (!((info.label)->found))
+			return (label_error((info.label)->name, (info.label)->x, (info.label)->y, f_name));
+		(info.label) = (info.label)->next;
+	}
 	return (0);
 }
 
@@ -32,52 +41,23 @@ int			main(int ac, char **av)
 	int file;
 	int error;
 
+	if (ac < 2)
+		return (usage_error(USAGE, NULL));
 	error = 0;
 	file = 1;
 	while (file < ac)
-	{	
+	{
 		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, 0, NULL};
 		info.fd = open(av[file], O_RDONLY);
-		if (usage_check(ac, av, info.fd, file) == ERROR)
+		if (usage_check(av, info.fd, file) == ERROR)
 			error = 1;
 		else if (file_check(&info, av[file]) == ERROR)
 			error = 1;
-		// printf("%s\n", "labels:");
-		while (info.label && !error)
-		{
-			// printf("%s :", (info.label)->name);
-			// printf("%d;\n", (info.label)->found);
-			if (!((info.label)->found))
-			{
-				write(2, LABEL_ERROR, 14);
-				write(2, "\"", 1);
-				write(2, (info.label)->name, ft_strlen((info.label)->name));
-				write(2, "\" [", 3);
-				ft_putnbr((info.label)->x);
-				write(2, ":", 1);
-				ft_putnbr((info.label)->y);
-				write(2, "]\n", 2);
-				error = 1;
-				break;
-			}
-			(info.label) = (info.label)->next;
-		}
-		// printf("\n");
+		else if (label_check(info, av[file]) == ERROR)
+			error = 1;
 		file++;
 	}
 	if (!error)
-	{ 
-		//output
-		file = 0;
-		ft_putstr("Writing output program to ");
-		while (++file < ac)
-		{
-			ft_putstr(ft_strsub(av[file], 0, ft_strlen(av[file]) - 2));
-			ft_putstr(".cor");
-			if (file + 1 < ac)
-				ft_putstr(", ");
-		}
-		ft_putstr("\n");
-	}
+		print(av, ac);
 	return (0);
 }

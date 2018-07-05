@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		ft_put_in_line(char *tmp, char **line)
+static int		ft_put_in_line(char *tmp, char **line, int *end)
 {
 	char	*p;
 	int		a;
@@ -23,6 +23,7 @@ static int		ft_put_in_line(char *tmp, char **line)
 		{
 			*line = ft_strdup(tmp);
 			free(tmp);
+			*end = 0;
 			return (1);
 		}
 		free(tmp);
@@ -69,7 +70,7 @@ static	void	ft_check_list(t_list **head, t_list **list, char **tmp, int fd)
 	}
 }
 
-int				get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line, int *end)
 {
 	int				res;
 	char			*tmp;
@@ -92,5 +93,5 @@ int				get_next_line(const int fd, char **line)
 	}
 	if (res == -1)
 		return (-1);
-	return (ft_put_in_line(tmp, line));
+	return (ft_put_in_line(tmp, line, end));
 }

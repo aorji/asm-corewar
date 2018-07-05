@@ -12,20 +12,20 @@
 
 #include "asm.h"
 
-static char *arg3(char *line, t_name_comm *info)
+static char *arg3(char *line, t_name_comm *info, char *f_name)
 {
 	if (line[0] == 'r')
-		return (t_reg_arg2(line, info));
+		return (t_reg_arg2(line, info, f_name));
 	else
-		return (instract_error(info));
+		return (instract_error(info, f_name));
 }
 
-static char *arg1(char *line, t_name_comm *info)
+static char *arg1(char *line, t_name_comm *info, char *f_name)
 {
 	if (line[0] == 'r')
-		return (t_reg_arg1(line, info));
+		return (t_reg_arg1(line, info, f_name));
 	else
-		return (instract_error(info));
+		return (instract_error(info, f_name));
 }
 
 int	add_sub(char *line, t_name_comm *info, char *f_name)
@@ -37,15 +37,15 @@ int	add_sub(char *line, t_name_comm *info, char *f_name)
 	line += 3;
 	(info->index) += 3;
 	line = ws(line, info);
-	line = arg1(line, info);
+	line = arg1(line, info, f_name);
 	if (!line)
 		return (ERROR);
 	line = ws(line, info);
-	line = arg1(line, info);
+	line = arg1(line, info, f_name);
 	if (!line)
 		return (ERROR);
 	line = ws(line, info);
-	line = arg3(line, info);
+	line = arg3(line, info, f_name);
 	if (!line)
 		return (ERROR);
 	return (1);

@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-char *t_int_arg2(char *line, t_name_comm *info)
+char *t_int_arg2(char *line, t_name_comm *info,char *f_name)
 {
 	int tr;
 	int n;
@@ -33,13 +33,13 @@ char *t_int_arg2(char *line, t_name_comm *info)
 	if ((tr = trash(line, 0)) != -1)
 	{
 		info->index += tr;
-		trash_error(*info, line, 0);
+		trash_error(*info, line, 0, f_name);
 		return (NULL);
 	}
 	return (line);
 }
 
-char *t_int_arg1(char *line, t_name_comm *info)
+char *t_int_arg1(char *line, t_name_comm *info, char *f_name)
 {
 	int n;
 
@@ -56,12 +56,12 @@ char *t_int_arg1(char *line, t_name_comm *info)
 	}
 	info->index += n;
 	line = ws(line, info);
-	if (*line == ',')
+	if (*line == SEPARATOR_CHAR)
 	{
 		line++;
 		(info->index)++;
 	}
 	else
-		return (sep_error(info));
+		return (sep_error(info, f_name));
 	return (line);
 }

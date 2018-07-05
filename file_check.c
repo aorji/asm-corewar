@@ -36,8 +36,10 @@ int			file_check(t_name_comm *info, char *f_name)
 	char	*line;
 	char	*tmp;
 	int		i;
+	int		end;
 
-	while ((get_next_line(info->fd, &line) == 1) && ++(info->row))
+	end = 1;
+	while ((get_next_line(info->fd, &line, &end) == 1) && ++(info->row))
 	{
 		info->index = 0;
 		info->tab = 0;
@@ -46,7 +48,7 @@ int			file_check(t_name_comm *info, char *f_name)
 		free(tmp);
 		if (!line)
 			continue;
-		if (line[0] == '#')
+		if (line[0] == COMMENT_CHAR)
 			continue;
 		if ((i = dot(line, f_name, info)) == ERROR)
 			return(ERROR);
@@ -85,11 +87,13 @@ int			file_check(t_name_comm *info, char *f_name)
 		if ((i = aff(line, info, f_name)) == ERROR)
 			return (ERROR);
 		else
-			return (trash_error(*info, line, 0));
+			return (trash_error(*info, line, 0, f_name));
 	}
+	if (!end)
+		return (end_error(f_name));
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
 	if (!(info->in))
-		return (trash_error(*info, "(null)", 0));
+		return (trash_error(*info, "(null)", 0, f_name));
 	return (1);
 }

@@ -87,6 +87,6 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_count_w(const char *s, char c);
 int					ft_number_size(long n);
-int					get_next_line(const int fd, char **line);
+int					get_next_line(const int fd, char **line, int *end);
 
 #endif

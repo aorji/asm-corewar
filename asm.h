@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef ASM_H
+
 # define 		ASM_H
 # define 		USAGE 			"Usage: ./asm file_name[0-N][.s] "
 # define		USAGE1			"Can't read source file "						 
@@ -22,9 +23,30 @@
 # define		INSTRUCT_ERROR	"Invalid parameter for instruction ["
 # define		SEP_ERROR		"Punctuation error: no comma at ["
 # define		LABEL_ERROR		"No such label "
+# define		END_ERROR		"Syntax error - unexpected end of input\
+ (Perhaps you forgot to end with a newline?) "
+
+
 # define		ERROR			-1
 # define		REG_NUMBER		16
+
+
+#define			COMMENT_CHAR	'#'
+#define			LABEL_CHAR		':'
+#define			DIRECT_CHAR		'%'
+#define			SEPARATOR_CHAR	','
+
+
+# define		OUTPUT			"Writing output program to "
+
+
 # include "./libft/libft.h"
+
+typedef struct  	s_fname
+{
+	char			*name;
+	struct 	s_fname *next;
+}					t_fname;
 
 typedef struct  	s_label
 {
@@ -61,10 +83,12 @@ int				file_check(t_name_comm *info, char *f_name);
 int 			lexical_error(t_name_comm info, char *f_name);
 int 			lexical_error_q(int i, char *f_name);
 int 			syntax_error(char *str, char *f_name);
-int				usage_error(char *str, char *name);
-int				trash_error(t_name_comm info, char *line, int tr);
-char			*sep_error(t_name_comm *info);
-char			*instract_error(t_name_comm *info);
+int				usage_error(char *str, char *f_name);
+int				trash_error(t_name_comm info, char *line, int tr, char *f_name);
+char			*sep_error(t_name_comm *info, char *f_name);
+char			*instract_error(t_name_comm *info, char *f_name);
+int				label_error(char *name, int x, int y, char *f_name);
+int				end_error(char *f_name);
 
 /*
 ** --------------------------  INSTRUCTION ----------------------------
@@ -92,8 +116,8 @@ void			add_tab(t_name_comm *info);
 ** -------------------------- Label ----------------------------
 */
 
-char 			*label_arg1(char *line, t_name_comm *info);
-char 			*label_arg2(char *line, t_name_comm *info);
+char 			*label_arg1(char *line, t_name_comm *info, char *f_name);
+char 			*label_arg2(char *line, t_name_comm *info, char *f_name);
 int				add_label(char *line, t_name_comm *info);
 int				label(char **line, t_name_comm *info, char *f_name);
 
@@ -101,21 +125,27 @@ int				label(char **line, t_name_comm *info, char *f_name);
 ** -------------------------- T_REG ----------------------------
 */
 
-char 			*t_reg_arg1(char *line, t_name_comm *info);
-char 			*t_reg_arg2(char *line, t_name_comm *info);
+char 			*t_reg_arg1(char *line, t_name_comm *info, char *f_name);
+char 			*t_reg_arg2(char *line, t_name_comm *info, char *f_name);
 
 /*
 ** -------------------------- T_DIR ----------------------------
 */
 
-char 			*t_dir_arg1(char *line, t_name_comm *info);
-char 			*t_dir_arg2(char *line, t_name_comm *info);
+char 			*t_dir_arg1(char *line, t_name_comm *info, char *f_name);
+char 			*t_dir_arg2(char *line, t_name_comm *info, char *f_name);
 
 /*
 ** -------------------------- T_INT ----------------------------
 */
 
-char 			*t_int_arg1(char *line, t_name_comm *info);
-char 			*t_int_arg2(char *line, t_name_comm *info);
+char 			*t_int_arg1(char *line, t_name_comm *info, char *f_name);
+char 			*t_int_arg2(char *line, t_name_comm *info, char *f_name);
+
+/*
+** -------------------------- Output ----------------------------
+*/
+
+int				print(char **av, int ac);
 
 #endif
