@@ -16,6 +16,8 @@ static char *arg3(char *line, t_name_comm *info, char *f_name)
 {
 	if (line[0] == 'r')
 		return (t_reg_arg2(line, info, f_name));
+	else if (line[0] == LABEL_CHAR)
+		return (label_arg2(line, info, f_name));
 	else
 		return (instract_error(info, f_name));
 }
@@ -26,6 +28,8 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 
 	if (line[0] == 'r')
 		return (t_reg_arg1(line, info, f_name));
+	else if (line[0] == LABEL_CHAR)
+		return (label_arg1(line, info, f_name));
 	else if ((n = atoi(line)) != 0 || (line[0] == '0' 
 		&& (line[1] == ' ' || line[1] == '\t' || line[1] == ',')))
 		return (t_int_arg1(line, info, f_name));
