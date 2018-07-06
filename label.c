@@ -30,7 +30,8 @@ static int	find_label(t_name_comm *info, char *name)
 
 int	add_label(char *line, t_name_comm *info)
 {
-	int i = 0;
+	int i;
+	i = 0;
 	t_label *tmp;
 	char *label;
 
@@ -54,11 +55,15 @@ int	add_label(char *line, t_name_comm *info)
 		tmp = info->label;
 		label = ft_strsub(line, 0, i);
 		if (find_label(info, label))
+		{
+			free(label);
 			return (i);
+		}
+		free(label);
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = (t_label*)malloc(sizeof(t_label));
-		tmp->next->name = label;
+		tmp->next->name = ft_strsub(line, 0, i);
 		tmp->next->found = 0;
 		tmp->next->x = info->row;
 		tmp->next->y = info->index + 1 + info->tab;
@@ -108,23 +113,30 @@ char *label_arg1(char *line, t_name_comm *info, char *f_name)
 }
 
 
-int	label(char **line, t_name_comm *info, char *f_name)
+char	*label(char *line, t_name_comm *info, char *f_name, int *j)
 {
 	int		i;
 	char	*tmp;
 	t_label	*label;
 
 	i = 0;
-	while ((*line)[i] && ft_isalnum((*line)[i]))
+	while ((line)[i] && ft_isalnum((line)[i]))
 		i++;
-	if ((*line)[i] != LABEL_CHAR)
-		return (0);
+	if ((line)[i] != LABEL_CHAR)
+	{
+		*j = 0;
+		return (ft_strsub(line, 0, ft_strlen(line)));
+	}
 	(info->in)++;
 	if (info->count != 2)
-		return (syntax_error(SYNT_ERROR, f_name));
-	tmp = ft_strsub((*line), 0, i);
+	{
+		syntax_error(SYNT_ERROR, f_name);
+		*j = ERROR;
+		return (ft_strsub(line, 0, ft_strlen(line)));
+	}
+	tmp = ft_strsub((line), 0, i);
 	if (!find_label(info, tmp))
-		add_label(tmp, info);
+		add_label(line, info);
 	label = info->label;
 	while (label)
 	{
@@ -135,10 +147,16 @@ int	label(char **line, t_name_comm *info, char *f_name)
 		}
 		label = label->next;
 	}
-	(*line) += i + 1;
+	free(tmp);
+	tmp = NULL;
+	(line) += i + 1;
 	(info->index) += i + 1;
-	(*line) = ws((*line), info);
-	if (!ft_strlen(*line))
-		return (2);
-	return (1);
+	(line) = ws((line), info);
+	if (!ft_strlen(line))
+	{
+		*j = 2;
+		return (ft_strsub(line, 0, ft_strlen(line)));
+	}
+	*j = 1;
+	return (ft_strsub(line, 0, ft_strlen(line)));
 }

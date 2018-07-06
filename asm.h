@@ -121,7 +121,7 @@ void			add_tab(t_name_comm *info);
 char 			*label_arg1(char *line, t_name_comm *info, char *f_name);
 char 			*label_arg2(char *line, t_name_comm *info, char *f_name);
 int				add_label(char *line, t_name_comm *info);
-int				label(char **line, t_name_comm *info, char *f_name);
+char			*label(char *line, t_name_comm *info, char *f_name, int *j);
 
 /*
 ** -------------------------- T_REG ----------------------------

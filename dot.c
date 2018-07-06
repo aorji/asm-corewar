@@ -24,14 +24,19 @@ static int find_quatation(char *line, int i)
 static	int	next_line_quatation(t_name_comm *info, char *f_name)
 {
 	char	*line;
-	int		close;	
+	int		close;
+	char *tmp;
 	int		tr;
 	int i = 0;
 	int k = 0;
 	close = -1;
 	info->index = 0;
 	while (get_next_line(info->fd, &line, &k) == 1 && (info->row)++ && (close = find_quatation(line, 0)) == -1)
-			continue; 
+	{
+		ft_strdel(&line);
+		continue; 
+	}
+	tmp = line;
 	if (close == -1)
 		return (lexical_error_q(info->name, f_name));
 	else
@@ -46,7 +51,8 @@ static	int	next_line_quatation(t_name_comm *info, char *f_name)
 		info->index += close + 1;
 		line += close + 1;
 		line = ws(line, info);
-		if ((tr = trash(line, close + 1)) != -1)
+		ft_strdel(&tmp);
+		if ((tr = trash(line, 0)) != -1)
 		{
 			info->index += tr;
 			return (trash_error(*info, line, tr, f_name));

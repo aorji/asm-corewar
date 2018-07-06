@@ -67,6 +67,7 @@ int	usage_error(char *str, char *f_name)
 int	trash_error(t_name_comm info, char *line, int len, char *f_name)
 {
 	int d;
+	char *str;
 
 	write(2, TRASH_ERROR, 30);
 	d = 3 - ft_number_size(info.row);
@@ -79,7 +80,10 @@ int	trash_error(t_name_comm info, char *line, int len, char *f_name)
 		ft_putnbr(0);
 	ft_putnbr(info.index + 1 + info.tab);
 	write(2, "] INSTRUCTION \"", 16);
-	write(2, ft_strsub(line, len, ft_strlen(line) - len), ft_strlen(line) - len);
+	str = ft_strsub(line, len, ft_strlen(line) - len);
+	write(2, str, ft_strlen(line) - len);
+	free(str);
+	str = NULL;
 	write(2, "\" ", 2);
 	write(2, "in the ", 7);
 	write(2, "\"", 1);
@@ -92,6 +96,7 @@ int	trash_error(t_name_comm info, char *line, int len, char *f_name)
 int	unknown_error(t_name_comm info, char *line, char *f_name)
 {
 	int d;
+	char *str;
 	int i;
 
 	i = 0;
@@ -108,7 +113,10 @@ int	unknown_error(t_name_comm info, char *line, char *f_name)
 		ft_putnbr(0);
 	ft_putnbr(info.index + 1 + info.tab);
 	write(2, "] INSTRUCTION \"", 16);
-	write(2, ft_strsub(line, 0, i - 1), i - 1);
+	str = ft_strsub(line, 0, i);
+	write(2, str, i);
+	free(str);
+	str = NULL;
 	write(2, "\" ", 2);
 	write(2, "in the ", 7);
 	write(2, "\"", 1);

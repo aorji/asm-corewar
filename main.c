@@ -35,6 +35,20 @@ static int	label_check(t_name_comm info, char *f_name)
 	return (0);
 }
 
+static void free_lists(t_name_comm *info)
+{
+	t_label *tmp;
+
+	while (info->label)
+	{
+		tmp = info->label;
+		info->label = info->label->next;
+		free(tmp->name);
+		free(tmp);
+		tmp = NULL;
+	}
+}
+
 int			main(int ac, char **av)
 {
 	t_name_comm info;
@@ -55,9 +69,11 @@ int			main(int ac, char **av)
 			error = 1;
 		else if (label_check(info, av[file]) == ERROR)
 			error = 1;
+		free_lists(&info);
 		file++;
 	}
 	if (!error)
 		print(av, ac);
+	// system("leaks asm");
 	return (0);
 }

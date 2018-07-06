@@ -39,6 +39,7 @@ int			file_check(t_name_comm *info, char *f_name)
 	int		end;
 
 	end = 1;
+	line = NULL;
 	while ((get_next_line(info->fd, &line, &end) == 1) && ++(info->row))
 	{
 		info->index = 0;
@@ -49,45 +50,110 @@ int			file_check(t_name_comm *info, char *f_name)
 		if (!line)
 			continue;
 		if (line[0] == COMMENT_CHAR)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = dot(line, f_name, info)) == ERROR)
+		{
+			ft_strdel(&line);
 			return(ERROR);
+		}
 		if (i)
+		{
+			ft_strdel(&line);
 			continue;
-		if ((i = label(&line, info, f_name)) == 2)
+		}
+		tmp = line;
+		line = label(line, info, f_name, &i);
+		free(tmp);
+		if (i == 2)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = sti(line, info, f_name)) == ERROR)
+		{
+			ft_strdel(&line);
 			return (ERROR);
+		}
 		if (i)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = st(line, info, f_name)) == ERROR)
+		{
+			ft_strdel(&line);
 			return (ERROR);
+		}
 		if (i)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = xor_and_or(line, info, f_name)) == ERROR)
+		{
+			ft_strdel(&line);
 			return (ERROR);
+		}
 		if (i)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = ldi_lldi(line, info, f_name)) == ERROR)
+		{
+			ft_strdel(&line);
 			return (ERROR);
+		}
 		if (i)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = ld_lld(line, info, f_name)) == ERROR)
+		{
+			ft_strdel(&line);
 			return (ERROR);
+		}
 		if (i)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = live_zjmp_fork_lfork(line, info, f_name)) == ERROR)
+		{
+			ft_strdel(&line);
 			return (ERROR);
+		}
 		if (i)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = add_sub(line, info, f_name)) == ERROR)
+		{
+			ft_strdel(&line);
 			return (ERROR);
+		}
 		if (i)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if ((i = aff(line, info, f_name)) == ERROR)
+		{
+			free(line);
+			line = NULL;
 			return (ERROR);
+		}
 		else
-			return (unknown_error(*info, line, f_name));
+		{
+			unknown_error(*info, line, f_name);
+			free(line);
+			return (ERROR);
+		}
 	}
 	if (!end)
 		return (end_error(f_name));

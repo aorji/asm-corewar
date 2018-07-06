@@ -42,10 +42,24 @@ static int check_name(t_fname **f_name, char *name)
 	return (2);
 }
 
+static void free_name(t_fname **f_name)
+{
+	t_fname *fr;
+
+	while ((*f_name))
+	{
+		fr = (*f_name);
+		(*f_name) = (*f_name)->next;
+		free(fr);
+		fr->name = NULL;
+	}
+}
+
 int print(char **av, int ac)
 {
 	int file;
 	int n;
+	char	*tmp;
 	t_fname *f_name;
 
 	file = 0;
@@ -61,9 +75,12 @@ int print(char **av, int ac)
 		n = ft_strlen(av[file]) - 1;
 		while (av[file][n] && av[file][n] != '/')
 			n--;
-		ft_putstr(ft_strsub(av[file], n + 1, ft_strlen(av[file]) - (n + 1) - 2));
+		tmp = ft_strsub(av[file], n + 1, ft_strlen(av[file]) - (n + 1) - 2);
+		ft_putstr(tmp);
+		ft_strdel(&tmp);
 		ft_putstr(".cor");
 	}
 	ft_putstr("\n");
+	free_name(&f_name);
 	return (0);
 }
