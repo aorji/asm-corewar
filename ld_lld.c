@@ -14,6 +14,15 @@
 
 static char *arg2(char *line, t_name_comm *info, char *f_name)
 {
+	int i;
+	char *str;
+
+	i = 0;
+	while (line[i] && line[i] != ',')
+		i++;
+	str = ft_strsub(line, 0, i);
+	add_data(str, 3, info);
+	ft_strdel(&str);
 	if (line[0] == 'r')
 		return (t_reg_arg2(line, info, f_name));
 	else
@@ -23,7 +32,15 @@ static char *arg2(char *line, t_name_comm *info, char *f_name)
 static char *arg1(char *line, t_name_comm *info, char *f_name)
 {
 	int n;
+	int i;
+	char *str;
 
+	i = 0;
+	while (line[i] && line[i] != ',')
+		i++;
+	str = ft_strsub(line, 0, i);
+	add_data(str, 2, info);
+	ft_strdel(&str);
 	if (line[0] == DIRECT_CHAR)
 		return (t_dir_arg1(line, info, f_name));
 	else if (line[0] == LABEL_CHAR)
@@ -37,6 +54,8 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 
 int	ld_lld(char *line, t_name_comm *info, char *f_name)
 {
+	char *str;
+
 	if (ft_strncmp(line, "ld", 2) && ft_strncmp(line, "lld", 3))
 		return (0);
 	if (info->count != 2)
@@ -44,11 +63,17 @@ int	ld_lld(char *line, t_name_comm *info, char *f_name)
 	(info->in)++;
 	if (!ft_strncmp(line, "lld", 3))
 	{
+		str = ft_strsub(line, 0, 3);
+		add_data(str, 1, info);
+		ft_strdel(&str);
 		line += 3;
 		(info->index) += 3;
 	}
 	else
 	{
+		str = ft_strsub(line, 0, 2);
+		add_data(str, 1, info);
+		ft_strdel(&str);
 		line += 2;
 		(info->index) += 2;
 	}

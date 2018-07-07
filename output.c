@@ -55,7 +55,7 @@ static void free_name(t_file_name **f_name)
 	}
 }
 
-int print(char **av, int ac)
+int print(char **av, int ac, t_name_comm info)
 {
 	int file;
 	int n;
@@ -64,6 +64,18 @@ int print(char **av, int ac)
 
 	file = 0;
 	f_name = NULL;
+	//data
+	while (info.data)
+	{
+		printf("%s\n", "--------------------");
+		printf("label = %s\n", info.data->label);
+		printf("func = %s\n", info.data->func);
+		printf("arg1 = %s\n", info.data->arg1);
+		printf("arg2 = %s\n", info.data->arg2);
+		printf("arg3 = %s\n", info.data->arg3);
+		info.data = info.data->next;
+	}
+	//
 	ft_putstr(OUTPUT);
 	while (++file < ac)
 	{	

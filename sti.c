@@ -14,6 +14,14 @@
 
 static char *arg3(char *line, t_name_comm *info, char *f_name)
 {
+	int i = 0;
+	char *str;
+	
+	while (line[i] && line[i] != ',')
+		i++;
+	str = ft_strsub(line, 0, i);
+	add_data(str, 4, info);
+	ft_strdel(&str);
 	if (line[0] == 'r')
 		return (t_reg_arg2(line, info, f_name));
 	else if (line[0] == DIRECT_CHAR)
@@ -25,7 +33,14 @@ static char *arg3(char *line, t_name_comm *info, char *f_name)
 static char *arg2(char *line, t_name_comm *info, char *f_name)
 {
 	int n;
-
+	int i = 0;
+	char *str;
+	
+	while (line[i] && line[i] != ',')
+		i++;
+	str = ft_strsub(line, 0, i);
+	add_data(str, 3, info);
+	ft_strdel(&str);
 	if (line[0] == 'r')
 		return (t_reg_arg1(line, info, f_name));
 	else if (line[0] == LABEL_CHAR)
@@ -41,6 +56,14 @@ static char *arg2(char *line, t_name_comm *info, char *f_name)
 
 static char *arg1(char *line, t_name_comm *info, char *f_name)
 {
+	int i = 0;
+	char *str;
+	
+	while (line[i] && line[i] != ',')
+		i++;
+	str = ft_strsub(line, 0, i);
+	add_data(str, 2, info);
+	ft_strdel(&str);
 	if (line[0] == 'r')
 		return (t_reg_arg1(line, info, f_name));
 	else
@@ -49,10 +72,15 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 
 int	sti(char *line, t_name_comm *info, char *f_name)
 {
+	char *str;
+
 	if (ft_strncmp(line, "sti", 3))
 		return (0);
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
+	str = ft_strsub(line, 0, 3);
+	add_data(str, 1, info);
+	ft_strdel(&str);
 	(info->in)++;
 	line += 3;
 	(info->index) += 3;

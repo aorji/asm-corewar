@@ -70,6 +70,16 @@ typedef struct  	s_label
 	struct 	s_label *next;
 }					t_label;
 
+typedef struct  	s_data
+{
+	char			*label;
+	char 			*func;
+	char 			*arg1;
+	char 			*arg2;
+	char 			*arg3;
+	struct 	s_data 	*next;
+}					t_data;
+
 typedef struct		s_name_comm
 {
 	int				name;
@@ -81,6 +91,7 @@ typedef struct		s_name_comm
 	int 			tab;
 	int				in;
 	t_label			*label;
+	t_data			*data;
 	t_header		name_comm;
 }					t_name_comm;
 
@@ -128,6 +139,7 @@ int				ldi_lldi(char *line, t_name_comm *info, char *f_name);
 char*			ws(char *line, t_name_comm *info);
 int				trash(char *line, int i);
 void			add_tab(t_name_comm *info);
+void			add_data(char *str, int i, t_name_comm *info);
 
 /*
 ** -------------------------- Label ----------------------------
@@ -163,6 +175,6 @@ char 			*t_int_arg2(char *line, t_name_comm *info, char *f_name);
 ** -------------------------- Output ----------------------------
 */
 
-int				print(char **av, int ac);
+int				print(char **av, int ac, t_name_comm info);
 
 #endif

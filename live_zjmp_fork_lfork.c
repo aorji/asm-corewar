@@ -14,6 +14,14 @@
 
 static char *arg1(char *line, t_name_comm *info, char *f_name)
 {
+	char *str;
+	int i = 0;
+
+	while (line[i] && line[i] != ',')
+		i++;
+	str = ft_strsub(line, 0, i);
+	add_data(str, 2, info);
+	ft_strdel(&str);
 	if (line[0] == DIRECT_CHAR)
 		return (t_dir_arg2(line, info, f_name));
 	else
@@ -22,6 +30,8 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 
 int	live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name)
 {
+	char *str;
+
 	if (ft_strncmp(line, "live", 4) && ft_strncmp(line, "zjmp", 4) 
 		&& ft_strncmp(line, "fork", 4) && ft_strncmp(line, "lfork", 5))
 		return (0);
@@ -30,11 +40,20 @@ int	live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name)
 	(info->in)++;
 	if (!ft_strncmp(line, "lfork", 5))
 	{
-		line += 1;
-		(info->index) += 1;
+		str = ft_strsub(line, 0, 5);
+		add_data(str, 1, info);
+		ft_strdel(&str);
+		line += 5;
+		(info->index) += 5;
 	}
-	line += 4;
-	(info->index) += 4;
+	else
+	{
+		str = ft_strsub(line, 0, 4);
+		add_data(str, 1, info);
+		ft_strdel(&str);
+		line += 4;
+		(info->index) += 4;
+	}
 	line = ws(line, info);
 	line = arg1(line, info, f_name);
 	if (!line)

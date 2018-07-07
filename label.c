@@ -137,6 +137,7 @@ char	*label(char *line, t_name_comm *info, char *f_name, int *j)
 	tmp = ft_strsub((line), 0, i);
 	if (!find_label(info, tmp))
 		add_label(line, info);
+	add_data(tmp, 0, info);
 	label = info->label;
 	while (label)
 	{
