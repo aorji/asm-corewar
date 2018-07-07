@@ -26,6 +26,11 @@
 # define		UN_ERROR		"Invalid instruction at token ["
 # define		END_ERROR		"Syntax error - unexpected end of input\
  (Perhaps you forgot to end with a newline?) "
+# define		NAME_ERROR		"Champion name too long (Max length 128)"
+# define		COMM_ERROR		"Champion comment too long (Max length 2048)"
+
+
+# define		OUTPUT			"Writing output program to "
 
 
 # define		ERROR			-1
@@ -38,16 +43,23 @@
 #define			SEPARATOR_CHAR	','
 
 
-# define		OUTPUT			"Writing output program to "
+# define PROG_NAME_LENGTH		(128)
+# define COMMENT_LENGTH			(2048)
 
 
 # include "./libft/libft.h"
 
-typedef struct  	s_fname
+typedef struct  	s_header
 {
 	char			*name;
-	struct 	s_fname *next;
-}					t_fname;
+	char			*comment;
+}					t_header;
+
+typedef struct  	s_file_name
+{
+	char			*name;
+	struct 	s_file_name *next;
+}					t_file_name;
 
 typedef struct  	s_label
 {
@@ -69,6 +81,7 @@ typedef struct		s_name_comm
 	int 			tab;
 	int				in;
 	t_label			*label;
+	t_header		name_comm;
 }					t_name_comm;
 
 /*
@@ -91,6 +104,8 @@ char			*instract_error(t_name_comm *info, char *f_name);
 int				label_error(char *name, int x, int y, char *f_name);
 int				end_error(char *f_name);
 int				unknown_error(t_name_comm info, char *line, char *f_name);
+int 			name_lenth_error(void);
+int 			comment_lenth_error(void);
 
 /*
 ** --------------------------  INSTRUCTION ----------------------------

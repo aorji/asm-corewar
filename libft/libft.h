@@ -88,5 +88,6 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_count_w(const char *s, char c);
 int					ft_number_size(long n);
 int					get_next_line(const int fd, char **line, int *end);
+char				*noleak_strjoin(char const *s1, char const *s2, char **to_free);
 
 #endif

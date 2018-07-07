@@ -184,3 +184,17 @@ int end_error(char *f_name)
 	write(2, "\n", 1);
 	return (ERROR);
 }
+
+int name_lenth_error(void)
+{
+	write(2, NAME_ERROR, 39);
+	write(2, "\n", 1);
+	return (ERROR);
+}
+
+int comment_lenth_error(void)
+{
+	write(2, COMM_ERROR, 43);
+	write(2, "\n", 1);
+	return (ERROR);
+}

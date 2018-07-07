@@ -12,14 +12,14 @@
 
 #include "asm.h"
 
-static int check_name(t_fname **f_name, char *name)
+static int check_name(t_file_name **f_name, char *name)
 {
-	t_fname *tmp;
-	t_fname	*tmp1;
+	t_file_name *tmp;
+	t_file_name	*tmp1;
 
 	if (!(*f_name))
 	{
-		(*f_name) = (t_fname*)malloc(sizeof(t_fname));
+		(*f_name) = (t_file_name*)malloc(sizeof(t_file_name));
 		(*f_name)->name = name;
 		(*f_name)->next = NULL;
 		return (0);
@@ -35,16 +35,16 @@ static int check_name(t_fname **f_name, char *name)
 				return (1);
 			tmp1 = tmp1->next;
 		}
-		tmp->next = (t_fname*)malloc(sizeof(t_fname));
+		tmp->next = (t_file_name*)malloc(sizeof(t_file_name));
 		tmp->next->name = name;
 		tmp->next->next = NULL;
 	}
 	return (2);
 }
 
-static void free_name(t_fname **f_name)
+static void free_name(t_file_name **f_name)
 {
-	t_fname *fr;
+	t_file_name *fr;
 
 	while ((*f_name))
 	{
@@ -60,7 +60,7 @@ int print(char **av, int ac)
 	int file;
 	int n;
 	char	*tmp;
-	t_fname *f_name;
+	t_file_name *f_name;
 
 	file = 0;
 	f_name = NULL;

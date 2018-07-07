@@ -35,6 +35,15 @@ static int	label_check(t_name_comm info, char *f_name)
 	return (0);
 }
 
+static	int lenth_check(t_name_comm info)
+{
+	if (ft_strlen(info.name_comm.name) > PROG_NAME_LENGTH)
+		return (name_lenth_error());
+	if (ft_strlen(info.name_comm.comment) > COMMENT_LENGTH)
+		return (comment_lenth_error());
+	return (0);
+}
+
 static void free_lists(t_name_comm *info)
 {
 	t_label *tmp;
@@ -61,7 +70,7 @@ int			main(int ac, char **av)
 	file = 1;
 	while (file < ac)
 	{
-		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, 0, NULL};
+		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, 0, NULL, {NULL, NULL}};
 		info.fd = open(av[file], O_RDONLY);
 		if (usage_check(av, info.fd, file) == ERROR)
 			error = 1;
@@ -69,6 +78,10 @@ int			main(int ac, char **av)
 			error = 1;
 		else if (label_check(info, av[file]) == ERROR)
 			error = 1;
+		else if (lenth_check(info) == ERROR)
+			error = 1;
+		// printf("name = %s\n", info.name_comm.name);
+		// printf("comment = %s\n", info.name_comm.comment);
 		free_lists(&info);
 		file++;
 	}
