@@ -144,6 +144,7 @@ char*			ws(char *line, t_name_comm *info);
 int				trash(char *line, int i);
 void			add_tab(t_name_comm *info);
 void			add_data(char *str, int i, t_name_comm *info);
+void			op_ls_co(char *str, t_data **data);
 
 /*
 ** -------------------------- Label ----------------------------

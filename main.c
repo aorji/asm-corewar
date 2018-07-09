@@ -90,6 +90,7 @@ static	int lenth_check(t_name_comm info)
 static void free_lists(t_name_comm *info)
 {
 	t_label *tmp;
+	t_data *tmp1;
 
 	while (info->label)
 	{
@@ -99,6 +100,20 @@ static void free_lists(t_name_comm *info)
 		free(tmp);
 		tmp = NULL;
 	}
+	while (info->data)
+	{
+		tmp1 = info->data;
+		info->data = info->data->next;
+		free(tmp1->label);
+		free(tmp1->func);
+		free(tmp1->arg1);
+		free(tmp1->arg2);
+		free(tmp1->arg3);
+		free(tmp1);
+		tmp1 = NULL;
+	}
+	free(info->name_comm.name);
+	free(info->name_comm.comment);
 }
 
 int			main(int ac, char **av)
@@ -117,44 +132,6 @@ int			main(int ac, char **av)
 	file = 0;
 	while (++file < ac)
 	{
-		if (!ft_strcmp(av[file], "-struct"))
-		{
-			tmp = info.data;
-			while (tmp)
-			{
-				ft_putstr("--------------------\n");
-				ft_putstr("label = ");
-				ft_putstr(tmp->label);
-				write(1, "\n", 1);
-				ft_putstr("op = ");
-				ft_putnbr_fd(tmp->op, 1);
-				write(1, "\n", 1);
-				ft_putstr("co = ");
-				ft_putnbr_fd(tmp->co, 1);
-				write(1, "\n", 1);
-				ft_putstr("ls = ");
-				ft_putnbr_fd(tmp->ls, 1);
-				write(1, "\n", 1);
-				ft_putstr("n = ");
-				ft_putnbr_fd(tmp->n, 1);
-				write(1, "\n", 1);
-				ft_putstr("func = ");
-				ft_putstr(tmp->func);
-				write(1, "\n", 1);
-				ft_putstr("arg1 = ");
-				ft_putstr(tmp->arg1);
-				write(1, "\n", 1);
-				ft_putstr("arg2 = ");
-				ft_putstr(tmp->arg2);
-				write(1, "\n", 1);
-				ft_putstr("arg3 = ");
-				ft_putstr(tmp->arg3);
-				write(1, "\n", 1);
-				tmp = tmp->next;
-			}
-			ft_putstr("\n");
-			continue;
-		}
 		if ((n = check_name(&f_name, av[file])) == 1)
 			continue;
 		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, {NULL, NULL}};
@@ -169,9 +146,49 @@ int			main(int ac, char **av)
 			error = 1;
 		if (!error)
 			print(av, file);
+		if (!error && !ft_strcmp(av[file + 1], "-struct"))
+		{
+			tmp = info.data;
+			while (tmp)
+			{
+				ft_putstr("--------------------\n");
+				ft_putstr("label = ");
+				ft_putstr(tmp->label);
+				write(1, "\n", 1);
+				ft_putstr("func = ");
+				ft_putstr(tmp->func);
+				write(1, "\n", 1);
+				ft_putstr("op = ");
+				ft_putnbr_fd(tmp->op, 1);
+				write(1, "\n", 1);
+				ft_putstr("co = ");
+				ft_putnbr_fd(tmp->co, 1);
+				write(1, "\n", 1);
+				ft_putstr("ls = ");
+				ft_putnbr_fd(tmp->ls, 1);
+				write(1, "\n", 1);
+				ft_putstr("n = ");
+				ft_putnbr_fd(tmp->n, 1);
+				write(1, "\n", 1);
+				ft_putstr("arg1 = ");
+				ft_putstr(tmp->arg1);
+				write(1, "\n", 1);
+				ft_putstr("arg2 = ");
+				ft_putstr(tmp->arg2);
+				write(1, "\n", 1);
+				ft_putstr("arg3 = ");
+				ft_putstr(tmp->arg3);
+				write(1, "\n", 1);
+				tmp = tmp->next;
+			}
+			write(1, "\n", 1);
+			file++;
+		}
 		free_lists(&info);
+		if (error)
+			break;
 	}
 	free_name(&f_name);
-	system("leaks asm");
+	// system("leaks -q asm");
 	return (0);
 }

@@ -17,9 +17,7 @@ static int is_full(t_data *tmp, int i)
 	if (i >= 2 && i <= 4)
 		return (0);
 	if (i == 0)
-		return (1);
-	if (i == 1 && tmp->func)
-		return (1);
+		return (0);
 	if (i == 1 && !(tmp->func))
 		return (0);
 	return (1);
@@ -43,12 +41,16 @@ static	void create_data(t_data **data)
 void	add_data(char *str, int i, t_name_comm *info)
 {
 	t_data *tmp;
-
+	
 	if (!(info->data))
 	{
 		create_data(&(info->data));
 		(i == 0) ? (info->data->label = ft_strdup(str)) : 0;
-		(i == 1) ? (info->data->func = ft_strdup(str)) : 0;
+		if (i == 1)
+		{
+			info->data->func = ft_strdup(str);
+			op_ls_co(str, &(info->data));
+		}
 	}
 	else
 	{
@@ -57,7 +59,11 @@ void	add_data(char *str, int i, t_name_comm *info)
 			tmp = tmp->next;
 		if (!is_full(tmp, i))
 		{
-			(i == 1) ? (tmp->func = ft_strdup(str)) : 0;
+			if (i == 1)
+			{
+				tmp->func = ft_strdup(str);
+				op_ls_co(str, &(tmp));
+			}
 			(i == 2) ? (tmp->arg1 = ft_strdup(str)) : 0;
 			(i == 3) ? (tmp->arg2 = ft_strdup(str)) : 0;
 			(i == 4) ? (tmp->arg3 = ft_strdup(str)) : 0;
@@ -66,7 +72,11 @@ void	add_data(char *str, int i, t_name_comm *info)
 		{
 			create_data(&(tmp->next));
 			(i == 0) ? (tmp->next->label = ft_strdup(str)) : 0;
-			(i == 1) ? (tmp->next->func = ft_strdup(str)) : 0;
+			if (i == 1)
+			{
+				tmp->next->func = ft_strdup(str);
+				op_ls_co(str, &(tmp->next));
+			}
 		}
 	}
 }
