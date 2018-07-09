@@ -73,6 +73,10 @@ typedef struct  	s_label
 typedef struct  	s_data
 {
 	char			*label;
+	int 			op;
+	int 			co;
+	int 			ls;
+	int 			n;
 	char 			*func;
 	char 			*arg1;
 	char 			*arg2;
@@ -175,6 +179,6 @@ char 			*t_int_arg2(char *line, t_name_comm *info, char *f_name);
 ** -------------------------- Output ----------------------------
 */
 
-int				print(char **av, int ac, t_name_comm info);
+int 			print(char **av, int file);
 
 #endif

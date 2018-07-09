@@ -12,6 +12,49 @@
 
 #include "asm.h"
 
+static int check_name(t_file_name **f_name, char *name)
+{
+	t_file_name *tmp;
+	t_file_name	*tmp1;
+
+	if (!(*f_name))
+	{
+		(*f_name) = (t_file_name*)malloc(sizeof(t_file_name));
+		(*f_name)->name = name;
+		(*f_name)->next = NULL;
+		return (0);
+	}
+	else
+	{
+		tmp1 = *f_name;
+		while (tmp1)
+		{
+			if (!tmp1->next)
+				tmp = tmp1;
+			if (!(ft_strcmp(tmp1->name, name)))
+				return (1);
+			tmp1 = tmp1->next;
+		}
+		tmp->next = (t_file_name*)malloc(sizeof(t_file_name));
+		tmp->next->name = name;
+		tmp->next->next = NULL;
+	}
+	return (2);
+}
+
+static void free_name(t_file_name **f_name)
+{
+	t_file_name *fr;
+
+	while ((*f_name))
+	{
+		fr = (*f_name);
+		(*f_name) = (*f_name)->next;
+		free(fr);
+		fr->name = NULL;
+	}
+}
+
 static int	usage_check(char **av, int fd, int i)
 {
 	int len;
@@ -63,13 +106,57 @@ int			main(int ac, char **av)
 	t_name_comm info;
 	int file;
 	int error;
+	t_data *tmp;
+	int n;
+	t_file_name *f_name;
+	f_name = NULL;
 
 	if (ac < 2)
 		return (usage_error(USAGE, NULL));
 	error = 0;
-	file = 1;
-	while (file < ac)
+	file = 0;
+	while (++file < ac)
 	{
+		if (!ft_strcmp(av[file], "-struct"))
+		{
+			tmp = info.data;
+			while (tmp)
+			{
+				ft_putstr("--------------------\n");
+				ft_putstr("label = ");
+				ft_putstr(tmp->label);
+				write(1, "\n", 1);
+				ft_putstr("op = ");
+				ft_putnbr_fd(tmp->op, 1);
+				write(1, "\n", 1);
+				ft_putstr("co = ");
+				ft_putnbr_fd(tmp->co, 1);
+				write(1, "\n", 1);
+				ft_putstr("ls = ");
+				ft_putnbr_fd(tmp->ls, 1);
+				write(1, "\n", 1);
+				ft_putstr("n = ");
+				ft_putnbr_fd(tmp->n, 1);
+				write(1, "\n", 1);
+				ft_putstr("func = ");
+				ft_putstr(tmp->func);
+				write(1, "\n", 1);
+				ft_putstr("arg1 = ");
+				ft_putstr(tmp->arg1);
+				write(1, "\n", 1);
+				ft_putstr("arg2 = ");
+				ft_putstr(tmp->arg2);
+				write(1, "\n", 1);
+				ft_putstr("arg3 = ");
+				ft_putstr(tmp->arg3);
+				write(1, "\n", 1);
+				tmp = tmp->next;
+			}
+			ft_putstr("\n");
+			continue;
+		}
+		if ((n = check_name(&f_name, av[file])) == 1)
+			continue;
 		info = (t_name_comm){0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, {NULL, NULL}};
 		info.fd = open(av[file], O_RDONLY);
 		if (usage_check(av, info.fd, file) == ERROR)
@@ -80,11 +167,11 @@ int			main(int ac, char **av)
 			error = 1;
 		else if (lenth_check(info) == ERROR)
 			error = 1;
+		if (!error)
+			print(av, file);
 		free_lists(&info);
-		file++;
 	}
-	if (!error)
-		print(av, ac, info);
+	free_name(&f_name);
 	system("leaks asm");
 	return (0);
 }
