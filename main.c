@@ -145,7 +145,7 @@ int			main(int ac, char **av)
 		else if (lenth_check(info) == ERROR)
 			error = 1;
 		if (!error)
-			print(av, file);
+			print(av, file, &info);
 		if (!error && !ft_strcmp(av[file + 1], "-struct"))
 		{
 			tmp = info.data;
@@ -178,6 +178,9 @@ int			main(int ac, char **av)
 				write(1, "\n", 1);
 				ft_putstr("arg3 = ");
 				ft_putstr(tmp->arg3);
+				write(1, "\n", 1);
+				ft_putstr("n = ");
+				ft_putnbr_fd(tmp->n, 1);
 				write(1, "\n", 1);
 				tmp = tmp->next;
 			}

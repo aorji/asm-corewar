@@ -14,10 +14,12 @@
 
 static char *arg3(char *line, t_name_comm *info, char *f_name)
 {
-	int i = 0;
+	int i = 1;
 	char *str;
 	
-	while (line[i] && line[i] != ',')
+	if (line[i] == ':')
+		i++;
+	while (line[i] && ft_isalnum(line[i]))
 		i++;
 	str = ft_strsub(line, 0, i);
 	add_data(str, 4, info);
