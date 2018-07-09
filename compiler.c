@@ -52,6 +52,7 @@ static	void	bot_name_comm(int fd, char *name, int size)
 		if (ft_strlen(str) == 1)
 			ft_put_fd("0", fd);
 		ft_put_fd(str, fd);
+		ft_strdel(&str);
 		i++;
 		size -= 2;
 	}
@@ -76,6 +77,7 @@ static	void	print_bot_size(int size, int fd)
 		n--;
 	}
 	ft_put_fd(str, fd);
+	ft_strdel(&str);
 }
 
 static void push_data(int fd, t_name_comm *info, int size)
@@ -86,6 +88,7 @@ static void push_data(int fd, t_name_comm *info, int size)
 	str = ft_itoa_base(15369203, 16);
 	ft_put_fd("00", fd);
 	ft_put_fd(str, fd);
+	ft_strdel(&str);
 //bot_name
 	bot_name_comm(fd, info->name_comm.name, 256);
 //NULL
@@ -101,6 +104,7 @@ static void push_data(int fd, t_name_comm *info, int size)
 	if (ft_strlen(str) == 1)
 		ft_put_fd("0", fd);
 	ft_put_fd(str, fd);
+	ft_strdel(&str);
 }
 
 
@@ -113,5 +117,6 @@ void	compiler(t_name_comm *info, char *name)
 	size = bot_size(info);
 	tmp = ft_strjoin(name, ".cor");
 	fd = open(tmp, O_CREAT | O_TRUNC | O_WRONLY, 0666);
+	ft_strdel(&tmp);
 	push_data(fd, info, size);
 }

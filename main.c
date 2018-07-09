@@ -192,6 +192,6 @@ int			main(int ac, char **av)
 			break;
 	}
 	free_name(&f_name);
-	// system("leaks -q asm");
+	system("leaks -q asm");
 	return (0);
 }
