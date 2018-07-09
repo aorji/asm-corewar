@@ -146,7 +146,7 @@ int			main(int ac, char **av)
 			error = 1;
 		if (!error)
 			print(av, file, &info);
-		if (!error && !ft_strcmp(av[file + 1], "-struct"))
+		if (!error && av[file + 1] && !ft_strcmp(av[file + 1], "-struct"))
 		{
 			tmp = info.data;
 			while (tmp)
