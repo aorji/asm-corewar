@@ -185,11 +185,24 @@ char 			*t_int_arg2(char *line, t_name_comm *info, char *f_name);
 */
 
 int 			print(char **av, int file, t_name_comm *info);
+void			print_struct(t_data *data);
 
+/*
+** -------------------------- Free ----------------------------
+*/
+
+void			free_name(t_file_name **f_name);
+void			free_lists(t_name_comm *info);
 /*
 ** -------------------------- Compiler ----------------------------
 */
 
+void			ft_put_fd(char *str, int fd);
+int				n_byte(t_data *data, char *name);
+void			bot_name_comm(int fd, char *name, int size);
+int 			binary_code(char *arg);
 void			compiler(t_name_comm *info, char *name);
 int				bot_size(t_name_comm *info);
+void 			choose_type(t_data *data, t_data *tmp, char *arg, int fd);
+
 #endif

@@ -82,7 +82,8 @@ int	xor_and_or(char *line, t_name_comm *info, char *f_name)
 {
 	char *str;
 
-	if (ft_strncmp(line, "xor", 3) && ft_strncmp(line, "or", 2) && ft_strncmp(line, "and", 3))
+	if (ft_strncmp(line, "xor", 3) && ft_strncmp(line, "or", 2)
+		&& ft_strncmp(line, "and", 3))
 		return (0);
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));

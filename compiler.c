@@ -12,57 +12,6 @@
 
 #include "asm.h"
 
-static int find_label(t_data *data, char *name)
-{
-	while (data)
-	{
-		if (data->label && !ft_strcmp(data->label, name))
-			return (data->n);
-		data = data->next;
-	}
-	return (-1);
-}
-
-static	void ft_put_fd(char *str, int fd)
-{
-	int i;
-	static int delim;
-
-	i = 0;
-	while (str[i])
-	{
-		++delim;
-		ft_putchar_fd(str[i], fd);
-		if (delim % 4 == 0)
-			ft_putchar_fd(' ', fd);
-		if (delim % 32 == 0)
-			ft_putchar_fd('\n', fd);
-		i++;
-	}
-}
-
-static	void	bot_name_comm(int fd, char *name, int size)
-{
-	int i = 0;
-	char *str;
-
-	while (name[i])
-	{
-		str = ft_itoa_base(name[i], 16);
-		if (ft_strlen(str) == 1)
-			ft_put_fd("0", fd);
-		ft_put_fd(str, fd);
-		ft_strdel(&str);
-		i++;
-		size -= 2;
-	}
-	while (size)
-	{
-		ft_put_fd("0", fd);
-		size--;
-	}
-}
-
 static	void	print_bot_size(int size, int fd)
 {
 	int n;
@@ -78,17 +27,6 @@ static	void	print_bot_size(int size, int fd)
 	}
 	ft_put_fd(str, fd);
 	ft_strdel(&str);
-}
-
-static int binary_code(char *arg)
-{
-	if (!arg)
-		return (0);
-	if (arg[0] == 'r')
-		return (T_REG);
-	if (arg[0] == '%')
-		return (T_DIR);
-	return (T_IND);
 }
 
 static void		print_codage(t_data *data, int fd)
@@ -113,81 +51,6 @@ static void		print_codage(t_data *data, int fd)
 		ft_put_fd(str, fd);
 		ft_strdel(&str);
 	}
-}
-
-static void	ft_ind(t_data *data, t_data *tmp, char *arg, int fd)
-{
-	char *tmp1;
-	int n;
-	int len;
-
-	if (arg[0] == ':')
-	{
-		arg++;
-		n = find_label(data, arg) - tmp->n;
-		arg = ft_itoa_base(n, 16);
-	}
-	else
-		arg = ft_itoa_base(ft_atoi(arg), 16);
-	tmp1 = arg;
-	while ((int)ft_strlen(arg) > 4)
-		arg++;
-	ft_strdel(&tmp1);
-	len = 4 - ft_strlen(arg);
-	while (len)
-	{
-		ft_put_fd("0", fd);
-		len--;
-	}
-	ft_put_fd(arg, fd);
-}
-
-static void	ft_dir(t_data *data, t_data *tmp, char *arg, int fd)
-{
-	char *tmp1;
-	int n;
-	int len;
-
-	if (arg[0] == ':')
-	{
-		arg++;
-		n = find_label(data, arg) - tmp->n;
-		arg = ft_itoa_base(n, 16);
-	}
-	else
-		arg = ft_itoa_base(ft_atoi(arg), 16);
-	tmp1 = arg;
-	while ((int)ft_strlen(arg) > ((tmp->ls) * 2))
-		arg++;
-	ft_strdel(&tmp1);
-	len = ((tmp->ls) * 2) - ft_strlen(arg);
-	while (len)
-	{
-		ft_put_fd("0", fd);
-		len--;
-	}
-	ft_put_fd(arg, fd);
-}
-
-static void ft_reg(char *arg, int fd)
-{
-	char *str;
-
-	str = ft_itoa_base(ft_atoi(arg), 16);
-	if (ft_strlen(str) == 1)
-		ft_put_fd("0", fd);
-	ft_put_fd(str, fd);
-	ft_strdel(&str);
-}
-
-static void choose_type(t_data *data, t_data *tmp, char *arg, int fd)
-{
-	if (arg && arg[0] == 'r')
-		ft_reg(++arg, fd);
-	else if (arg && arg[0] == '%')
-		ft_dir(data, tmp, ++arg, fd);
-	else if (arg)
-		ft_ind(data, tmp, arg, fd);
 }
 
 static void print_to_cor(t_data *data, int fd)
