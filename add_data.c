@@ -16,8 +16,6 @@ static int is_full(t_data *tmp, int i)
 {
 	if (i >= 2 && i <= 4)
 		return (0);
-	if (i == 0)
-		return (0);
 	if (i == 1 && !(tmp->func))
 		return (0);
 	return (1);

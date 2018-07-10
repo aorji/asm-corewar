@@ -42,6 +42,10 @@
 #define			DIRECT_CHAR		'%'
 #define			SEPARATOR_CHAR	','
 
+# define 		T_REG			(64)
+# define 		T_DIR			(128)
+# define 		T_IND			(192)
+
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)

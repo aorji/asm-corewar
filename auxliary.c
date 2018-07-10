@@ -19,7 +19,7 @@ int trash(char *line, int i)
 	extra = 0;
 	while (line[i])
 	{
-		if (line[i] == COMMENT_CHAR)
+		if (line[i] == COMMENT_CHAR || line[i] == ';')
 			return (-1);
 		if (line[i] != ' ' && line[i] != '\t')
 			return (extra);
