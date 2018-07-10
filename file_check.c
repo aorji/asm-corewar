@@ -148,6 +148,11 @@ int			file_check(t_name_comm *info, char *f_name)
 			line = NULL;
 			return (ERROR);
 		}
+		if (i)
+		{
+			ft_strdel(&line);
+			continue;
+		}
 		else
 		{
 			unknown_error(*info, line, f_name);

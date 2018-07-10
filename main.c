@@ -179,9 +179,6 @@ int			main(int ac, char **av)
 				ft_putstr("arg3 = ");
 				ft_putstr(tmp->arg3);
 				write(1, "\n", 1);
-				ft_putstr("n = ");
-				ft_putnbr_fd(tmp->n, 1);
-				write(1, "\n", 1);
 				tmp = tmp->next;
 			}
 			write(1, "\n", 1);
