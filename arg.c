@@ -14,73 +14,30 @@
 
 static void	ft_ind(t_data *data, t_data *tmp, char *arg, int fd)
 {
-	char *tmp1;
 	int n;
-	int len;
 
 	if (arg[0] == ':')
-	{
-		arg++;
-		n = n_byte(data, arg) - tmp->n;
-		arg = ft_itoa_base(n, 16);
-	}
+		n = n_byte(data, ++arg) - tmp->n;
 	else
-		arg = ft_itoa_base(ft_atoi(arg), 16);
-	tmp1 = arg;
-	while ((int)ft_strlen(arg) > 4)
-		arg++;
-	ft_strdel(&tmp1);
-	len = 4 - ft_strlen(arg);
-	while (len)
-	{
-		ft_put_fd("0", fd);
-		len--;
-	}
-	ft_put_fd(arg, fd);
+		n = ft_atoi(arg);
+	print_byte(fd, n, 2);
 }
 
 static void	ft_dir(t_data *data, t_data *tmp, char *arg, int fd)
 {
-	char *tmp1;
 	int n;
-	int len;
 
 	if (arg[0] == ':')
-	{
-		arg++;
-		n = n_byte(data, arg) - tmp->n;
-		arg = ft_itoa_base(n, 16);
-	}
+		n = n_byte(data, ++arg) - tmp->n;
 	else
-		arg = ft_itoa_base(ft_atoi(arg), 16);
-	tmp1 = arg;
-	while ((int)ft_strlen(arg) > ((tmp->ls) * 2))
-		arg++;
-	ft_strdel(&tmp1);
-	len = ((tmp->ls) * 2) - ft_strlen(arg);
-	while (len)
-	{
-		ft_put_fd("0", fd);
-		len--;
-	}
-	ft_put_fd(arg, fd);
-}
-
-static void ft_reg(char *arg, int fd)
-{
-	char *str;
-
-	str = ft_itoa_base(ft_atoi(arg), 16);
-	if (ft_strlen(str) == 1)
-		ft_put_fd("0", fd);
-	ft_put_fd(str, fd);
-	ft_strdel(&str);
+		n = ft_atoi(arg);
+	print_byte(fd, n, tmp->ls);
 }
 
 void choose_type(t_data *data, t_data *tmp, char *arg, int fd)
 {
 	if (arg && arg[0] == 'r')
-		ft_reg(++arg, fd);
+		print_byte(fd, ft_atoi(++arg), 1);
 	else if (arg && arg[0] == '%')
 		ft_dir(data, tmp, ++arg, fd);
 	else if (arg)

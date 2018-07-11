@@ -12,30 +12,12 @@
 
 #include "asm.h"
 
-static	void	print_bot_size(int size, int fd)
-{
-	int n;
-	char *str;
-
-	str = ft_itoa_base(size, 16);
-	n = ft_strlen(str);
-	n = 8 - n;
-	while (n)
-	{
-		ft_put_fd("0", fd);
-		n--;
-	}
-	ft_put_fd(str, fd);
-	ft_strdel(&str);
-}
-
 static void		print_codage(t_data *data, int fd)
 {
 	int first;
 	int second;
 	int third;
 	int res;
-	char *str;
 
 	if (data->co)
 	{
@@ -47,26 +29,19 @@ static void		print_codage(t_data *data, int fd)
 		if (third)
 			third >>= 4;
 		res = first | second | third; 
-		str = ft_itoa_base(res, 16);
-		ft_put_fd(str, fd);
-		ft_strdel(&str);
+		print_byte(fd, res, 1);
 	}
 }
 
 static void print_to_cor(t_data *data, int fd)
 {
 	t_data *tmp;
-	char *str;
 
 	tmp = data;
 	while (tmp)
 	{
 		//op
-		str = ft_itoa_base(tmp->op, 16);
-		if (ft_strlen(str) == 1)
-			ft_put_fd("0", fd);
-		ft_put_fd(str, fd);
-		ft_strdel(&str);
+		print_byte(fd, tmp->op, 1);
 		// codage
 		print_codage(tmp, fd);
 		// each
@@ -79,23 +54,22 @@ static void print_to_cor(t_data *data, int fd)
 
 static void push_data(int fd, t_name_comm *info, int size)
 {
-	char *str;
+	int i;
 
 //magic
-	str = ft_itoa_base(15369203, 16);
-	ft_put_fd("00", fd);
-	ft_put_fd(str, fd);
-	ft_strdel(&str);
+	i = 0xf383ea;
+	i <<= 8;
+	write(fd, &i, 4);
 //bot_name
-	bot_name_comm(fd, info->name_comm.name, 256);
+	bot_name_comm(fd, info->name_comm.name, 128);
 //NULL
-	ft_put_fd("00000000", fd);
+	print_byte(fd, 0, 4);
 //bot_size
-	print_bot_size(size, fd);
+	print_byte(fd, size, 4);
 // bot_com
-	bot_name_comm(fd, info->name_comm.comment, 4096);
+	bot_name_comm(fd, info->name_comm.comment, 2048);
 //NULL
-	ft_put_fd("00000000", fd);
+	print_byte(fd, 0, 4);
 ///for each line
 	print_to_cor(info->data, fd);
 }

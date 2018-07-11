@@ -32,6 +32,7 @@
 
 # define		OUTPUT			"Writing output program to "
 
+# define		MAG_NUM			(15369203)
 
 # define		ERROR			-1
 # define		REG_NUMBER		16
@@ -186,6 +187,7 @@ char 			*t_int_arg2(char *line, t_name_comm *info, char *f_name);
 
 int 			print(char **av, int file, t_name_comm *info);
 void			print_struct(t_data *data);
+void			print_byte(int fd, int i, int size);
 
 /*
 ** -------------------------- Free ----------------------------
@@ -197,7 +199,6 @@ void			free_lists(t_name_comm *info);
 ** -------------------------- Compiler ----------------------------
 */
 
-void			ft_put_fd(char *str, int fd);
 int				n_byte(t_data *data, char *name);
 void			bot_name_comm(int fd, char *name, int size);
 int 			binary_code(char *arg);

@@ -12,22 +12,13 @@
 
 #include "asm.h"
 
-void ft_put_fd(char *str, int fd)
+void	print_byte(int fd, int i, int size)
 {
-	int i;
-	static int delim;
-
-	i = 0;
-	while (str[i] )
-	{
-		++delim;
-		ft_putchar_fd(str[i], fd);
-		if (delim % 32 == 0)
-			ft_putchar_fd('\n', fd);
-		else if (delim % 4 == 0)
-			ft_putchar_fd(' ', fd);
-		i++;
-	}
+	if (size == 2)
+		i <<= 8;
+	else if (size == 4)
+		i <<= 24;
+	write(fd, &i, size);
 }
 
 int n_byte(t_data *data, char *name)
@@ -44,25 +35,16 @@ int n_byte(t_data *data, char *name)
 void	bot_name_comm(int fd, char *name, int size)
 {
 	int i = 0;
-	char *str;
-	char *tmp;
 
 	while (name[i])
 	{
-		str = ft_itoa_base(name[i], 16);
-		if (ft_strlen(str) == 1)
-			ft_put_fd("0", fd);
-		tmp = str;
-		while ((int)ft_strlen(str) > 2)
-			str++;
-		ft_put_fd(str, fd);
-		ft_strdel(&tmp);
+		print_byte(fd, name[i], 1);
 		i++;
-		size -= 2;
+		size--;
 	}
 	while (size)
 	{
-		ft_put_fd("0", fd);
+		print_byte(fd, 0, 1);
 		size--;
 	}
 }
