@@ -14,10 +14,23 @@
 
 void	print_byte(int fd, int i, int size)
 {
-	if (size == 2)
-		i <<= 8;
-	else if (size == 4)
-		i <<= 24;
+	char c[4];
+	int	k = 0;
+	
+	while (k < size)
+	{
+		c[k] = i;
+		i >>= 8;
+		k++;
+	}
+	k = 0;
+	while (k < size)
+	{
+		i |= c[k];
+		if (k + 1 < size)
+			i <<= 8;
+		k++;
+	}
 	write(fd, &i, size);
 }
 
