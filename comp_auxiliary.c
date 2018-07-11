@@ -18,14 +18,14 @@ void ft_put_fd(char *str, int fd)
 	static int delim;
 
 	i = 0;
-	while (str[i])
+	while (str[i] )
 	{
 		++delim;
 		ft_putchar_fd(str[i], fd);
-		if (delim % 4 == 0)
-			ft_putchar_fd(' ', fd);
 		if (delim % 32 == 0)
 			ft_putchar_fd('\n', fd);
+		else if (delim % 4 == 0)
+			ft_putchar_fd(' ', fd);
 		i++;
 	}
 }
@@ -45,14 +45,18 @@ void	bot_name_comm(int fd, char *name, int size)
 {
 	int i = 0;
 	char *str;
+	char *tmp;
 
 	while (name[i])
 	{
 		str = ft_itoa_base(name[i], 16);
 		if (ft_strlen(str) == 1)
 			ft_put_fd("0", fd);
+		tmp = str;
+		while ((int)ft_strlen(str) > 2)
+			str++;
 		ft_put_fd(str, fd);
-		ft_strdel(&str);
+		ft_strdel(&tmp);
 		i++;
 		size -= 2;
 	}
