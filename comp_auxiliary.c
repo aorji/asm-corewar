@@ -14,19 +14,30 @@
 
 void	print_byte(int fd, int i, int size)
 {
-	char c[4];
-	int	k = 0;
-	
+	char	c[4];
+	char	move[4];
+	int		k = 0;
+
 	while (k < size)
 	{
 		c[k] = i;
+		if (c[k] < 0)
+		{
+			move[k] = 1;
+			c[k] -= 128;
+		}
+		else
+			move[k] = 0;
 		i >>= 8;
 		k++;
 	}
 	k = 0;
 	while (k < size)
 	{
-		i |= c[k];
+		if (move[k])
+			i |= c[k] + 128;
+		else
+			i |= c[k];
 		if (k + 1 < size)
 			i <<= 8;
 		k++;
