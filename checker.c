@@ -29,13 +29,12 @@ static int ft_read(int fd, int fd1)
 		{
 			ft_printf("%x", str[0]);
 			ft_printf(" != %x\n", str1[0]);
-			write (2, "ERROR\n", 6);
-			return (0);
+			return (ft_printf("%s\n", "ERROR"));
 		}
 	}
 	if (a == -1 || b == -1)
 		return (ft_printf("%s\n", "An error occurred in the read."));
-	return (1);
+	return (0);
 }
 
 int		main(int ac, char **av)
@@ -47,7 +46,7 @@ int		main(int ac, char **av)
 		return (ft_printf("%s\n", "Usage: ./checker file_name1[.cor] file_name2[.cor]"));
 	fd = open(av[1], O_RDONLY);
 	fd1 = open(av[2], O_RDONLY);
-	if (!ft_read(fd, fd1))
+	if (ft_read(fd, fd1))
 		return (0);
 	write (1, "OK\n", 3);
 	return (0);
