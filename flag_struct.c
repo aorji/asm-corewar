@@ -19,34 +19,11 @@ void	print_struct(t_data *data)
 	tmp = data;
 	while (tmp)
 	{
-		ft_putstr("--------------------\n");
-		ft_putstr("label = ");
-		ft_putstr(tmp->label);
-		write(1, "\n", 1);
-		ft_putstr("func = ");
-		ft_putstr(tmp->func);
-		write(1, "\n", 1);
-		ft_putstr("op = ");
-		ft_putnbr_fd(tmp->op, 1);
-		write(1, "\n", 1);
-		ft_putstr("co = ");
-		ft_putnbr_fd(tmp->co, 1);
-		write(1, "\n", 1);
-		ft_putstr("ls = ");
-		ft_putnbr_fd(tmp->ls, 1);
-		write(1, "\n", 1);
-		ft_putstr("n = ");
-		ft_putnbr_fd(tmp->n, 1);
-		write(1, "\n", 1);
-		ft_putstr("arg1 = ");
-		ft_putstr(tmp->arg1);
-		write(1, "\n", 1);
-		ft_putstr("arg2 = ");
-		ft_putstr(tmp->arg2);
-		write(1, "\n", 1);
-		ft_putstr("arg3 = ");
-		ft_putstr(tmp->arg3);
-		write(1, "\n", 1);
+		ft_printf("%s%s\n", "--------------------\nlabel = ", tmp->label);
+		ft_printf("%s%s\n%s%d\n", "func = ", tmp->func, "op = ", tmp->op);
+		ft_printf("%s%d\n%s%d\n", "co = ", tmp->co, "ls = ", tmp->ls);
+		ft_printf("%s%d\n%s%s\n", "n = ", tmp->n, "arg1 = ", tmp->arg1);
+		ft_printf("%s%s\n%s%s\n", "arg2 = ", tmp->arg2, "arg3 = ", tmp->arg3);
 		tmp = tmp->next;
 	}
 	write(1, "\n", 1);

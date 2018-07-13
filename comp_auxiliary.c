@@ -12,30 +12,6 @@
 
 #include "asm.h"
 
-// static void	print_negative_bytes(int *i, int size)
-// {
-// 	char c[4];
-// 	int k;
-
-// 	k = 0;
-// 	while (k < size)
-// 	{
-// 		c[k] = *i;
-// 		(*i) >>= 8;
-// 		k++;
-// 	}
-// 	*i = 0;
-// 	k = 0;
-// 	while (k < size)
-// 	{
-// 		*i = (*i) |~ c[k];
-// 		if (k + 1 < size)
-// 			(*i) <<= 8;
-// 		k++;
-// 	}
-// 	(*i) = ~(*i);
-// }
-
 void	print_byte(int fd, int i, int size)
 {
 	char	c[4];
@@ -69,8 +45,6 @@ void	print_byte(int fd, int i, int size)
 			k++;
 		}
 	}
-	// else
-	// 	print_negative_bytes(&i, size);
 	write(fd, &i, size);
 }
 

@@ -26,8 +26,6 @@ static char	*white_spaces(char *line, t_name_comm *info)
 	if (!line[info->index])
 		return(NULL);
 	j = ft_strlen(line);
-	// while (line[j] && (line[j] == ' ' || line[j] == '\t'))
-	// 	j--;
 	return (ft_strsub(line, info->index, j - info->index + 1));
 }
 
