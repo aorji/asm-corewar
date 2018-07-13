@@ -90,5 +90,19 @@ int					ft_count_w(const char *s, char c);
 int					ft_number_size(long n);
 int					get_next_line(const int fd, char **line, int *end);
 char				*noleak_strjoin(char const *s1, char const *s2, char **to_free);
+int		ft_base_len(uintmax_t value, unsigned int base);
+int		ft_count_bytes(wchar_t c);
+int		ft_count_len(intmax_t a);
+char		*ft_itoa_10(intmax_t n);
+char			*ft_itoa_unsigned(uintmax_t value, unsigned int base);
+void	ft_put_specific_char(char c, int i);
+int	ft_putwchar(wchar_t c);
+int		ft_putwstr(wchar_t *str);
+wchar_t		*ft_strwdup(wchar_t *s);
+wchar_t		*ft_strwsub(wchar_t *s, unsigned int start, unsigned int len);
+void	ft_upper(char *str);
+int		ft_wstrlen(wchar_t *str);
+
+
 
 #endif

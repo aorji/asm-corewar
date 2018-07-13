@@ -52,7 +52,7 @@
 # define COMMENT_LENGTH			(2048)
 
 
-# include "./libft/libft.h"
+# include "./libft/ft_printf.h"
 
 typedef struct  	s_header
 {

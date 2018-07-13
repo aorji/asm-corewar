@@ -3,40 +3,46 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nrepak <nrepak@student.42.fr>              +#+  +:+       +#+         #
+#    By: nrepak <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/10/31 13:37:10 by nrepak            #+#    #+#              #
-#    Updated: 2017/11/19 20:34:11 by nrepak           ###   ########.fr        #
+#    Created: 2018/01/15 19:34:18 by nrepak            #+#    #+#              #
+#    Updated: 2018/01/16 20:58:58 by nrepak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
-SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
-ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
-ft_strcat.c ft_strncat.c ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strstr.c \
-ft_strnstr.c ft_strcmp.c ft_strncmp.c ft_atoi.c ft_isalpha.c ft_isdigit.c \
-ft_isalnum.c ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_memalloc.c \
-ft_memdel.c ft_strnew.c ft_strdel.c ft_strclr.c ft_striter.c ft_striteri.c \
-ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c ft_strsub.c ft_strjoin.c \
-ft_strtrim.c ft_strsplit.c ft_itoa.c ft_putchar.c ft_putstr.c ft_putendl.c \
-ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c \
-ft_count_w.c ft_number_size.c get_next_line.c noleak_join.c
+NAME := libftprintf.a
 
-FLAGS = -Wall -Wextra -Werror
-OBJ = $(SRC:.c=.o)
+SRC := 	ft_printf.c percentage.c character.c string.c wide_string.c \
+decimal.c unsigned_decimal.c octal.c hexadecimal.c pointer.c \
+width_and_precision.c zero_flag.c auxiliary.c auxiliary2.c     
+
+OBJ_DIR := obj
+
+FLAGS := -Wall -Wextra -Werror
+
+LIBDIR := ./libft
+
+OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ar rc  $(NAME) $(OBJ)
+	@make -C $(LIBDIR)
+	@cd $(LIBDIR) && mv *.o ../obj
+	@ar rc $(NAME) obj/*.o
+
+$(OBJ_DIR)/%.o: ./%.c
+	@mkdir -p $(OBJ_DIR)
+	@gcc $(FLAGS) -c $< -o $@
 
 clean:
-	@/bin/rm -f *.o
+	@make clean -C $(LIBDIR)
+	@rm -rf obj
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@make fclean -C $(LIBDIR)
 
 re: fclean all
-%.o: %.c
-	@gcc $(FLAGS) -c -o $@ $<
+
+.PHONY: all clean fclean re

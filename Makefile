@@ -23,7 +23,7 @@ CH_NAME	=	checker
 OBJ		=	$(SRCS:.c=.o)
 CH_OBJ	=	$(CH_SRCS:.c=.o)
 
-LIB		=	libft.a
+LIB		=	libftprintf.a
 
 FLAGS	=	-Wall -Wextra -Werror
 
