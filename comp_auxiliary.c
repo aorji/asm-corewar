@@ -12,36 +12,65 @@
 
 #include "asm.h"
 
+// static void	print_negative_bytes(int *i, int size)
+// {
+// 	char c[4];
+// 	int k;
+
+// 	k = 0;
+// 	while (k < size)
+// 	{
+// 		c[k] = *i;
+// 		(*i) >>= 8;
+// 		k++;
+// 	}
+// 	*i = 0;
+// 	k = 0;
+// 	while (k < size)
+// 	{
+// 		*i = (*i) |~ c[k];
+// 		if (k + 1 < size)
+// 			(*i) <<= 8;
+// 		k++;
+// 	}
+// 	(*i) = ~(*i);
+// }
+
 void	print_byte(int fd, int i, int size)
 {
 	char	c[4];
 	char	move[4];
 	int		k = 0;
 
-	while (k < size)
+	if (i >= 0)
 	{
-		c[k] = i;
-		if (c[k] < 0)
+		while (k < size)
 		{
-			move[k] = 1;
-			c[k] -= 128;
+			c[k] = i;
+			if (c[k] < 0)
+			{
+				move[k] = 1;
+				c[k] -= 128;
+			}
+			else
+				move[k] = 0;
+			i >>= 8;
+			k++;
 		}
-		else
-			move[k] = 0;
-		i >>= 8;
-		k++;
+		k = 0;
+		while (k < size)
+		{
+			if (move[k])
+				i |= c[k] + 128;
+			else
+				i |= c[k];
+			if (k + 1 < size)
+				i <<= 8;
+			k++;
+		}
 	}
-	k = 0;
-	while (k < size)
-	{
-		if (move[k])
-			i |= c[k] + 128;
-		else
-			i |= c[k];
-		if (k + 1 < size)
-			i <<= 8;
-		k++;
-	}
+	// else
+	// 	print_negative_bytes(&i, size);
 	write(fd, &i, size);
 }
 

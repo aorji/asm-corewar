@@ -90,6 +90,5 @@ int					ft_count_w(const char *s, char c);
 int					ft_number_size(long n);
 int					get_next_line(const int fd, char **line, int *end);
 char				*noleak_strjoin(char const *s1, char const *s2, char **to_free);
-char				*ft_itoa_base(uintmax_t value, unsigned int base);
 
 #endif
