@@ -14,7 +14,7 @@ SRCS	=	main.c file_check.c error.c dot.c st.c t_reg.c t_int.c label.c \
 			xor_and_or.c t_dir.c ld_lld.c live_zjmp_fork_lfork.c add_sub.c \
 			ldi_lldi.c aff.c sti.c auxiliary.c output.c add_data.c co_op.c \
 			compiler.c bot_size.c arg.c comp_auxiliary.c flag_struct.c free.c \
-			validation.c 
+			validation.c add_label.c check_label.c
 
 CH_SRCS	=	checker.c
 

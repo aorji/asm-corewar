@@ -16,6 +16,7 @@ char *t_reg_arg1(char *line, t_name_comm *info, char *f_name)
 {
 	int d_len;
 	int n;
+	
 	line++;
 	(info->index)++;
 	d_len = ft_number_size((n = atoi(line)));

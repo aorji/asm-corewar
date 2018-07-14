@@ -59,18 +59,11 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 
 int	st(char *line, t_name_comm *info, char *f_name)
 {
-	char *str;
-
 	if (ft_strncmp(line, "st", 2))
 		return (0);
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
-	str = ft_strsub(line, 0, 2);
-	add_data(str, 1, info);
-	ft_strdel(&str);
-	(info->in)++;
-	line += 2;
-	(info->index) += 2;
+	add_func(info, &line, 2, 1);
 	line = ws(line, info);
 	line = arg1(line, info, f_name);
 	if (!line)

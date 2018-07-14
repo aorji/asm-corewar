@@ -45,8 +45,7 @@ int	bot_size(t_name_comm *info)
 	i = 1;
 	if (!(data->func))
 		i = 0;
-	if (data->co)
-		i++;
+	(data->co) ? i++ : 0;
 	check_arg(data->arg1, data->ls, &i);
 	check_arg(data->arg2, data->ls, &i);
 	check_arg(data->arg3, data->ls, &i);

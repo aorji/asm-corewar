@@ -54,3 +54,15 @@ char*	ws(char *line, t_name_comm *info)
 	}
 	return (line);
 }
+
+void	add_func(t_name_comm *info, char **line, int len, int numb)
+{
+	char *str;
+
+	str = ft_strsub((*line), 0, len);
+	add_data(str, numb, info);
+	ft_strdel(&str);
+	(*line) += len;
+	(info->index) += len;
+	(info->in)++;
+}

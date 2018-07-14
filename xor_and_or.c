@@ -80,8 +80,6 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 
 int	xor_and_or(char *line, t_name_comm *info, char *f_name)
 {
-	char *str;
-
 	if (ft_strncmp(line, "xor", 3) && ft_strncmp(line, "or", 2)
 		&& ft_strncmp(line, "and", 3))
 		return (0);
@@ -89,21 +87,9 @@ int	xor_and_or(char *line, t_name_comm *info, char *f_name)
 		return (syntax_error(SYNT_ERROR, f_name));
 	(info->in)++;
 	if (!ft_strncmp(line, "or", 2))
-	{
-		str = ft_strsub(line, 0, 2);
-		add_data(str, 1, info);
-		ft_strdel(&str);
-		line += 2;
-		(info->index) += 2;
-	}
+		add_func(info, &line, 2, 1);
 	else
-	{
-		str = ft_strsub(line, 0, 3);
-		add_data(str, 1, info);
-		ft_strdel(&str);
-		line += 3;
-		(info->index) += 3;
-	}
+		add_func(info, &line, 3, 1);
 	line = ws(line, info);
 	line = arg1(line, info, f_name);
 	if (!line)

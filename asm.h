@@ -151,6 +151,7 @@ int				trash(char *line, int i);
 void			add_tab(t_name_comm *info);
 void			add_data(char *str, int i, t_name_comm *info);
 void			op_ls_co(char *str, t_data **data);
+void			add_func(t_name_comm *info, char **line, int len, int numb);
 
 /*
 ** -------------------------- Label ----------------------------
@@ -160,6 +161,7 @@ char 			*label_arg1(char *line, t_name_comm *info, char *f_name);
 char 			*label_arg2(char *line, t_name_comm *info, char *f_name);
 int				add_label(char *line, t_name_comm *info);
 char			*label(char *line, t_name_comm *info, char *f_name, int *j);
+int				find_label(t_name_comm *info, char *name);
 
 /*
 ** -------------------------- T_REG ----------------------------

@@ -14,9 +14,10 @@
 
 static char *arg3(char *line, t_name_comm *info, char *f_name)
 {
-	int i = 0;
+	int i;
 	char *str;
 
+	i = 0;
 	while (line[i] && ft_isalnum(line[i]))
 		i++;
 	str = ft_strsub(line, 0, i);
@@ -31,8 +32,9 @@ static char *arg3(char *line, t_name_comm *info, char *f_name)
 static char *arg2(char *line, t_name_comm *info, char *f_name)
 {
 	char *str;
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (line[i] && line[i] != ',')
 		i++;
 	str = ft_strsub(line, 0, i);
@@ -50,8 +52,9 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 {
 	int n;
 	char *str;
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (line[i] && line[i] != ',')
 		i++;
 	str = ft_strsub(line, 0, i);
@@ -72,29 +75,15 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 
 int	ldi_lldi(char *line, t_name_comm *info, char *f_name)
 {
-	char *str;
-
 	if (ft_strncmp(line, "ldi", 3) && ft_strncmp(line, "lldi", 4))
 		return (0);
 	if (info->count != 2)
 		return (syntax_error(SYNT_ERROR, f_name));
 	(info->in)++;
 	if (!ft_strncmp(line, "lldi", 4))
-	{
-		str = ft_strsub(line, 0, 4);
-		add_data(str, 1, info);
-		ft_strdel(&str);
-		line += 4;
-		(info->index) += 4;
-	}
+		add_func(info, &line, 4, 1);
 	else
-	{
-		str = ft_strsub(line, 0, 3);
-		add_data(str, 1, info);
-		ft_strdel(&str);
-		line += 3;
-		(info->index) += 3;
-	}
+		add_func(info, &line, 3, 1);
 	line = ws(line, info);
 	line = arg1(line, info, f_name);
 	if (!line)
