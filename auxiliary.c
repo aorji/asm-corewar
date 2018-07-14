@@ -17,9 +17,11 @@ int trash(char *line, int i)
 	int extra;
 
 	extra = 0;
+	if (!line)
+		return (-1);
 	while (line[i])
 	{
-		if (line[i] == COMMENT_CHAR || line[i] == ';')
+		if (line[i] == COMMENT_CHAR[0] || line[i] == COMMENT_CHAR[1])
 			return (-1);
 		if (line[i] != ' ' && line[i] != '\t')
 			return (extra);

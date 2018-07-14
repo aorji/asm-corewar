@@ -64,10 +64,12 @@ static int check_functions(char **line, t_name_comm *info, char *f_name, int i)
 
 	if (!(*line))
 		return (1);
-	if (**line == COMMENT_CHAR)
+	if (**line == COMMENT_CHAR[0] || **line == COMMENT_CHAR[1])
 		return (0);
 	if ((i = dot((*line), f_name, info)) == ERROR) //not valid
 		return(ERROR);
+	if (!(info->name_comm.name))
+		exit(1);
 	if (i) //valid
 		return (0);
 	tmp = (*line);

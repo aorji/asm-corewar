@@ -100,6 +100,8 @@ int	unknown_error(t_name_comm info, char *line, char *f_name)
 	int i;
 
 	i = 0;
+	if (line[0] == COMMENT_CHAR[0] || line[0] == COMMENT_CHAR[1])
+		return (0);
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 		i++;
 	write(2, UN_ERROR, 30);

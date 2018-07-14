@@ -14,6 +14,8 @@
 
 static int find_quatation(char *line, int i)
 {
+	if (!line)
+		return (-1);
 	while (line[i] != '\"' && line[i])
 		i++;
 	if (line[i] == '\"')
@@ -32,20 +34,22 @@ static	int	next_line_quatation(t_name_comm *info, char *f_name)
 	int k = 0;
 	close = -1;
 	info->index = 0;
+
 	while (get_next_line(info->fd, &line, &k) == 1 && (info->row)++ && (close = find_quatation(line, 0)) == -1)
 	{
+		if (!line)
+			continue ;
 		if (info->name)
 		{
 			info->name_comm.name = noleak_strjoin(info->name_comm.name, line, &(info->name_comm.name));
 			info->name_comm.name = noleak_strjoin(info->name_comm.name, "\n", &(info->name_comm.comment));
 		}
-		else
+		else if (info->comment)
 		{
-			info->name_comm.comment = noleak_strjoin(info->name_comm.comment, line, &(info->name_comm.name));
+			info->name_comm.comment = noleak_strjoin(info->name_comm.comment, line, &(info->name_comm.comment));
 			info->name_comm.comment = noleak_strjoin(info->name_comm.comment, "\n", &(info->name_comm.comment));
 		}
 		ft_strdel(&line);
-		continue; 
 	}
 	tmp = line;
 	if (close == -1)
@@ -55,7 +59,7 @@ static	int	next_line_quatation(t_name_comm *info, char *f_name)
 		tmp2 = ft_strsub(line, 0, close);
 		if (info->name)
 			info->name_comm.name = noleak_strjoin(info->name_comm.name, tmp2, &(info->name_comm.name));
-		else
+		else if (info->comment)
 			info->name_comm.comment = noleak_strjoin(info->name_comm.comment, tmp2, &(info->name_comm.comment));
 		ft_strdel(&tmp2);
 		info->tab = 0;

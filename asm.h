@@ -38,7 +38,7 @@
 # define		REG_NUMBER		16
 
 
-#define			COMMENT_CHAR	'#'
+#define			COMMENT_CHAR	"#;"
 #define			LABEL_CHAR		':'
 #define			DIRECT_CHAR		'%'
 #define			SEPARATOR_CHAR	','
