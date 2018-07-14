@@ -109,6 +109,7 @@ typedef struct		s_name_comm
 */
 
 int				file_check(t_name_comm *info, char *f_name);
+int 			validation(t_file_name **f_name, int file, char **av);
 
 /*
 ** -------------------------- Errors ----------------------------

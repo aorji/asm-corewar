@@ -18,32 +18,30 @@ void	print_byte(int fd, int i, int size)
 	char	move[4];
 	int		k = 0;
 
-	if (i >= 0)
+	while (k < size)
 	{
-		while (k < size)
+		c[k] = i;
+		if (c[k] < 0)
 		{
-			c[k] = i;
-			if (c[k] < 0)
-			{
-				move[k] = 1;
-				c[k] -= 128;
-			}
-			else
-				move[k] = 0;
-			i >>= 8;
-			k++;
+			move[k] = 1;
+			c[k] -= 128;
 		}
-		k = 0;
-		while (k < size)
-		{
-			if (move[k])
-				i |= c[k] + 128;
-			else
-				i |= c[k];
-			if (k + 1 < size)
-				i <<= 8;
-			k++;
-		}
+		else
+			move[k] = 0;
+		i >>= 8;
+		k++;
+	}
+	k = 0;
+	i = 0;
+	while (k < size)
+	{
+		if (move[k])
+			i |= c[k] + 128;
+		else
+			i |= c[k];
+		if (k + 1 < size)
+			i <<= 8;
+		k++;
 	}
 	write(fd, &i, size);
 }
