@@ -36,12 +36,15 @@ static void		print_codage(t_data *data, int fd)
 static void print_to_cor(t_data *data, int fd)
 {
 	t_data *tmp;
-
+// int i = 0;
 	tmp = data;
 	while (tmp)
 	{
+		// printf("struct == %d\n", i);
+		// i++;
 		//op
-		print_byte(fd, tmp->op, 1);
+		if (tmp->op)
+			print_byte(fd, tmp->op, 1);
 		// codage
 		print_codage(tmp, fd);
 		// each

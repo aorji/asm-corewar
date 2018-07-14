@@ -33,7 +33,7 @@ static void part3(char *str, t_data **data)
 		(*data)->ls = 2;
 	}
 	else if (!ft_strcmp(str, "aff"))
-		{
+	{
 		(*data)->op = 16;
 		(*data)->co = 1;
 		(*data)->ls = 4;

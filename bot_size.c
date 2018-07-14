@@ -14,13 +14,11 @@
 
 static void check_arg(char *arg, int ls, int *i)
 {
-	if (!arg)
-		return ;
-	if (arg[0] == 'r')
+	if (arg && arg[0] == 'r')
 		(*i)++;
-	else if (arg[0] == '%')
+	else if (arg && arg[0] == '%')
 		(*i) += ls;
-	else
+	else if (arg)
 		(*i) += 2;
 }
 
@@ -34,6 +32,8 @@ int	bot_size(t_name_comm *info)
 	while (data->next)
 	{
 		i = 1;
+		if (!(data->func))
+			i = 0;
 		if (data->co)
 			i++;
 		check_arg(data->arg1, data->ls, &i);
@@ -43,6 +43,8 @@ int	bot_size(t_name_comm *info)
 		data = data->next;
 	}
 	i = 1;
+	if (!(data->func))
+		i = 0;
 	if (data->co)
 		i++;
 	check_arg(data->arg1, data->ls, &i);

@@ -18,20 +18,27 @@ static int ft_read(int fd, int fd1)
 	char str1[2];
 	int a;
 	int b;
+	int error;
+	int i = 0;
 
+	error = 0;
 	while (((a = read(fd, str, 1)) >= 0) && ((b = read(fd1, str1, 1)) >= 0))
-	{
-		if (!a && !b)
+	{ 
+	i++;
+		if (!a && !b && !error)
 			return (ft_printf("%s\n", "OK"));
+		else if (!a && !b)
+			return (ft_printf("%s\n", "ERROR"));
 		str[a] = '\0';
 		str1[b] = '\0';
-		if (str[0] != str1[0])
+		if (str[0] != str1[0] && (error = 1))
 		{
-			ft_printf("%x", str[0]);
-			ft_printf(" != %x\n", str1[0]);
-			return (ft_printf("%s\n", "ERROR"));
+			ft_printf("line == %d: ", i / 16);
+			ft_printf("%x != %x\n", str[0], str1[0]);
 		}
 	}
+	if (error)
+		return (ft_printf("%s\n", "ERROR"));
 	if (a == -1 || b == -1)
 		return (ft_printf("%s\n", "An error occurred in the read."));
 	return (0);

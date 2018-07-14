@@ -12,6 +12,20 @@
 
 #include "asm.h"
 
+static char *trim(char *str)
+{
+	int i;
+
+	if (!str)
+		return (NULL);
+	while (*str == ' ' || *str == '\t')
+		str++;
+	i = ft_strlen(str) - 1;
+	while (str[i] == ' ' || str[i] == '\t')
+		i--;
+	return(ft_strsub(str, 0, i + 1));
+}
+
 void	print_byte(int fd, int i, int size)
 {
 	char	c[4];
@@ -48,11 +62,22 @@ void	print_byte(int fd, int i, int size)
 
 int n_byte(t_data *data, char *name)
 {
+	char *str1;
+	char *str2;
+
 	while (data)
 	{
-		if (data->label && !ft_strcmp(data->label, name))
+		str1 = trim(data->label);
+		str2 = trim(name);
+		if (data->label && !ft_strcmp(str1, str2))
+		{
+			ft_strdel(&str1);
+			ft_strdel(&str2);
 			return (data->n);
+		}
 		data = data->next;
+		ft_strdel(&str1);
+		ft_strdel(&str2);
 	}
 	return (-1);
 }

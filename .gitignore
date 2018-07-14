@@ -1,4 +1,5 @@
 asm
+checker
 *.cor
 *.s
 .DS_Store
