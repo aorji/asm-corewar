@@ -209,4 +209,13 @@ void			compiler(t_name_comm *info, char *name);
 int				bot_size(t_name_comm *info);
 void 			choose_type(t_data *data, t_data *tmp, char *arg, int fd);
 
+/*
+** -------------------------- Dot Auxliary ----------------------------
+*/
+
+int 			if_find_close(t_name_comm *info, char **line, int close, char *name);
+int				next_line_quatation(t_name_comm *info, char *f_name, char *line);
+int 			find_close(char *line, int close, t_name_comm *info, char *f_name);
+int 			find_quatation(char *line, int i);
+
 #endif
