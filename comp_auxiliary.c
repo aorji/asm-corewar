@@ -26,12 +26,30 @@ static char *trim(char *str)
 	return(ft_strsub(str, 0, i + 1));
 }
 
+void	print_byte1(int size, char *move, char *c, int *i)
+{
+	int k;
+
+	k = 0;
+	while (k < size)
+	{
+		if (move[k])
+			*i |= c[k] + 128;
+		else
+			*i |= c[k];
+		if (k + 1 < size)
+			*i <<= 8;
+		k++;
+	}
+}
+
 void	print_byte(int fd, int i, int size)
 {
 	char	c[4];
 	char	move[4];
-	int		k = 0;
+	int		k;
 
+	k = 0;
 	while (k < size)
 	{
 		c[k] = i;
@@ -45,18 +63,8 @@ void	print_byte(int fd, int i, int size)
 		i >>= 8;
 		k++;
 	}
-	k = 0;
 	i = 0;
-	while (k < size)
-	{
-		if (move[k])
-			i |= c[k] + 128;
-		else
-			i |= c[k];
-		if (k + 1 < size)
-			i <<= 8;
-		k++;
-	}
+	print_byte1(size, move, c, &i);
 	write(fd, &i, size);
 }
 
@@ -97,15 +105,4 @@ void	bot_name_comm(int fd, char *name, int size)
 		print_byte(fd, 0, 1);
 		size--;
 	}
-}
-
-int binary_code(char *arg)
-{
-	if (!arg)
-		return (0);
-	if (arg[0] == 'r')
-		return (T_REG);
-	if (arg[0] == '%')
-		return (T_DIR);
-	return (T_IND);
 }

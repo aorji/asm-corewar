@@ -36,18 +36,13 @@ static void		print_codage(t_data *data, int fd)
 static void print_to_cor(t_data *data, int fd)
 {
 	t_data *tmp;
-// int i = 0;
+
 	tmp = data;
 	while (tmp)
 	{
-		// printf("struct == %d\n", i);
-		// i++;
-		//op
 		if (tmp->op)
 			print_byte(fd, tmp->op, 1);
-		// codage
 		print_codage(tmp, fd);
-		// each
 		choose_type(data, tmp, tmp->arg1, fd);
 		choose_type(data, tmp, tmp->arg2, fd);
 		choose_type(data, tmp, tmp->arg3, fd);
@@ -59,24 +54,27 @@ static void push_data(int fd, t_name_comm *info, int size)
 {
 	int i;
 
-//magic
 	i = 0xf383ea;
 	i <<= 8;
 	write(fd, &i, 4);
-//bot_name
 	bot_name_comm(fd, info->name_comm.name, 128);
-//NULL
 	print_byte(fd, 0, 4);
-//bot_size
 	print_byte(fd, size, 4);
-// bot_com
 	bot_name_comm(fd, info->name_comm.comment, 2048);
-//NULL
 	print_byte(fd, 0, 4);
-///for each line
 	print_to_cor(info->data, fd);
 }
 
+int binary_code(char *arg)
+{
+	if (!arg)
+		return (0);
+	if (arg[0] == 'r')
+		return (T_REG);
+	if (arg[0] == '%')
+		return (T_DIR);
+	return (T_IND);
+}
 
 void	compiler(t_name_comm *info, char *name)
 {
