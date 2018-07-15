@@ -19,8 +19,8 @@ void	ft_putstr(char const *s)
 	i = 0;
 	if (!s)
 	{
-		 write(1, "(null)", 6);
-		 return ;
+		write(1, "(null)", 6);
+		return ;
 	}
 	while (s[i])
 	{
