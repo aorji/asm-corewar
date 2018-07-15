@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static int is_full(t_data *tmp, int i)
+static int		is_full(t_data *tmp, int i)
 {
 	if (i >= 2 && i <= 4)
 		return (0);
@@ -21,7 +21,7 @@ static int is_full(t_data *tmp, int i)
 	return (1);
 }
 
-static	void create_data(t_data **data)
+static	void	create_data(t_data **data)
 {
 	(*data) = (t_data *)malloc(sizeof(t_data));
 	(*data)->label = NULL;
@@ -36,7 +36,7 @@ static	void create_data(t_data **data)
 	(*data)->next = NULL;
 }
 
-static void 	push_back(t_data **tmp, char *str, int i)
+static void		push_back(t_data **tmp, char *str, int i)
 {
 	while ((*tmp)->next)
 		(*tmp) = (*tmp)->next;
@@ -63,10 +63,10 @@ static void 	push_back(t_data **tmp, char *str, int i)
 	}
 }
 
-void	add_data(char *str, int i, t_name_comm *info)
+void			add_data(char *str, int i, t_name_comm *info)
 {
-	t_data *tmp;
-	
+	t_data	*tmp;
+
 	if (!(info->data))
 	{
 		create_data(&(info->data));

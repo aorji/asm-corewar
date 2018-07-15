@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void check_arg(char *arg, int ls, int *i)
+static void		check_arg(char *arg, int ls, int *i)
 {
 	if (arg && arg[0] == 'r')
 		(*i)++;
@@ -22,11 +22,10 @@ static void check_arg(char *arg, int ls, int *i)
 		(*i) += 2;
 }
 
-
-int	bot_size(t_name_comm *info)
+int				bot_size(t_name_comm *info)
 {
-	t_data *data;
-	int i;
+	t_data	*data;
+	int		i;
 
 	data = info->data;
 	while (data->next)

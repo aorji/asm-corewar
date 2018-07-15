@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void write_uerror(char *f_name)
+static void	write_uerror(char *f_name)
 {
 	write(2, "\" ", 2);
 	write(2, "in the ", 7);
@@ -22,11 +22,11 @@ static void write_uerror(char *f_name)
 	write(2, "\n", 1);
 }
 
-int	unknown_error(t_name_comm info, char *line, char *f_name)
+int			unknown_error(t_name_comm info, char *line, char *f_name)
 {
-	int d;
-	char *str;
-	int i;
+	int		d;
+	char	*str;
+	int		i;
 
 	i = 0;
 	if (line[0] == COMMENT_CHAR[0] || line[0] == COMMENT_CHAR[1])
@@ -51,10 +51,10 @@ int	unknown_error(t_name_comm info, char *line, char *f_name)
 	return (ERROR);
 }
 
-int	trash_error(t_name_comm info, char *line, int len, char *f_name)
+int			trash_error(t_name_comm info, char *line, int len, char *f_name)
 {
-	int d;
-	char *str;
+	int		d;
+	char	*str;
 
 	write(2, TRASH_ERROR, 30);
 	d = 3 - ft_number_size(info.row);
@@ -79,17 +79,16 @@ int	trash_error(t_name_comm info, char *line, int len, char *f_name)
 	return (ERROR);
 }
 
-int name_lenth_error(void)
+int			name_lenth_error(void)
 {
 	write(2, NAME_ERROR, 39);
 	write(2, "\n", 1);
 	return (ERROR);
 }
 
-int comment_lenth_error(void)
+int			comment_lenth_error(void)
 {
 	write(2, COMM_ERROR, 43);
 	write(2, "\n", 1);
 	return (ERROR);
 }
-

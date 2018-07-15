@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void add_name_comm(t_name_comm *info, char *line)
+static void		add_name_comm(t_name_comm *info, char *line)
 {
 	if (info->name)
 	{
@@ -31,7 +31,7 @@ static void add_name_comm(t_name_comm *info, char *line)
 	ft_strdel(&line);
 }
 
-static	void join_name_comm(t_name_comm *info, char *tmp2)
+static	void	join_name_comm(t_name_comm *info, char *tmp2)
 {
 	if (info->name)
 		info->name_comm.name = noleak_strjoin(info->name_comm.name,
@@ -41,11 +41,12 @@ static	void join_name_comm(t_name_comm *info, char *tmp2)
 			tmp2, &(info->name_comm.comment));
 }
 
-int find_close(char *line, int close, t_name_comm *info, char *f_name)
+int				find_close(char *line, int close,
+	t_name_comm *info, char *f_name)
 {
 	char	*tmp;
 	int		tr;
-	int i;
+	int		i;
 
 	i = 0;
 	tmp = ft_strsub(line, 0, close);
@@ -70,7 +71,7 @@ int find_close(char *line, int close, t_name_comm *info, char *f_name)
 	return (1);
 }
 
-int	next_line_quatation(t_name_comm *info, char *f_name, char *line)
+int				next_line_quatation(t_name_comm *info, char *f_name, char *line)
 {
 	int		close;
 	int		i;
@@ -92,7 +93,8 @@ int	next_line_quatation(t_name_comm *info, char *f_name, char *line)
 	return (1);
 }
 
-int if_find_close(t_name_comm *info, char **line, int close, char *name)
+int				if_find_close(t_name_comm *info, char **line,
+	int close, char *name)
 {
 	int tr;
 

@@ -12,10 +12,10 @@
 
 #include "asm.h"
 
-int	find_label(t_name_comm *info, char *name)
+int			find_label(t_name_comm *info, char *name)
 {
 	t_label	*label;
-	int f;
+	int		f;
 
 	f = 0;
 	label = info->label;
@@ -28,7 +28,7 @@ int	find_label(t_name_comm *info, char *name)
 	return (f);
 }
 
-static void create_label(t_name_comm *info, t_label **label, char *line, int i)
+static void	create_label(t_name_comm *info, t_label **label, char *line, int i)
 {
 	*label = (t_label*)malloc(sizeof(t_label));
 	(*label)->name = ft_strsub(line, 0, i);
@@ -38,11 +38,11 @@ static void create_label(t_name_comm *info, t_label **label, char *line, int i)
 	(*label)->next = NULL;
 }
 
-int	add_label(char *line, t_name_comm *info)
+int			add_label(char *line, t_name_comm *info)
 {
-	int i;
-	t_label *tmp;
-	char *label;
+	int		i;
+	t_label	*tmp;
+	char	*label;
 
 	i = 0;
 	while (line[i] && ft_isalnum(line[i]) && ++i)

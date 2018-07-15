@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dot.c                                        :+:      :+:    :+:   */
+/*   dot.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aorji <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nrepak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/29 11:06:28 by aorji             #+#    #+#             */
-/*   Updated: 2018/06/29 11:06:29 by aorji            ###   ########.fr       */
+/*   Created: 2018/07/15 15:32:21 by nrepak            #+#    #+#             */
+/*   Updated: 2018/07/15 15:32:26 by nrepak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int find_quatation(char *line, int i)
+int			find_quatation(char *line, int i)
 {
 	if (!line)
 		return (-1);
@@ -28,7 +28,7 @@ static int	close_quatation(char *line, t_name_comm *info, char *f_name)
 	int close;
 
 	if ((close = find_quatation(line, 0)) != -1)
-		return(if_find_close(info, &line, close, f_name));
+		return (if_find_close(info, &line, close, f_name));
 	else
 	{
 		if (info->name)
@@ -43,11 +43,11 @@ static int	close_quatation(char *line, t_name_comm *info, char *f_name)
 			info->name_comm.comment = noleak_strjoin(info->name_comm.comment,
 				"\n", &(info->name_comm.comment));
 		}
-		return (next_line_quatation(info, f_name, line)); //-1 - no quat, 1 - find
+		return (next_line_quatation(info, f_name, line));
 	}
 }
 
-static void name(t_name_comm *info, char **line)
+static void	name(t_name_comm *info, char **line)
 {
 	info->count++;
 	info->name = 1;
@@ -56,7 +56,7 @@ static void name(t_name_comm *info, char **line)
 	(info->index) += 4;
 }
 
-static void comm(t_name_comm *info, char **line)
+static void	comm(t_name_comm *info, char **line)
 {
 	info->name = 0;
 	info->comment = 1;
@@ -65,7 +65,7 @@ static void comm(t_name_comm *info, char **line)
 	(info->index) += 7;
 }
 
-int 		dot(char *line, char *f_name, t_name_comm *info)
+int			dot(char *line, char *f_name, t_name_comm *info)
 {
 	if (line[0] != '.')
 		return (0);

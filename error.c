@@ -12,13 +12,13 @@
 
 #include "asm.h"
 
-int	usage_error(char *str, char *f_name)
+int		usage_error(char *str, char *f_name)
 {
-	write (2, str, ft_strlen(str));
+	write(2, str, ft_strlen(str));
 	if (f_name)
 	{
 		write(2, "\"", 1);
-		write (2, f_name, ft_strlen(f_name));
+		write(2, f_name, ft_strlen(f_name));
 		write(2, "\"", 1);
 	}
 	write(2, "\n", 1);
@@ -38,7 +38,7 @@ char	*sep_error(t_name_comm *info, char *f_name)
 	write(2, "\"", 1);
 	write(2, "\n", 1);
 	return (NULL);
-}	
+}
 
 char	*instract_error(t_name_comm *info, char *f_name)
 {
@@ -55,7 +55,7 @@ char	*instract_error(t_name_comm *info, char *f_name)
 	return (NULL);
 }
 
-int label_error(char *name, int x, int y, char *f_name)
+int		label_error(char *name, int x, int y, char *f_name)
 {
 	write(2, LABEL_ERROR, 14);
 	write(2, "\"", 1);
@@ -73,9 +73,10 @@ int label_error(char *name, int x, int y, char *f_name)
 	return (ERROR);
 }
 
-int end_error(char *f_name)
+int		end_error(char *f_name)
 {
-	write(2, END_ERROR, 84);
+	write(2, "Syntax error - unexpected end of input\
+	(Perhaps you forgot to end with a newline?)", 84);
 	write(2, "in the ", 7);
 	write(2, "\"", 1);
 	write(2, f_name, ft_strlen(f_name));

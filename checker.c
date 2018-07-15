@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static int	char_cmp(char *str, char *str1, int k, int i)
+static int		char_cmp(char *str, char *str1, int k, int i)
 {
 	if (str[0] != str1[0])
 	{
@@ -26,18 +26,18 @@ static int	char_cmp(char *str, char *str1, int k, int i)
 	return (0);
 }
 
-static int ft_read(int fd, int fd1, int k, int i)
+static int		ft_read(int fd, int fd1, int k, int i)
 {
-	char str[2];
-	char str1[2];
-	int a;
-	int b;
-	int error;
+	char	str[2];
+	char	str1[2];
+	int		a;
+	int		b;
+	int		error;
 
 	error = 0;
-	while (((a = read(fd, str, 1)) >= 0) && ((b = read(fd1, str1, 1)) >= 0))
-	{ 
-		k++;
+	while (((a = read(fd, str, 1)) >= 0) &&
+		((b = read(fd1, str1, 1)) >= 0) && ++k)
+	{
 		if (!(k % 16))
 			i++;
 		if (!a && !b && !error)
@@ -55,18 +55,20 @@ static int ft_read(int fd, int fd1, int k, int i)
 	return (0);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	int fd;
 	int fd1;
 
 	if (ac != 3)
+	{
 		return (ft_printf("%s\n",
 			"Usage: ./checker file_name1[.cor] file_name2[.cor]"));
+	}
 	fd = open(av[1], O_RDONLY);
 	fd1 = open(av[2], O_RDONLY);
 	if (ft_read(fd, fd1, 0, 1))
 		return (0);
-	write (1, "OK\n", 3);
+	write(1, "OK\n", 3);
 	return (0);
 }

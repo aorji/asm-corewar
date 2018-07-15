@@ -12,10 +12,10 @@
 
 #include "asm.h"
 
-static char *arg3(char *line, t_name_comm *info, char *f_name)
+static char		*arg3(char *line, t_name_comm *info, char *f_name)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	while (line[i] && ft_isalnum(line[i]))
@@ -29,10 +29,10 @@ static char *arg3(char *line, t_name_comm *info, char *f_name)
 		return (instract_error(info, f_name));
 }
 
-static char *arg2(char *line, t_name_comm *info, char *f_name)
+static char		*arg2(char *line, t_name_comm *info, char *f_name)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	while (line[i] && line[i] != ',')
@@ -46,10 +46,10 @@ static char *arg2(char *line, t_name_comm *info, char *f_name)
 		return (instract_error(info, f_name));
 }
 
-static char *arg1(char *line, t_name_comm *info, char *f_name)
+static char		*arg1(char *line, t_name_comm *info, char *f_name)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	while (line[i] && line[i] != ',')
@@ -63,7 +63,7 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 		return (instract_error(info, f_name));
 }
 
-int	add_sub(char *line, t_name_comm *info, char *f_name)
+int				add_sub(char *line, t_name_comm *info, char *f_name)
 {
 	if (ft_strncmp(line, "add", 3) && ft_strncmp(line, "sub", 3))
 		return (0);

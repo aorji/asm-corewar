@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void part3(char *str, t_data **data)
+static void		part3(char *str, t_data **data)
 {
 	if (!ft_strcmp(str, "lld"))
 	{
@@ -40,7 +40,7 @@ static void part3(char *str, t_data **data)
 	}
 }
 
-static void part2(char *str, t_data **data)
+static void		part2(char *str, t_data **data)
 {
 	if (!ft_strcmp(str, "zjmp"))
 	{
@@ -68,7 +68,7 @@ static void part2(char *str, t_data **data)
 	}
 }
 
-static void part1(char *str, t_data **data)
+static void		part1(char *str, t_data **data)
 {
 	if (!ft_strcmp(str, "sub"))
 	{
@@ -96,7 +96,7 @@ static void part1(char *str, t_data **data)
 	}
 }
 
-static void part0(char *str, t_data **data)
+static void		part0(char *str, t_data **data)
 {
 	if (!ft_strcmp(str, "live"))
 	{
@@ -124,7 +124,7 @@ static void part0(char *str, t_data **data)
 	}
 }
 
-void op_ls_co(char *str, t_data **data)
+void			op_ls_co(char *str, t_data **data)
 {
 	part0(str, data);
 	part1(str, data);

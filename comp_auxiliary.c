@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static char *trim(char *str)
+static char		*trim(char *str)
 {
 	int i;
 
@@ -23,10 +23,10 @@ static char *trim(char *str)
 	i = ft_strlen(str) - 1;
 	while (str[i] == ' ' || str[i] == '\t')
 		i--;
-	return(ft_strsub(str, 0, i + 1));
+	return (ft_strsub(str, 0, i + 1));
 }
 
-void	print_byte1(int size, char *move, char *c, int *i)
+void			print_byte1(int size, char *move, char *c, int *i)
 {
 	int k;
 
@@ -43,7 +43,7 @@ void	print_byte1(int size, char *move, char *c, int *i)
 	}
 }
 
-void	print_byte(int fd, int i, int size)
+void			print_byte(int fd, int i, int size)
 {
 	char	c[4];
 	char	move[4];
@@ -68,7 +68,7 @@ void	print_byte(int fd, int i, int size)
 	write(fd, &i, size);
 }
 
-int n_byte(t_data *data, char *name)
+int				n_byte(t_data *data, char *name)
 {
 	char *str1;
 	char *str2;
@@ -90,10 +90,11 @@ int n_byte(t_data *data, char *name)
 	return (-1);
 }
 
-void	bot_name_comm(int fd, char *name, int size)
+void			bot_name_comm(int fd, char *name, int size)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (name[i])
 	{
 		print_byte(fd, name[i], 1);

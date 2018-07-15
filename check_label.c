@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void status_found(t_label **l, char *tmp)
+static void		status_found(t_label **l, char *tmp)
 {
 	t_label	*label;
 
@@ -22,20 +22,20 @@ static void status_found(t_label **l, char *tmp)
 		if (!ft_strcmp(label->name, tmp))
 		{
 			label->found = 1;
-			break;
+			break ;
 		}
 		label = label->next;
 	}
 }
 
-static void ft_line(char **line, t_name_comm *info, int i)
+static void		ft_line(char **line, t_name_comm *info, int i)
 {
 	(*line) += i + 1;
 	(info->index) += i + 1;
 	(*line) = ws((*line), info);
 }
 
-char	*label(char *line, t_name_comm *info, char *f_name, int *j)
+char			*label(char *line, t_name_comm *info, char *f_name, int *j)
 {
 	int		i;
 	char	*tmp;

@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-int trash(char *line, int i)
+int			trash(char *line, int i)
 {
 	int extra;
 
@@ -31,7 +31,7 @@ int trash(char *line, int i)
 	return (-1);
 }
 
-void	add_tab(t_name_comm *info)
+void		add_tab(t_name_comm *info)
 {
 	int a;
 	int b;
@@ -43,7 +43,7 @@ void	add_tab(t_name_comm *info)
 	info->tab += 3 - (a - c);
 }
 
-char*	ws(char *line, t_name_comm *info)
+char		*ws(char *line, t_name_comm *info)
 {
 	while (*line && (*line == ' ' || *line == '\t'))
 	{
@@ -55,7 +55,7 @@ char*	ws(char *line, t_name_comm *info)
 	return (line);
 }
 
-void	add_func(t_name_comm *info, char **line, int len, int numb)
+void		add_func(t_name_comm *info, char **line, int len, int numb)
 {
 	char *str;
 

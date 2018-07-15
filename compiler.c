@@ -28,12 +28,12 @@ static void		print_codage(t_data *data, int fd)
 			second >>= 2;
 		if (third)
 			third >>= 4;
-		res = first | second | third; 
+		res = first | second | third;
 		print_byte(fd, res, 1);
 	}
 }
 
-static void print_to_cor(t_data *data, int fd)
+static void		print_to_cor(t_data *data, int fd)
 {
 	t_data *tmp;
 
@@ -50,7 +50,7 @@ static void print_to_cor(t_data *data, int fd)
 	}
 }
 
-static void push_data(int fd, t_name_comm *info, int size)
+static void		push_data(int fd, t_name_comm *info, int size)
 {
 	int i;
 
@@ -65,7 +65,7 @@ static void push_data(int fd, t_name_comm *info, int size)
 	print_to_cor(info->data, fd);
 }
 
-int binary_code(char *arg)
+int				binary_code(char *arg)
 {
 	if (!arg)
 		return (0);
@@ -76,11 +76,11 @@ int binary_code(char *arg)
 	return (T_IND);
 }
 
-void	compiler(t_name_comm *info, char *name)
+void			compiler(t_name_comm *info, char *name)
 {
-	int size;
-	int fd;
-	char *tmp;
+	int		size;
+	int		fd;
+	char	*tmp;
 
 	size = bot_size(info);
 	tmp = ft_strjoin(name, ".cor");

@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void	ft_ind(t_data *data, t_data *tmp, char *arg, int fd)
+static void		ft_ind(t_data *data, t_data *tmp, char *arg, int fd)
 {
 	int n;
 
@@ -23,7 +23,7 @@ static void	ft_ind(t_data *data, t_data *tmp, char *arg, int fd)
 	print_byte(fd, n, 2);
 }
 
-static void	ft_dir(t_data *data, t_data *tmp, char *arg, int fd)
+static void		ft_dir(t_data *data, t_data *tmp, char *arg, int fd)
 {
 	int n;
 
@@ -34,7 +34,7 @@ static void	ft_dir(t_data *data, t_data *tmp, char *arg, int fd)
 	print_byte(fd, n, tmp->ls);
 }
 
-void choose_type(t_data *data, t_data *tmp, char *arg, int fd)
+void			choose_type(t_data *data, t_data *tmp, char *arg, int fd)
 {
 	if (arg && arg[0] == 'r')
 		print_byte(fd, ft_atoi(++arg), 1);
