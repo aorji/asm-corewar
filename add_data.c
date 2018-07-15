@@ -36,6 +36,33 @@ static	void create_data(t_data **data)
 	(*data)->next = NULL;
 }
 
+static void 	push_back(t_data **tmp, char *str, int i)
+{
+	while ((*tmp)->next)
+		(*tmp) = (*tmp)->next;
+	if (!is_full((*tmp), i))
+	{
+		if (i == 1)
+		{
+			(*tmp)->func = ft_strdup(str);
+			op_ls_co(str, &((*tmp)));
+		}
+		(i == 2) ? ((*tmp)->arg1 = ft_strdup(str)) : 0;
+		(i == 3) ? ((*tmp)->arg2 = ft_strdup(str)) : 0;
+		(i == 4) ? ((*tmp)->arg3 = ft_strdup(str)) : 0;
+	}
+	else
+	{
+		create_data(&((*tmp)->next));
+		(i == 0) ? ((*tmp)->next->label = ft_strdup(str)) : 0;
+		if (i == 1)
+		{
+			(*tmp)->next->func = ft_strdup(str);
+			op_ls_co(str, &((*tmp)->next));
+		}
+	}
+}
+
 void	add_data(char *str, int i, t_name_comm *info)
 {
 	t_data *tmp;
@@ -53,28 +80,6 @@ void	add_data(char *str, int i, t_name_comm *info)
 	else
 	{
 		tmp = info->data;
-		while (tmp->next)
-			tmp = tmp->next;
-		if (!is_full(tmp, i))
-		{
-			if (i == 1)
-			{
-				tmp->func = ft_strdup(str);
-				op_ls_co(str, &(tmp));
-			}
-			(i == 2) ? (tmp->arg1 = ft_strdup(str)) : 0;
-			(i == 3) ? (tmp->arg2 = ft_strdup(str)) : 0;
-			(i == 4) ? (tmp->arg3 = ft_strdup(str)) : 0;
-		}
-		else
-		{
-			create_data(&(tmp->next));
-			(i == 0) ? (tmp->next->label = ft_strdup(str)) : 0;
-			if (i == 1)
-			{
-				tmp->next->func = ft_strdup(str);
-				op_ls_co(str, &(tmp->next));
-			}
-		}
+		push_back(&tmp, str, i);
 	}
 }
