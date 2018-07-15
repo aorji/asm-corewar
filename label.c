@@ -12,11 +12,11 @@
 
 #include "asm.h"
 
-char *label_arg2(char *line, t_name_comm *info, char *f_name)
+char	*label_arg2(char *line, t_name_comm *info, char *f_name)
 {
-	int n;
-	int tr;
-	
+	int	n;
+	int	tr;
+
 	info->index++;
 	line++;
 	n = add_label(line, info);
@@ -32,10 +32,10 @@ char *label_arg2(char *line, t_name_comm *info, char *f_name)
 	return (line);
 }
 
-char *label_arg1(char *line, t_name_comm *info, char *f_name)
+char	*label_arg1(char *line, t_name_comm *info, char *f_name)
 {
-	int n;
-	
+	int	n;
+
 	info->index++;
 	line++;
 	n = add_label(line, info);

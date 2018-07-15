@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-int lexical_error(t_name_comm info, char *f_name)
+int	lexical_error(t_name_comm info, char *f_name)
 {
 	write(2, LEX_ERROR, 18);
 	ft_putnbr(info.row);
@@ -27,7 +27,7 @@ int lexical_error(t_name_comm info, char *f_name)
 	return (ERROR);
 }
 
-int lexical_error_q(int i, char *f_name)
+int	lexical_error_q(int i, char *f_name)
 {
 	write(2, NO_QUAT_ERROR, 28);
 	if (i)
@@ -40,7 +40,7 @@ int lexical_error_q(int i, char *f_name)
 	return (ERROR);
 }
 
-int syntax_error(char *str, char *f_name)
+int	syntax_error(char *str, char *f_name)
 {
 	write(2, str, ft_strlen(str));
 	write(2, NAME_COMM, ft_strlen(NAME_COMM));

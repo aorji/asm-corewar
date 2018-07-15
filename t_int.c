@@ -12,10 +12,10 @@
 
 #include "asm.h"
 
-char *t_int_arg2(char *line, t_name_comm *info,char *f_name)
+char	*t_int_arg2(char *line, t_name_comm *info, char *f_name)
 {
-	int tr;
-	int n;
+	int	tr;
+	int	n;
 
 	n = 0;
 	if (*line == '-')
@@ -39,9 +39,9 @@ char *t_int_arg2(char *line, t_name_comm *info,char *f_name)
 	return (line);
 }
 
-char *t_int_arg1(char *line, t_name_comm *info, char *f_name)
+char	*t_int_arg1(char *line, t_name_comm *info, char *f_name)
 {
-	int n;
+	int	n;
 
 	n = 0;
 	if (*line == '-')

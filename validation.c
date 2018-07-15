@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static int check_name(t_file_name **f_name, char *name)
+static int	check_name(t_file_name **f_name, char *name)
 {
 	t_file_name *tmp;
 	t_file_name	*tmp1;
@@ -58,14 +58,16 @@ static int	label_check(t_name_comm info, char *f_name)
 	while (info.label)
 	{
 		if (!((info.label)->found))
+		{
 			return (label_error((info.label)->name,
 				(info.label)->x, (info.label)->y, f_name));
+		}
 		(info.label) = (info.label)->next;
 	}
 	return (0);
 }
 
-static	int lenth_check(t_name_comm info)
+static	int	lenth_check(t_name_comm info)
 {
 	if (ft_strlen(info.name_comm.name) > PROG_NAME_LENGTH)
 		return (name_lenth_error());
@@ -74,10 +76,10 @@ static	int lenth_check(t_name_comm info)
 	return (0);
 }
 
-int validation(t_file_name **f_name, int file, char **av)
+int			validation(t_file_name **f_name, int file, char **av)
 {
-	int error;
-	t_name_comm info;
+	int			error;
+	t_name_comm	info;
 
 	error = 0;
 	if (check_name(f_name, av[file]) == 1)

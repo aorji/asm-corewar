@@ -12,14 +12,14 @@
 
 #include "asm.h"
 
-static char *arg2(char *line, t_name_comm *info, char *f_name)
+static char	*arg2(char *line, t_name_comm *info, char *f_name)
 {
-	int n;
-	char *str;
-	int i = 0;
-	
-	if (line[i] == ':')
-		i++;
+	int		n;
+	char	*str;
+	int		i;
+
+	i = 0;
+	(line[i] == ':') ? i++ : 0;
 	while (line[i] && ft_isalnum(line[i]))
 		i++;
 	str = ft_strsub(line, 0, i);
@@ -41,11 +41,12 @@ static char *arg2(char *line, t_name_comm *info, char *f_name)
 	}
 }
 
-static char *arg1(char *line, t_name_comm *info, char *f_name)
+static char	*arg1(char *line, t_name_comm *info, char *f_name)
 {
-	int i = 0;
-	char *str;
-	
+	int		i;
+	char	*str;
+
+	i = 0;
 	while (line[i] && line[i] != ',')
 		i++;
 	str = ft_strsub(line, 0, i);
@@ -57,7 +58,7 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 		return (instract_error(info, f_name));
 }
 
-int	st(char *line, t_name_comm *info, char *f_name)
+int			st(char *line, t_name_comm *info, char *f_name)
 {
 	if (ft_strncmp(line, "st", 2))
 		return (0);

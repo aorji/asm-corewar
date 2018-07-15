@@ -12,11 +12,12 @@
 
 #include "asm.h"
 
-static char *arg1(char *line, t_name_comm *info, char *f_name)
+static char	*arg1(char *line, t_name_comm *info, char *f_name)
 {
-	char *str;
-	int i = 1;
+	char	*str;
+	int		i;
 
+	i = 1;
 	if (line[i] == ':')
 		i++;
 	while (line[i] && ft_isalnum(line[i]))
@@ -30,9 +31,9 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 		return (instract_error(info, f_name));
 }
 
-int	live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name)
+int			live_zjmp_fork_lfork(char *line, t_name_comm *info, char *f_name)
 {
-	if (ft_strncmp(line, "live", 4) && ft_strncmp(line, "zjmp", 4) 
+	if (ft_strncmp(line, "live", 4) && ft_strncmp(line, "zjmp", 4)
 		&& ft_strncmp(line, "fork", 4) && ft_strncmp(line, "lfork", 5))
 		return (0);
 	if (info->count != 2)

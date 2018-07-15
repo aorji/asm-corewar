@@ -12,24 +12,27 @@
 
 #include "asm.h"
 
-char *t_reg_arg1(char *line, t_name_comm *info, char *f_name)
+static void	move_one(char **line, t_name_comm *info)
 {
-	int d_len;
-	int n;
-	
-	line++;
+	(*line)++;
 	(info->index)++;
-	d_len = ft_number_size((n = atoi(line)));
+}
+
+char		*t_reg_arg1(char *line, t_name_comm *info, char *f_name)
+{
+	int	d_len;
+	int	n;
+
+	move_one(&line, info);
+	n = atoi(line);
+	d_len = ft_number_size(n);
 	if (n <= REG_NUMBER && n >= 0)
 	{
 		line += d_len;
 		info->index += d_len;
 		line = ws(line, info);
 		if (*line == SEPARATOR_CHAR)
-		{
-			line++;
-			(info->index)++;
-		}
+			move_one(&line, info);
 		else
 			return (sep_error(info, f_name));
 	}
@@ -41,15 +44,15 @@ char *t_reg_arg1(char *line, t_name_comm *info, char *f_name)
 	return (line);
 }
 
-char *t_reg_arg2(char *line, t_name_comm *info, char *f_name)
+char		*t_reg_arg2(char *line, t_name_comm *info, char *f_name)
 {
-	int d_len;
-	int n;
-	int tr;
+	int	d_len;
+	int	n;
+	int	tr;
 
-	line++;
-	(info->index)++;
-	d_len = ft_number_size((n = atoi(line)));
+	move_one(&line, info);
+	n = atoi(line);
+	d_len = ft_number_size(n);
 	if (n <= REG_NUMBER && n >= 0)
 	{
 		line += d_len;

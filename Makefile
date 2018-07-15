@@ -10,13 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	main.c file_check.c error.c dot.c st.c t_reg.c t_int.c label.c \
-			xor_and_or.c t_dir.c ld_lld.c live_zjmp_fork_lfork.c add_sub.c \
-			ldi_lldi.c aff.c sti.c auxiliary.c output.c add_data.c co_op.c \
-			compiler.c bot_size.c arg.c comp_auxiliary.c flag_struct.c free.c \
-			validation.c add_label.c check_label.c lexical_syntax_error.c \
-			error1.c dot_auxiliary.c
-
+SRCS	=	file_check.c dot.c st.c xor_and_or.c \
+			live_zjmp_fork_lfork.c add_sub.c ldi_lldi.c \
+			dot_auxiliary.c aff.c sti.c auxiliary.c free.c \
+			validation.c  main.c output.c add_data.c co_op.c compiler.c \
+			bot_size.c arg.c comp_auxiliary.c flag_struct.c add_label.c \
+			check_label.c label.c lexical_syntax_error.c error.c\
+			error1.c t_reg.c t_int.c t_dir.c ld_lld.c 
 
 CH_SRCS	=	checker.c
 

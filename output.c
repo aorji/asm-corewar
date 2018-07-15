@@ -12,11 +12,11 @@
 
 #include "asm.h"
 
-int print(char **av, int file, t_name_comm *info)
+int			print(char **av, int file, t_name_comm *info)
 {
-	int n;
+	int		n;
 	char	*tmp;
-	
+
 	n = ft_strlen(av[file]) - 1;
 	while (av[file][n] && av[file][n] != '/')
 		n--;

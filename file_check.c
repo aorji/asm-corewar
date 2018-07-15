@@ -24,12 +24,12 @@ static char	*white_spaces(char *line, t_name_comm *info)
 		(info->index)++;
 	}
 	if (!line[info->index])
-		return(NULL);
+		return (NULL);
 	j = ft_strlen(line);
 	return (ft_strsub(line, info->index, j - info->index + 1));
 }
 
-static int part2(char **line, t_name_comm *info, char *f_name, int i)
+static int	part2(char **line, t_name_comm *info, char *f_name, int i)
 {
 	if ((i = xor_and_or((*line), info, f_name)) == ERROR)
 		return (ERROR);
@@ -58,7 +58,7 @@ static int part2(char **line, t_name_comm *info, char *f_name, int i)
 	return (unknown_error(*info, (*line), f_name));
 }
 
-static int check_functions(char **line, t_name_comm *info, char *f_name, int i)
+static int	check_functions(char **line, t_name_comm *info, char *f_name, int i)
 {
 	char	*tmp;
 
@@ -66,15 +66,13 @@ static int check_functions(char **line, t_name_comm *info, char *f_name, int i)
 		return (1);
 	if (**line == COMMENT_CHAR[0] || **line == COMMENT_CHAR[1])
 		return (0);
-	if ((i = dot((*line), f_name, info)) == ERROR) //not valid
-		return(ERROR);
-	if (!(info->name_comm.name))
-		exit(1);
-	if (i) //valid
+	if ((i = dot((*line), f_name, info)) == ERROR)
+		return (ERROR);
+	if (i)
 		return (0);
 	tmp = (*line);
 	*line = label((*line), info, f_name, &i);
-	free(tmp);
+	ft_strdel(&tmp);
 	if (i == 2)
 		return (0);
 	if ((i = sti((*line), info, f_name)) == ERROR)
@@ -88,6 +86,13 @@ static int check_functions(char **line, t_name_comm *info, char *f_name, int i)
 	return (part2(line, info, f_name, 0));
 }
 
+static void	ft_null(t_name_comm *info, char **tmp, char **line)
+{
+	info->index = 0;
+	info->tab = 0;
+	*tmp = *line;
+}
+
 int			file_check(t_name_comm *info, char *f_name)
 {
 	char	*line;
@@ -98,11 +103,9 @@ int			file_check(t_name_comm *info, char *f_name)
 	line = NULL;
 	while ((get_next_line(info->fd, &line, &end) == 1) && ++(info->row))
 	{
-		info->index = 0;
-		info->tab = 0;
-		tmp = line;
+		ft_null(info, &tmp, &line);
 		line = white_spaces(line, info);
-		free(tmp);
+		ft_strdel(&tmp);
 		if (check_functions(&line, info, f_name, 0) == ERROR)
 		{
 			ft_strdel(&line);

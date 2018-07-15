@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void free_name(t_file_name **f_name)
+void	free_name(t_file_name **f_name)
 {
 	t_file_name *fr;
 
@@ -25,10 +25,10 @@ void free_name(t_file_name **f_name)
 	}
 }
 
-void free_lists(t_name_comm *info)
+void	free_lists(t_name_comm *info)
 {
-	t_label *tmp;
-	t_data *tmp1;
+	t_label	*tmp;
+	t_data	*tmp1;
 
 	while (info->label)
 	{

@@ -12,12 +12,12 @@
 
 #include "asm.h"
 
-int			main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	int file;
-	int error;
-	t_file_name *f_name;
-	
+	int			file;
+	int			error;
+	t_file_name	*f_name;
+
 	f_name = NULL;
 	if (ac < 2)
 		return (usage_error(USAGE, NULL));

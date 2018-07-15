@@ -12,10 +12,10 @@
 
 #include "asm.h"
 
-static char *arg3(char *line, t_name_comm *info, char *f_name)
+static char	*arg3(char *line, t_name_comm *info, char *f_name)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	i = 0;
 	while (line[i] && ft_isalnum(line[i]))
@@ -29,10 +29,10 @@ static char *arg3(char *line, t_name_comm *info, char *f_name)
 		return (instract_error(info, f_name));
 }
 
-static char *arg2(char *line, t_name_comm *info, char *f_name)
+static char	*arg2(char *line, t_name_comm *info, char *f_name)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	while (line[i] && line[i] != ',')
@@ -48,11 +48,11 @@ static char *arg2(char *line, t_name_comm *info, char *f_name)
 		return (instract_error(info, f_name));
 }
 
-static char *arg1(char *line, t_name_comm *info, char *f_name)
+static char	*arg1(char *line, t_name_comm *info, char *f_name)
 {
-	int n;
-	char *str;
-	int i;
+	int		n;
+	char	*str;
+	int		i;
 
 	i = 0;
 	while (line[i] && line[i] != ',')
@@ -64,7 +64,7 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 		return (t_reg_arg1(line, info, f_name));
 	else if (line[0] == LABEL_CHAR)
 		return (label_arg1(line, info, f_name));
-	else if ((n = atoi(line)) != 0 || (line[0] == '0' 
+	else if ((n = atoi(line)) != 0 || (line[0] == '0'
 		&& (line[1] == ' ' || line[1] == '\t' || line[1] == SEPARATOR_CHAR)))
 		return (t_int_arg1(line, info, f_name));
 	else if (line[0] == DIRECT_CHAR)
@@ -73,7 +73,7 @@ static char *arg1(char *line, t_name_comm *info, char *f_name)
 		return (instract_error(info, f_name));
 }
 
-int	ldi_lldi(char *line, t_name_comm *info, char *f_name)
+int			ldi_lldi(char *line, t_name_comm *info, char *f_name)
 {
 	if (ft_strncmp(line, "ldi", 3) && ft_strncmp(line, "lldi", 4))
 		return (0);
